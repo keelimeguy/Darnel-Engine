@@ -4,6 +4,14 @@ set( GLEW_INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/include
     CACHE PATH "glew include directory"
 )
 
+set( GLEW_SOURCE_LIST
+    ${GLEW_INCLUDE_DIR}/GL/eglew.h
+    ${GLEW_INCLUDE_DIR}/GL/glew.h
+    ${GLEW_INCLUDE_DIR}/GL/glxew.h
+    ${GLEW_INCLUDE_DIR}/GL/wglew.h
+    CACHE PATH "glew source list"
+)
+
 add_library( glew INTERFACE )
 
 target_include_directories( glew INTERFACE ${GLEW_INCLUDE_DIR} )
@@ -14,6 +22,11 @@ else()
     set( GLEW_LIB_PATH ${CMAKE_CURRENT_LIST_DIR}/mingw64/glew32.dll )
     file( COPY ${GLEW_LIB_PATH} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} )
 endif()
+
+target_sources( glew
+    INTERFACE
+        ${GLEW_SOURCE_LIST}
+)
 
 target_link_libraries( glew
     INTERFACE

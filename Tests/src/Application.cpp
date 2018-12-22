@@ -11,6 +11,7 @@
 
 #include "TestClearColor.h"
 #include "TestDraw.h"
+#include "TestTexture2d.h"
 
 #include <stdio.h>
 
@@ -62,6 +63,7 @@ int main() {
 
         testMenu->RegisterTest<test::TestClearColor>("Clear Color");
         testMenu->RegisterTest<test::TestDraw>("Draw");
+        testMenu->RegisterTest<test::TestTexture2d>("Texture 2D");
 
         while (!glfwWindowShouldClose(window)) {
             GLCALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));

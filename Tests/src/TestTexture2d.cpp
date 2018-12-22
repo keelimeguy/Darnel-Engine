@@ -1,18 +1,16 @@
-#include "TestDraw.h"
+#include "TestTexture2d.h"
+
+#include "Renderer.h"
 
 #include <imgui.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <iostream>
 
 namespace test {
-    TestDraw::TestDraw()
+    TestTexture2d::TestTexture2d()
         : m_translation(320, 240, 0)
     {
-        m_r = 0.0f;
-        m_increment = 0.05f;
-
         float positions[] = {
             -50.0f, -50.0f, 0.0f, 0.0f, // 0
             50.0f, -50.0f, 1.0f, 0.0f,  // 1
@@ -43,22 +41,16 @@ namespace test {
 
         m_ib = std::make_unique<IndexBuffer>(indices, 6);
 
-        m_shader = std::make_unique<Shader>("resources/shaders/Basic.shader");
+        m_shader = std::make_unique<Shader>("resources/shaders/Texture.shader");
         m_shader->Bind();
+
+        m_texture = std::make_unique<Texture>("resources/textures/star.png");
+        m_texture->Bind();
+
+        m_shader->SetUniform1i("u_Texture", 0);
     }
 
-    void TestDraw::OnUpdate(float deltaTime) {
-        m_r += m_increment;
-        if (m_r > 1.0f) {
-            m_increment = -0.05f;
-            m_r = 1.0f;
-        } else if (m_r < 0.0f) {
-            m_increment = 0.05f;
-            m_r = 0.0f;
-        }
-    }
-
-    void TestDraw::OnRender() {
+    void TestTexture2d::OnRender() {
         Renderer renderer;
 
         // projection: screen transform (converts into -1 to 1 space)
@@ -70,16 +62,17 @@ namespace test {
         GLCALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
         GLCALL(glClear(GL_COLOR_BUFFER_BIT));
 
+        m_texture->Bind();
+
         // model: object transform
         glm::mat4 model = glm::translate(glm::mat4(1.0f), m_translation);
         glm::mat4 mvp = proj * view * model;
         m_shader->Bind();
-        m_shader->SetUniform4f("u_Color", m_r, 1.0f - m_r, 0.0f, 1.0f);
         m_shader->SetUniformMat4f("u_MVP", mvp);
         renderer.Draw(*m_va, *m_ib, *m_shader);
     }
 
-    void TestDraw::OnImGuiRender() {
+    void TestTexture2d::OnImGuiRender() {
         ImGui::SliderFloat3("Translation", &m_translation.x, 0.0f, 480.0f);
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
     }

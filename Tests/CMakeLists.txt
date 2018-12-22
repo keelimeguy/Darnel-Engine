@@ -2,17 +2,21 @@ cmake_minimum_required( VERSION 3.13.2 )
 
 add_executable( test_darnel WIN32 "" )
 
-source_group( TREE "${CMAKE_CURRENT_LIST_DIR}" FILES resources/shaders/Basic.shader )
+file( GLOB_RECURSE RESOURCE_FILES resources/* )
+
+source_group( TREE "${CMAKE_CURRENT_LIST_DIR}" FILES ${RESOURCE_FILES} )
 
 target_sources( test_darnel
     PRIVATE
-        resources/shaders/Basic.shader
+        ${RESOURCE_FILES}
         src/Application.cpp
         src/Test.cpp
         src/TestClearColor.cpp
         src/TestDraw.cpp
+        src/TestTexture2d.cpp
         include/TestClearColor.h
         include/TestDraw.h
+        include/TestTexture2d.h
     PUBLIC
         include/Test.h
 )
