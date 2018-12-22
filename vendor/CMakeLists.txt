@@ -12,3 +12,6 @@ cmake_minimum_required( VERSION 3.13.2 )
 add_subdirectory( glfw EXCLUDE_FROM_ALL )
 add_subdirectory( glew EXCLUDE_FROM_ALL )
 add_subdirectory( imgui EXCLUDE_FROM_ALL )
+
+option ( GLM_STATIC_LIBRARY_ENABLE "GLM static library" ON )
+add_subdirectory( glm EXCLUDE_FROM_ALL )
