@@ -9,7 +9,9 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # Output directory f
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # Output directory for executables (.EXE)
 
 add_subdirectory( vendor )
+add_subdirectory( Renderer )
+add_subdirectory( Tests )
 
 set_directory_properties( PROPERTIES
-    VS_STARTUP_PROJECT imgui
+    VS_STARTUP_PROJECT test_darnel
 )

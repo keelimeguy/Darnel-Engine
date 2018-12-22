@@ -10,4 +10,5 @@ cmake_minimum_required( VERSION 3.13.2 )
 # )
 
 add_subdirectory( glfw EXCLUDE_FROM_ALL )
-add_subdirectory( imgui )
+add_subdirectory( glew EXCLUDE_FROM_ALL )
+add_subdirectory( imgui EXCLUDE_FROM_ALL )
