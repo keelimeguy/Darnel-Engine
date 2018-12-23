@@ -34,6 +34,20 @@ if( IMGUI_GLFW_ENABLE )
     list( APPEND IMGUI_IMPL_COMPILE_DEF GLFW_EXPOSE_NATIVE_WGL )
 endif()
 
+if( IMGUI_WIN32_ENABLE )
+    list( APPEND IMGUI_IMPL_SOURCE_LIST
+        ${IMGUI_INCLUDE_DIR}/examples/imgui_impl_win32.h
+        ${IMGUI_INCLUDE_DIR}/examples/imgui_impl_win32.cpp
+    )
+endif()
+
+if( IMGUI_DX12_ENABLE )
+    list( APPEND IMGUI_IMPL_SOURCE_LIST
+        ${IMGUI_INCLUDE_DIR}/examples/imgui_impl_dx12.h
+        ${IMGUI_INCLUDE_DIR}/examples/imgui_impl_dx12.cpp
+    )
+endif()
+
 set( IMGUI_SOURCE_LIST
     ${IMGUI_INCLUDE_DIR}/imgui.h
     ${IMGUI_INCLUDE_DIR}/imgui_internal.h

@@ -4,14 +4,25 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 project( Darnel LANGUAGES CXX C )
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib) # Output directory for static lib (.LIB)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # Output directory for shared lib (.DLL)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # Output directory for executables (.EXE)
+option ( IMGUI_WIN32_ENABLE "Imgui Win32 implementation" OFF )
+option ( IMGUI_DX12_ENABLE "Imgui DirectX12 implementation" OFF )
+option ( IMGUI_OPENGL3_ENABLE "Imgui OpenGL3 implementation" ON )
+option ( OPENGL3_GLEW_ENABLE "OpenGL3 GLEW implementation" ON )
+option ( IMGUI_GLFW_ENABLE "Imgui GLFW implementation" ON )
+option ( GLM_STATIC_LIBRARY_ENABLE "GLM static library" ON )
+option ( GLM_DYNAMIC_LIBRARY_ENABLE "GLM shared library" OFF )
+
+set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib ) # Output directory for static lib (.LIB) (.A)
+set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin ) # Output directory for shared lib (.DLL)
+set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin ) # Output directory for executables (.EXE)
 
 add_subdirectory( vendor )
 add_subdirectory( Darnel )
 add_subdirectory( Tests )
 
-set_directory_properties( PROPERTIES
-    VS_STARTUP_PROJECT test_darnel
-)
+if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
+    add_subdirectory( SampleDX12 )
+    set_directory_properties( PROPERTIES
+        VS_STARTUP_PROJECT SampleDX12
+    )
+endif()

@@ -36,36 +36,36 @@ source_group("SIMD Files" FILES ${SIMD_INLINE})
 source_group("SIMD Files" FILES ${SIMD_HEADER})
 
 if(GLM_STATIC_LIBRARY_ENABLE OR GLM_DYNAMIC_LIBRARY_ENABLE)
-	if(GLM_STATIC_LIBRARY_ENABLE)
-		add_library(glm_static STATIC ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
-			${ROOT_SOURCE}    ${ROOT_INLINE}    ${ROOT_HEADER}
-			${CORE_SOURCE}    ${CORE_INLINE}    ${CORE_HEADER}
-			${GTC_SOURCE}     ${GTC_INLINE}     ${GTC_HEADER}
-			${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER}
-			${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER})
-		target_include_directories(glm_static PUBLIC ${CMAKE_CURRENT_LIST_DIR}/..)
-		set_target_properties(glm_static PROPERTIES
+    if(GLM_STATIC_LIBRARY_ENABLE)
+        add_library(glm_static STATIC ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
+            ${ROOT_SOURCE}    ${ROOT_INLINE}    ${ROOT_HEADER}
+            ${CORE_SOURCE}    ${CORE_INLINE}    ${CORE_HEADER}
+            ${GTC_SOURCE}     ${GTC_INLINE}     ${GTC_HEADER}
+            ${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER}
+            ${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER})
+        target_include_directories(glm_static PUBLIC ${CMAKE_CURRENT_LIST_DIR}/..)
+        set_target_properties(glm_static PROPERTIES
                       FOLDER "GLM")
-	endif(GLM_STATIC_LIBRARY_ENABLE)
+    endif(GLM_STATIC_LIBRARY_ENABLE)
 
-	if(GLM_DYNAMIC_LIBRARY_ENABLE)
-		add_library(glm_shared SHARED ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
-			${ROOT_SOURCE}    ${ROOT_INLINE}    ${ROOT_HEADER}
-			${CORE_SOURCE}    ${CORE_INLINE}    ${CORE_HEADER}
-			${GTC_SOURCE}     ${GTC_INLINE}     ${GTC_HEADER}
-			${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER}
-			${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER})
-		target_include_directories(glm_shared PUBLIC ${CMAKE_CURRENT_LIST_DIR}/..)
-		set_target_properties(glm_shared PROPERTIES
+    if(GLM_DYNAMIC_LIBRARY_ENABLE)
+        add_library(glm_shared SHARED ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
+            ${ROOT_SOURCE}    ${ROOT_INLINE}    ${ROOT_HEADER}
+            ${CORE_SOURCE}    ${CORE_INLINE}    ${CORE_HEADER}
+            ${GTC_SOURCE}     ${GTC_INLINE}     ${GTC_HEADER}
+            ${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER}
+            ${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER})
+        target_include_directories(glm_shared PUBLIC ${CMAKE_CURRENT_LIST_DIR}/..)
+        set_target_properties(glm_shared PROPERTIES
                       FOLDER "GLM")
-	endif(GLM_DYNAMIC_LIBRARY_ENABLE)
+    endif(GLM_DYNAMIC_LIBRARY_ENABLE)
 
 else(GLM_STATIC_LIBRARY_ENABLE OR GLM_DYNAMIC_LIBRARY_ENABLE)
-	add_executable(glm_dummy ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
-		${ROOT_SOURCE}    ${ROOT_INLINE}    ${ROOT_HEADER}
-		${CORE_SOURCE}    ${CORE_INLINE}    ${CORE_HEADER}
-		${GTC_SOURCE}     ${GTC_INLINE}     ${GTC_HEADER}
-		${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER}
-		${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER})
+    add_executable(glm_dummy ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
+        ${ROOT_SOURCE}    ${ROOT_INLINE}    ${ROOT_HEADER}
+        ${CORE_SOURCE}    ${CORE_INLINE}    ${CORE_HEADER}
+        ${GTC_SOURCE}     ${GTC_INLINE}     ${GTC_HEADER}
+        ${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER}
+        ${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER})
 
 endif(GLM_STATIC_LIBRARY_ENABLE OR GLM_DYNAMIC_LIBRARY_ENABLE)
