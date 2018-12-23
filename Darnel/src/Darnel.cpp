@@ -7,6 +7,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
+
 #include <iostream>
 
 static void glfw_error_callback(int error, const char* description) {
@@ -14,13 +18,13 @@ static void glfw_error_callback(int error, const char* description) {
 }
 
 static GLFWwindow* window;
+const char* glsl_version = "#version 150";
 
 int darnelInit() {
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
         return -1;
 
-    const char* glsl_version = "#version 150";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // GLFW 3.2+
@@ -60,4 +64,23 @@ bool darnelLoopDone() {
     glfwPollEvents();
 
     return glfwWindowShouldClose(window);
+}
+
+void ImGui_Darnel_Init() {
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init(glsl_version);
+}
+
+void ImGui_Darnel_NewFrame() {
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+}
+
+void ImGui_Darnel_RenderDrawData(ImDrawData* drawData) {
+    ImGui_ImplOpenGL3_RenderDrawData(drawData);
+}
+
+void ImGui_Darnel_Shutdown() {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
 }

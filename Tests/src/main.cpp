@@ -1,27 +1,62 @@
 #include "Darnel.h"
-#include "Sprite.h"
+
+#include "Test.h"
+#include "TestSprite.h"
+#include "TestClearColor.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <imgui.h>
+
 #include <iostream>
 
 int main() {
-    if (darnelInit()) return -1;
+    if (darnelInit())
+        return -1;
     {
-        Sprite star1(270, 190, 100, 100, "resources/textures/star.png");
-        Sprite star2(25, 25, 50, 50, "resources/textures/star.png");
+        ImGui::CreateContext();
+        ImGui_Darnel_Init();
 
-        glm::mat4 proj = glm::ortho(0.0f, 640.0f, 0.0f, 480.0f, -1.0f, 1.0f);
-        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-        glm::mat4 proj_view = proj * view;
+        ImGui::StyleColorsDark();
+
+        test::Test* currentTest = nullptr;
+        test::TestMenu* testMenu = new test::TestMenu(currentTest);
+        currentTest = testMenu;
+
+        testMenu->RegisterTest<test::TestClearColor>("Clear Color");
+        testMenu->RegisterTest<test::TestSprite>("Sprite");
 
         while (!darnelLoopDone()) {
             darnelClear(0.0f, 0.0f, 0.0f, 1.0f);
-            star1.Draw(proj_view);
-            star2.Draw(proj_view);
+
+            ImGui_Darnel_NewFrame();
+            ImGui::NewFrame();
+
+            if (currentTest) {
+                currentTest->OnUpdate(0.0f);
+                currentTest->OnRender();
+                ImGui::Begin("Test");
+                if (currentTest != testMenu && ImGui::Button("<-")) {
+                    delete currentTest;
+                    currentTest = testMenu;
+                }
+                currentTest->OnImGuiRender();
+                ImGui::End();
+            }
+
+            ImGui::Render();
+            ImGui_Darnel_RenderDrawData(ImGui::GetDrawData());
         }
+
+        if (currentTest != testMenu)
+            delete testMenu;
+        delete currentTest;
     }
+
+    ImGui_Darnel_Shutdown();
+    ImGui::DestroyContext();
+
     darnelTerminate();
     return 0;
 }

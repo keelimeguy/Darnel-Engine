@@ -9,6 +9,12 @@ target_sources( test_darnel
     PRIVATE
         ${RESOURCE_FILES}
         src/main.cpp
+        src/Test.cpp
+        src/TestClearColor.cpp
+        src/TestSprite.cpp
+        include/Test.h
+        include/TestClearColor.h
+        include/TestSprite.h
 )
 
 target_include_directories( test_darnel

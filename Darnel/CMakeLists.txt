@@ -17,8 +17,10 @@ target_sources( darnel
 
 get_target_property( DARNEL_INCLUDE darnel INTERFACE_INCLUDE_DIRECTORIES )
 get_target_property( GLM_INCLUDE glm_static INTERFACE_INCLUDE_DIRECTORIES )
+get_target_property( IMGUI_INCLUDE imgui INTERFACE_INCLUDE_DIRECTORIES )
 
 list( APPEND DARNEL_INCLUDE ${GLM_INCLUDE} )
+list( APPEND DARNEL_INCLUDE ${IMGUI_INCLUDE} )
 
 set_target_properties( darnel
     PROPERTIES
