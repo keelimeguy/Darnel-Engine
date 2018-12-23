@@ -1,23 +1,32 @@
 cmake_minimum_required( VERSION 3.13.2 )
 
-add_executable( test_darnel WIN32 "" )
+add_executable( SampleOpenGL3 WIN32 "" )
 
 file( GLOB_RECURSE RESOURCE_FILES resources/* )
 source_group( TREE "${CMAKE_CURRENT_LIST_DIR}" FILES ${RESOURCE_FILES} )
 
-target_sources( test_darnel
+target_sources( SampleOpenGL3
     PRIVATE
         ${RESOURCE_FILES}
-        src/main.cpp
+        src/Application.cpp
+        src/Test.cpp
+        src/TestClearColor.cpp
+        src/TestDraw.cpp
+        src/TestTexture2d.cpp
+        include/TestClearColor.h
+        include/TestDraw.h
+        include/TestTexture2d.h
+    PUBLIC
+        include/Test.h
 )
 
-target_include_directories( test_darnel
+target_include_directories( SampleOpenGL3
     PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include
 )
 
-target_link_libraries( test_darnel
-    PRIVATE
-        darnel
+target_link_libraries( SampleOpenGL3
+    PUBLIC
+        OpenGL3Lib
 )
 
 # Tell Visual Studio to run through console (not as a Windows app)
