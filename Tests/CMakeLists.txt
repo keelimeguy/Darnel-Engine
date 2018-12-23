@@ -8,13 +8,15 @@ source_group( TREE "${CMAKE_CURRENT_LIST_DIR}" FILES ${RESOURCE_FILES} )
 target_sources( test_darnel
     PRIVATE
         ${RESOURCE_FILES}
-        src/main.cpp
-        src/Test.cpp
-        src/TestClearColor.cpp
-        src/TestSprite.cpp
         include/Test.h
         include/TestClearColor.h
         include/TestSprite.h
+        include/TestSpriteSheet.h
+        src/Test.cpp
+        src/TestClearColor.cpp
+        src/TestSprite.cpp
+        src/TestSpriteSheet.cpp
+        src/main.cpp
 )
 
 target_include_directories( test_darnel

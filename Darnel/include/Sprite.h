@@ -15,6 +15,9 @@ class Texture;
 class Sprite {
 public:
     Sprite(float x, float y, float width, float height, const std::string& path);
+    Sprite(float x, float y, float width, float height, unsigned char r, unsigned char g, unsigned char b);
+    Sprite(float x, float y, float width, float height, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+    Sprite(float x, float y, float width, float height, unsigned char* buffer, int bwidth, int bheight, int bpp);
     ~Sprite();
 
     void Draw(const glm::mat4& proj_view);
@@ -32,6 +35,8 @@ public:
     };
 
 private:
+    void InitContext(float width, float height);
+
     static std::unordered_map<std::string, std::weak_ptr<SpriteContext>> m_contextCache;
 
     glm::vec3 m_translation;

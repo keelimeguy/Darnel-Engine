@@ -10,8 +10,10 @@ target_include_directories( darnel
 target_sources( darnel
     PRIVATE
         include/Sprite.h
+        include/SpriteSheet.h
         include/Darnel.h
         src/Sprite.cpp
+        src/SpriteSheet.cpp
         src/Darnel.cpp
 )
 

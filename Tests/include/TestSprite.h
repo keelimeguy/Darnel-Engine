@@ -13,6 +13,6 @@ namespace test {
         void OnImGuiRender() override;
     private:
         glm::mat4 m_proj_view;
-        Sprite m_star1, m_star2;
+        Sprite m_star1, m_star2, m_color1, m_color2;
     };
 }

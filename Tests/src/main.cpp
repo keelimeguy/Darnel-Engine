@@ -1,8 +1,9 @@
 #include "Darnel.h"
 
 #include "Test.h"
-#include "TestSprite.h"
 #include "TestClearColor.h"
+#include "TestSprite.h"
+#include "TestSpriteSheet.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -26,6 +27,7 @@ int main() {
 
         testMenu->RegisterTest<test::TestClearColor>("Clear Color");
         testMenu->RegisterTest<test::TestSprite>("Sprite");
+        testMenu->RegisterTest<test::TestSpriteSheet>("SpriteSheet");
 
         while (!darnelLoopDone()) {
             darnelClear(0.0f, 0.0f, 0.0f, 1.0f);

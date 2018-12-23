@@ -48,9 +48,7 @@ Sprite::SpriteContext::SpriteContext(float width, float height)
     m_va->AddBuffer(*m_vb, layout);
 }
 
-Sprite::Sprite(float x, float y, float width, float height, const std::string& path)
-    : m_translation(x, y, 0)
-{
+void Sprite::InitContext(float width, float height) {
     std::stringstream name;
     name << width << "," << height;
     if (m_contextCache.find(name.str()) != m_contextCache.end())
@@ -59,8 +57,34 @@ Sprite::Sprite(float x, float y, float width, float height, const std::string& p
 
     m_context = std::make_shared<SpriteContext>(width, height);
     m_contextCache[name.str()] = m_context;
+}
 
+Sprite::Sprite(float x, float y, float width, float height, const std::string& path)
+    : m_translation(x, y, 0)
+{
+    InitContext(width, height);
     m_texture = std::make_unique<Texture>(path);
+}
+
+Sprite::Sprite(float x, float y, float width, float height, unsigned char r, unsigned char g, unsigned char b)
+    : m_translation(x, y, 0)
+{
+    InitContext(width, height);
+    m_texture = std::make_unique<Texture>(r, g, b);
+}
+
+Sprite::Sprite(float x, float y, float width, float height, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+    : m_translation(x, y, 0)
+{
+    InitContext(width, height);
+    m_texture = std::make_unique<Texture>(r, g, b, a);
+}
+
+Sprite::Sprite(float x, float y, float width, float height, unsigned char* buffer, int bwidth, int bheight, int bpp)
+    : m_translation(x, y, 0)
+{
+    InitContext(width, height);
+    m_texture = std::make_unique<Texture>(buffer, bwidth, bheight, bpp);
 }
 
 Sprite::~Sprite() {
@@ -84,5 +108,6 @@ void Sprite::Draw(const glm::mat4& proj_view) {
     m_context->m_shader->SetUniform1i("u_Texture", 0);
     m_context->m_shader->SetUniformMat4f("u_MVP", mvp);
 
+    m_context->m_vb->Bind();
     renderer.Draw(*(m_context->m_va), *(m_context->m_ib), *(m_context->m_shader));
 }
