@@ -19,8 +19,6 @@ set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin ) # Output directory
 add_subdirectory( vendor EXCLUDE_FROM_ALL )
 add_subdirectory( OpenGL3Lib EXCLUDE_FROM_ALL )
 
-add_subdirectory( SampleOpenGL3 )
-
 add_subdirectory( Darnel )
 add_subdirectory( Tests )
 
