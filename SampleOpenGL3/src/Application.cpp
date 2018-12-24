@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "Renderer.h"
+#include "OpenGL3Lib/Renderer.h"
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>

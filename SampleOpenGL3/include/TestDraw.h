@@ -2,8 +2,8 @@
 
 #include "Test.h"
 
-#include "Renderer.h"
-#include "VertexBufferLayout.h"
+#include "OpenGL3Lib/Renderer.h"
+#include "OpenGL3Lib/VertexBufferLayout.h"
 
 #include <memory>
 

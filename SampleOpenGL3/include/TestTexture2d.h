@@ -2,9 +2,9 @@
 
 #include "Test.h"
 
-#include "Renderer.h"
-#include "VertexBufferLayout.h"
-#include "Texture.h"
+#include "OpenGL3Lib/Renderer.h"
+#include "OpenGL3Lib/VertexBufferLayout.h"
+#include "OpenGL3Lib/Texture.h"
 
 #include <memory>
 
