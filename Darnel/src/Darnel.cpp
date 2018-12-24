@@ -1,88 +1,65 @@
-#include "OpenGL3Lib/Renderer.h"
+#include "CoreFramework.h"
+#include "OpenGL3Framework.h"
 #include "Sprite.h"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
 
 #include <iostream>
+#include <memory>
 
-static void glfw_error_callback(int error, const char* description) {
-    fprintf(stderr, "Glfw Error %d: %s\n", error, description);
-}
-
-static GLFWwindow* window;
-const char* glsl_version = "#version 150";
+static std::unique_ptr<darnel::CoreFramework> gs_Framework = std::make_unique<darnel::OpenGL3Framework>();
+static darnel::Window* gs_curWindow;
 
 namespace darnel {
-    int DarnelInit() {
-        glfwSetErrorCallback(glfw_error_callback);
-        if (!glfwInit())
-            return -1;
-
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // GLFW 3.2+
-
-        window = glfwCreateWindow(640, 480, "Darnel_Testing", NULL, NULL);
+    bool DarnelInit(int width, int height, std::string name) {
+        Window* window = gs_Framework->Init(width, height, name);
         if (window == NULL) {
-            glfwTerminate();
-            return -1;
+            gs_Framework->Terminate();
+            return false;
         }
 
-        glfwMakeContextCurrent(window);
-        glfwSwapInterval(1);
+        if (!window->IsValid()) return false;
+        gs_curWindow = window;
+        return true;
+    }
 
-        if (glewInit())
-            return -1;
+    bool DarnelCreateWindow(int width, int height, std::string name) {
+        Window* window = gs_Framework->CreateWindow(width, height, name);
+        if (!window->IsValid()) return false;
 
-        GLCALL(std::cout << glGetString(GL_VERSION) << std::endl);
-        GLCALL(glEnable(GL_BLEND));
-        GLCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
-        return 0;
+        gs_curWindow = window;
+        gs_curWindow->MakeActive();
+        return true;
     }
 
     void DarnelTerminate() {
-        Sprite::SpriteContext::m_ib = nullptr;
-        Sprite::SpriteContext::m_shader = nullptr;
-        glfwTerminate();
+        return gs_Framework->Terminate();
     }
 
-    void DarnelClear(float f0, float f1, float f2, float f3) {
-        GLCALL(glClearColor(f0, f1, f2, f3));
-        GLCALL(glClear(GL_COLOR_BUFFER_BIT));
+    bool DarnelWindowLoop() {
+        return gs_Framework->WindowLoop(gs_curWindow);
     }
 
-    bool DarnelLoopDone() {
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-
-        return glfwWindowShouldClose(window);
+    void DarnelClearWindow(float f1, float f2, float f3, float f4) {
+        gs_curWindow->Clear(f1, f2, f3, f4);
     }
 
     void ImGui_Darnel_Init() {
-        ImGui_ImplGlfw_InitForOpenGL(window, true);
-        ImGui_ImplOpenGL3_Init(glsl_version);
+        gs_Framework->ImGuiInit(gs_curWindow);
     }
 
     void ImGui_Darnel_NewFrame() {
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
+        gs_Framework->ImGuiNewFrame();
     }
 
     void ImGui_Darnel_RenderDrawData(ImDrawData* drawData) {
-        ImGui_ImplOpenGL3_RenderDrawData(drawData);
+        gs_Framework->ImGuiRenderDrawData(drawData);
     }
 
     void ImGui_Darnel_Shutdown() {
-        ImGui_ImplOpenGL3_Shutdown();
-        ImGui_ImplGlfw_Shutdown();
+        gs_Framework->ImGuiShutdown();
     }
 }

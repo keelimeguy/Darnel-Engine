@@ -2,6 +2,26 @@ cmake_minimum_required( VERSION 3.13.2 )
 
 add_library( darnel SHARED "" )
 
+set( HEADER_FILES
+    include/CoreFramework.h
+    include/Darnel.h
+    include/OpenGL3Framework.h
+    include/OpenGL3Window.h
+    include/Sprite.h
+    include/SpriteSheet.h
+    include/Texture.h
+    include/Window.h
+)
+
+set( SRC_FILES
+    src/Darnel.cpp
+    src/OpenGL3Framework.cpp
+    src/OpenGL3Window.cpp
+    src/Sprite.cpp
+    src/SpriteSheet.cpp
+    src/Texture.cpp
+)
+
 target_include_directories( darnel
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/include
@@ -9,14 +29,8 @@ target_include_directories( darnel
 
 target_sources( darnel
     PRIVATE
-        include/Texture.h
-        include/Sprite.h
-        include/SpriteSheet.h
-        include/Darnel.h
-        src/Texture.cpp
-        src/Sprite.cpp
-        src/SpriteSheet.cpp
-        src/Darnel.cpp
+        ${HEADER_FILES}
+        ${SRC_FILES}
 )
 
 get_target_property( DARNEL_INCLUDE darnel INTERFACE_INCLUDE_DIRECTORIES )
