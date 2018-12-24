@@ -1,5 +1,8 @@
 #include "TestSpriteSheet.h"
 
+#include "SpriteSheet.h"
+#include "Sprite.h"
+
 #include <imgui.h>
 
 #include <glm/glm.hpp>
@@ -7,21 +10,26 @@
 
 namespace test {
     TestSpriteSheet::TestSpriteSheet()
-        : m_sheet("resources/textures/star.png", 3, 3)
+        : m_slices(12), m_sprites(m_slices*m_slices)
     {
+		m_sheet = std::make_unique<darnel::SpriteSheet>("resources/textures/star.png", m_slices, m_slices);
+
         glm::mat4 proj = glm::ortho(0.0f, 640.0f, 0.0f, 480.0f, -1.0f, 1.0f);
         glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
         m_proj_view = proj * view;
 
-        m_corners[0] = m_sheet.MakeSprite(0, 0, 100, 100, 0, 0);
-        m_corners[1] = m_sheet.MakeSprite(150, 0, 100, 100, 1, 0);
-        m_corners[2] = m_sheet.MakeSprite(0, 150, 100, 100, 1, 2);
-        m_corners[3] = m_sheet.MakeSprite(150, 150, 100, 100, 2, 2);
+        float x = 640.0f/m_slices;
+        float y = 480.0f/m_slices;
+        float w = 640.0f/(m_slices+2);
+        float h = 480.0f/(m_slices+2);
+        for (int j = 0; j < m_slices; j++)
+            for (int i = 0; i < m_slices; i++)
+                m_sprites[i+j*m_slices] = std::make_unique<darnel::Sprite>(x*i, y*j, w, h, m_sheet->GrabTexture(i, j));
     }
 
     void TestSpriteSheet::OnRender() {
-        for (int i = 0; i < 4; i++)
-            m_corners[i]->Draw(m_proj_view);
+        for (int i = 0; i < m_slices*m_slices; i++)
+            m_sprites[i]->Draw(m_proj_view);
     }
 
     void TestSpriteSheet::OnImGuiRender() {

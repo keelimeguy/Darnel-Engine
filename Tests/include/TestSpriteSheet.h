@@ -7,6 +7,7 @@
 
 #include <glm/glm.hpp>
 #include <memory>
+#include <vector>
 
 namespace test {
     class TestSpriteSheet : public Test {
@@ -16,8 +17,9 @@ namespace test {
         void OnRender() override;
         void OnImGuiRender() override;
     private:
+        int m_slices;
         glm::mat4 m_proj_view;
-        SpriteSheet m_sheet;
-        std::shared_ptr<Sprite> m_corners[4];
+        std::unique_ptr<darnel::SpriteSheet> m_sheet;
+        std::vector<std::unique_ptr<darnel::Sprite>> m_sprites;
     };
 }

@@ -1,5 +1,5 @@
-#include "Shader.h"
-#include "Renderer.h"
+#include "OpenGL3Lib/Shader.h"
+#include "OpenGL3Lib/Renderer.h"
 
 #include <iostream>
 #include <fstream>

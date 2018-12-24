@@ -9,9 +9,11 @@ target_include_directories( darnel
 
 target_sources( darnel
     PRIVATE
+        include/Texture.h
         include/Sprite.h
         include/SpriteSheet.h
         include/Darnel.h
+        src/Texture.cpp
         src/Sprite.cpp
         src/SpriteSheet.cpp
         src/Darnel.cpp

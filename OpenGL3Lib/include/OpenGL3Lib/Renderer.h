@@ -7,9 +7,9 @@
     x;\
     ASSERT(GLLogCall(#x, __FILE__, __LINE__))
 
-#include "VertexArray.h"
-#include "IndexBuffer.h"
-#include "Shader.h"
+#include "OpenGL3Lib/VertexArray.h"
+#include "OpenGL3Lib/IndexBuffer.h"
+#include "OpenGL3Lib/Shader.h"
 
 bool GLLogCall(const char* function, const char* file, int line);
 void GLClearError();

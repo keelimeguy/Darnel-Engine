@@ -1,4 +1,4 @@
-#include "Texture.h"
+#include "OpenGL3Lib/Texture.h"
 
 #include <stb_image.h>
 

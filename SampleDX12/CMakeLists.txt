@@ -63,6 +63,11 @@ set_source_files_properties( ${PIXEL_SHADER_FILES}
 
 add_executable( SampleDX12 WIN32 )
 
+set_target_properties( SampleDX12
+    PROPERTIES
+        FOLDER "Samples"
+)
+
 target_sources( SampleDX12
     PRIVATE
         ${HEADER_FILES}

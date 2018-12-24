@@ -3,20 +3,25 @@
 #include <string>
 #include <memory>
 
-class Sprite;
+#include "Texture.h"
 
-class SpriteSheet {
-public:
-    SpriteSheet(std::string path, int numTilesX, int numTilesY);
+namespace darnel {
+    class Sprite;
 
-    std::shared_ptr<Sprite> MakeSprite(float x, float y, float width, float height, int t_x, int t_y);
-    std::shared_ptr<Sprite> MakeSprite(float x, float y, float width, float height, int t_x, int t_y, int t_width, int t_height);
+    class SpriteSheet {
+    public:
+        SpriteSheet(std::string path, int numTilesX, int numTilesY);
+        ~SpriteSheet();
 
-    int GetWidth() { return m_width; }
-    int GetHeight() { return m_height; }
+        std::shared_ptr<Texture> GrabTexture(int t_x, int t_y);
+        std::shared_ptr<Texture> GrabTexture(int t_x, int t_y, int t_width, int t_height);
 
-private:
-    unsigned char* m_LocalBuffer;
-    int m_width, m_height, m_BPP;
-    int m_tileWidth, m_tileHeight;
-};
+        int GetWidth() { return m_width; }
+        int GetHeight() { return m_height; }
+
+    private:
+        unsigned char* m_LocalBuffer;
+        int m_width, m_height, m_BPP;
+        int m_tileWidth, m_tileHeight;
+    };
+}

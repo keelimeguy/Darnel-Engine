@@ -2,6 +2,11 @@ cmake_minimum_required( VERSION 3.13.2 )
 
 add_library( OpenGL3Lib STATIC "" )
 
+set_target_properties( OpenGL3Lib
+    PROPERTIES
+        FOLDER "OpenGL3Lib"
+)
+
 target_include_directories( OpenGL3Lib
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/include
@@ -16,13 +21,13 @@ target_sources( OpenGL3Lib
         src/VertexArray.cpp
         src/VertexBuffer.cpp
         src/VertexBufferLayout.cpp
-        include/IndexBuffer.h
-        include/Renderer.h
-        include/Shader.h
-        include/Texture.h
-        include/VertexArray.h
-        include/VertexBuffer.h
-        include/VertexBufferLayout.h
+        include/OpenGL3Lib/IndexBuffer.h
+        include/OpenGL3Lib/Renderer.h
+        include/OpenGL3Lib/Shader.h
+        include/OpenGL3Lib/Texture.h
+        include/OpenGL3Lib/VertexArray.h
+        include/OpenGL3Lib/VertexBuffer.h
+        include/OpenGL3Lib/VertexBufferLayout.h
 )
 
 source_group( "Imgui Files" FILES ${IMGUI_SOURCE_LIST} )

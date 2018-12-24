@@ -1,18 +1,18 @@
 #pragma once
 
-#include "Renderer.h"
+#include "OpenGL3Lib/Renderer.h"
 #include <string>
 
 class Texture {
 private:
     unsigned int m_RendererID;
     std::string m_FilePath;
-    unsigned char* m_LocalBuffer;
     int m_Width, m_Height, m_BPP;
 
     void Init();
 
 public:
+    unsigned char* m_LocalBuffer;
     Texture(const std::string& path);
     Texture(unsigned char* buffer, int width, int height, int bpp);
     Texture(unsigned char r, unsigned char g, unsigned char b);

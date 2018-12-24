@@ -2,6 +2,11 @@ cmake_minimum_required( VERSION 3.13.2 )
 
 add_executable( SampleOpenGL3 WIN32 "" )
 
+set_target_properties( SampleOpenGL3
+    PROPERTIES
+        FOLDER "Samples"
+)
+
 file( GLOB_RECURSE RESOURCE_FILES resources/* )
 source_group( TREE "${CMAKE_CURRENT_LIST_DIR}" FILES ${RESOURCE_FILES} )
 
