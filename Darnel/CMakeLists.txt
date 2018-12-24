@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.13.2 )
 
-add_library( darnel STATIC "" )
+add_library( darnel SHARED "" )
 
 target_include_directories( darnel
     PUBLIC

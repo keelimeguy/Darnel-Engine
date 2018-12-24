@@ -9,7 +9,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace test {
-    TestSprite::TestSprite() {
+    const int TestSprite::s_NumSettings = 0;
+    const char* TestSprite::s_Settings[] = {};
+
+    TestSprite::TestSprite(int i) {
         m_texture = std::make_shared<darnel::Texture>("resources/textures/star.png");
         m_star1 = std::make_unique<darnel::Sprite>(270.0f, 190.0f, 100.0f, 100.0f, m_texture);
         m_star2 = std::make_unique<darnel::Sprite>(25.0f, 25.0f, 50.0f, 50.0f, m_texture);

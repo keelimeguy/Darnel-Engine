@@ -9,8 +9,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace test {
-    TestSpriteSheet::TestSpriteSheet()
-        : m_slices(12), m_sprites(m_slices*m_slices)
+    const int TestSpriteSheet::s_NumSettings = 2;
+    const char* TestSpriteSheet::s_Settings[] = {"All", "One"};
+
+    TestSpriteSheet::TestSpriteSheet(int setting)
+        : m_slices(24), m_sprites(m_slices*m_slices)
     {
 		m_sheet = std::make_unique<darnel::SpriteSheet>("resources/textures/star.png", m_slices, m_slices);
 
@@ -22,9 +25,23 @@ namespace test {
         float y = 480.0f/m_slices;
         float w = 640.0f/(m_slices+2);
         float h = 480.0f/(m_slices+2);
-        for (int j = 0; j < m_slices; j++)
-            for (int i = 0; i < m_slices; i++)
-                m_sprites[i+j*m_slices] = std::make_unique<darnel::Sprite>(x*i, y*j, w, h, m_sheet->GrabTexture(i, j));
+        switch (setting) {
+            case 1:
+            {
+                std::shared_ptr<darnel::Texture> tex = m_sheet->GrabTexture(0, 0);
+                for (int j = 0; j < m_slices; j++)
+                    for (int i = 0; i < m_slices; i++)
+                        m_sprites[i+j*m_slices] = std::make_unique<darnel::Sprite>(x*i, y*j, w, h, tex);
+                break;
+            }
+
+            default:
+            {
+                for (int j = 0; j < m_slices; j++)
+                    for (int i = 0; i < m_slices; i++)
+                        m_sprites[i+j*m_slices] = std::make_unique<darnel::Sprite>(x*i, y*j, w, h, m_sheet->GrabTexture(i, j));
+            }
+        }
     }
 
     void TestSpriteSheet::OnRender() {

@@ -12,10 +12,14 @@
 namespace test {
     class TestSpriteSheet : public Test {
     public:
-        TestSpriteSheet();
+        TestSpriteSheet(int setting = 0);
 
         void OnRender() override;
         void OnImGuiRender() override;
+
+        static const int s_NumSettings;
+        static const char* s_Settings[];
+
     private:
         int m_slices;
         glm::mat4 m_proj_view;
