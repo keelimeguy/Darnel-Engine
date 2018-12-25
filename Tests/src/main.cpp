@@ -14,6 +14,7 @@
 
 int main() {
     if (!darnel::Init(640, 480, "Darnel Window")) return -1;
+
     {
         ImGui::CreateContext();
         darnel::ImGui_Init();

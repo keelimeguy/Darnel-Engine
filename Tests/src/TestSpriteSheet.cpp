@@ -30,23 +30,23 @@ namespace test {
             case 1:
             {
                 std::shared_ptr<darnel::Texture> tex = m_sheet->GrabTexture(0, 0);
-                for (int j = 0; j < m_slices; j++)
-                    for (int i = 0; i < m_slices; i++)
+                for (int j = 0; j < m_slices; ++j)
+                    for (int i = 0; i < m_slices; ++i)
                         m_sprites[i+j*m_slices] = darnel::MakeSprite(x*i, y*j, w, h, tex);
                 break;
             }
 
             default:
             {
-                for (int j = 0; j < m_slices; j++)
-                    for (int i = 0; i < m_slices; i++)
+                for (int j = 0; j < m_slices; ++j)
+                    for (int i = 0; i < m_slices; ++i)
                         m_sprites[i+j*m_slices] = darnel::MakeSprite(x*i, y*j, w, h, m_sheet->GrabTexture(i, j));
             }
         }
     }
 
     void TestSpriteSheet::OnRender() {
-        for (int i = 0; i < m_slices*m_slices; i++)
+        for (int i = 0; i < m_slices*m_slices; ++i)
             m_sprites[i]->Draw(m_proj_view);
     }
 

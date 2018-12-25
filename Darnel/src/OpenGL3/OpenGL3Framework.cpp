@@ -1,6 +1,7 @@
 #include "OpenGL3Framework.h"
 #include "OpenGL3Window.h"
 #include "OpenGL3Sprite.h"
+#include "OpenGL3Texture.h"
 
 #include "OpenGL3Renderer.h"
 #include <GL/glew.h>
@@ -54,6 +55,26 @@ namespace darnel {
             return nullptr;
         }
         return m_windows.back().get();
+    }
+
+    std::shared_ptr<Sprite> OpenGL3Framework::MakeSprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture) {
+        return std::make_shared<OpenGL3Sprite>(x, y, width, height, texture);
+    }
+
+    std::shared_ptr<Texture> OpenGL3Framework::MakeTexture(const std::string& path) {
+        return std::make_shared<OpenGL3Texture>(path);
+    }
+
+    std::shared_ptr<Texture> OpenGL3Framework::MakeTexture(unsigned char* buffer, int width, int height, int bpp) {
+        return std::make_shared<OpenGL3Texture>(buffer, width, height, bpp);
+    }
+
+    std::shared_ptr<Texture> OpenGL3Framework::MakeTexture(unsigned char r, unsigned char g, unsigned char b) {
+        return std::make_shared<OpenGL3Texture>(r, g, b);
+    }
+
+    std::shared_ptr<Texture> OpenGL3Framework::MakeTexture(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
+        return std::make_shared<OpenGL3Texture>(r, g, b, a);
     }
 
     bool OpenGL3Framework::WindowLoop(Window* window) {

@@ -33,7 +33,7 @@ namespace darnel {
         : Texture(nullptr, width, height, bpp), m_RendererID(0), m_FilePath("")
     {
         m_LocalBuffer = new unsigned char[4*width*height];
-        for (int i = 0, j = 0; i < 4*width*height; i++) {
+        for (int i = 0, j = 0; i < 4*width*height; ++i) {
             if (bpp < 4 && i%4 >= bpp)
                 m_LocalBuffer[i] = (unsigned char)255;
             else

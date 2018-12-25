@@ -26,9 +26,9 @@ namespace darnel {
 
         std::vector<unsigned char> buffer(4*m_tileWidth*m_tileHeight);
 
-        for (int idx = 0, j = t_y*m_tileHeight; j < (t_y+1)*m_tileHeight; j++) {
-            for (int i = t_x*m_tileWidth; i < (t_x+1)*m_tileWidth; i++, idx+=4) {
-                for (int k = 0; k < 4; k++) {
+        for (int idx = 0, j = t_y*m_tileHeight; j < (t_y+1)*m_tileHeight; ++j) {
+            for (int i = t_x*m_tileWidth; i < (t_x+1)*m_tileWidth; ++i, idx+=4) {
+                for (int k = 0; k < 4; ++k) {
                     buffer[idx+k] = m_LocalBuffer[4*(i+j*m_width)+k];
                 }
             }
@@ -42,9 +42,9 @@ namespace darnel {
 
         std::vector<unsigned char> buffer(4*m_tileWidth*m_tileHeight);
 
-        for (int idx = 0, j = t_y; j < t_y+t_height; j++) {
-            for (int i = t_x; i < t_x+t_width; i++, idx+=4) {
-                for (int k = 0; k < 4; k++) {
+        for (int idx = 0, j = t_y; j < t_y+t_height; ++j) {
+            for (int i = t_x; i < t_x+t_width; ++i, idx+=4) {
+                for (int k = 0; k < 4; ++k) {
                     buffer[idx+k] = m_LocalBuffer[4*(i+j*m_width)+k];
                 }
             }

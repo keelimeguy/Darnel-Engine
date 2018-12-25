@@ -2,10 +2,7 @@
 #include "OpenGL3Framework.h"
 
 #include "Sprite.h"
-#include "OpenGL3Sprite.h"
-
 #include "Texture.h"
-#include "OpenGL3Texture.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -53,23 +50,23 @@ namespace darnel {
     }
 
     std::shared_ptr<Sprite> MakeSprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture) {
-        return std::make_shared<OpenGL3Sprite>(x, y, width, height, texture);
+        return gs_Framework->MakeSprite(x, y, width, height, texture);
     }
 
     std::shared_ptr<Texture> MakeTexture(const std::string& path) {
-        return std::make_shared<OpenGL3Texture>(path);
+        return gs_Framework->MakeTexture(path);
     }
 
     std::shared_ptr<Texture> MakeTexture(unsigned char* buffer, int width, int height, int bpp) {
-        return std::make_shared<OpenGL3Texture>(buffer, width, height, bpp);
+        return gs_Framework->MakeTexture(buffer, width, height, bpp);
     }
 
     std::shared_ptr<Texture> MakeTexture(unsigned char r, unsigned char g, unsigned char b) {
-        return std::make_shared<OpenGL3Texture>(r, g, b);
+        return gs_Framework->MakeTexture(r, g, b);
     }
 
     std::shared_ptr<Texture> MakeTexture(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-        return std::make_shared<OpenGL3Texture>(r, g, b, a);
+        return gs_Framework->MakeTexture(r, g, b, a);
     }
 
     void ImGui_Init() {
