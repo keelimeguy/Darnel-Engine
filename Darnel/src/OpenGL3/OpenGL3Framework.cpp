@@ -1,6 +1,6 @@
 #include "OpenGL3Framework.h"
 #include "OpenGL3Window.h"
-#include "Sprite.h"
+#include "OpenGL3Sprite.h"
 
 #include "OpenGL3Renderer.h"
 #include <GL/glew.h>
@@ -42,8 +42,8 @@ namespace darnel {
     }
 
     void OpenGL3Framework::Terminate() {
-        Sprite::SpriteContext::m_ib = nullptr;
-        Sprite::SpriteContext::m_shader = nullptr;
+        OpenGL3Sprite::SpriteContext::m_ib = nullptr;
+        OpenGL3Sprite::SpriteContext::m_shader = nullptr;
         glfwTerminate();
     }
 

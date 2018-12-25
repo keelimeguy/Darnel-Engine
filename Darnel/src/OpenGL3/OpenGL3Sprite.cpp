@@ -1,5 +1,4 @@
-#include "Sprite.h"
-#include "Texture.h"
+#include "OpenGL3Sprite.h"
 
 #include "VertexArray.h"
 #include "VertexBufferLayout.h"
@@ -13,11 +12,11 @@
 #include <sstream>
 
 namespace darnel {
-    std::unique_ptr<IndexBuffer> Sprite::SpriteContext::m_ib;
-    std::unique_ptr<OpenGL3Shader> Sprite::SpriteContext::m_shader;
-    std::unordered_map<std::string, std::weak_ptr<Sprite::SpriteContext>> Sprite::m_contextCache;
+    std::unique_ptr<IndexBuffer> OpenGL3Sprite::SpriteContext::m_ib;
+    std::unique_ptr<OpenGL3Shader> OpenGL3Sprite::SpriteContext::m_shader;
+    std::unordered_map<std::string, std::weak_ptr<OpenGL3Sprite::SpriteContext>> OpenGL3Sprite::m_contextCache;
 
-    Sprite::SpriteContext::SpriteContext(float width, float height)
+    OpenGL3Sprite::SpriteContext::SpriteContext(float width, float height)
         : m_width(width), m_height(height)
     {
         if (!m_ib) {
@@ -49,7 +48,7 @@ namespace darnel {
         m_va->AddBuffer(*m_vb, layout);
     }
 
-    void Sprite::InitContext(float width, float height) {
+    void OpenGL3Sprite::InitContext(float width, float height) {
         std::stringstream name;
         name << width << "," << height;
         if (m_contextCache.find(name.str()) != m_contextCache.end())
@@ -60,13 +59,13 @@ namespace darnel {
         m_contextCache[name.str()] = m_context;
     }
 
-	Sprite::Sprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture)
-        : m_translation(x, y, 0), m_texture(texture)
+	OpenGL3Sprite::OpenGL3Sprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture)
+        : Sprite(x, y, width, height, texture)
     {
         InitContext(width, height);
     }
 
-    Sprite::~Sprite() {
+    OpenGL3Sprite::~OpenGL3Sprite() {
         std::stringstream name;
         name << m_context->m_width << "," << m_context->m_height;
         m_context = nullptr;
@@ -75,7 +74,7 @@ namespace darnel {
             m_contextCache.erase(name.str());
     }
 
-    void Sprite::Draw(const glm::mat4& proj_view) {
+    void OpenGL3Sprite::Draw(const glm::mat4& proj_view) {
         OpenGL3Renderer renderer;
 
         glm::mat4 model = glm::translate(glm::mat4(1.0f), m_translation);

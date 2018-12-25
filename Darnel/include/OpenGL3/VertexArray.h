@@ -2,18 +2,20 @@
 
 #include "VertexBuffer.h"
 
-class VertexBufferLayout;
+namespace darnel {
+    class VertexBufferLayout;
 
-class VertexArray {
-private:
-    unsigned int m_RendererId;
+    class VertexArray {
+    private:
+        unsigned int m_RendererId;
 
-public:
-    VertexArray();
-    ~VertexArray();
+    public:
+        VertexArray();
+        ~VertexArray();
 
-    void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+        void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
 
-    void Bind() const;
-    void Unbind() const;
-};
+        void Bind() const;
+        void Unbind() const;
+    };
+}

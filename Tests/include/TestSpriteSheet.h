@@ -24,6 +24,6 @@ namespace test {
         int m_slices;
         glm::mat4 m_proj_view;
         std::unique_ptr<darnel::SpriteSheet> m_sheet;
-        std::vector<std::unique_ptr<darnel::Sprite>> m_sprites;
+        std::vector<std::shared_ptr<darnel::Sprite>> m_sprites;
     };
 }

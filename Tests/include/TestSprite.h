@@ -20,7 +20,7 @@ namespace test {
 
     private:
         glm::mat4 m_proj_view;
-        std::unique_ptr<::darnel::Sprite> m_star1, m_star2, m_color1, m_color2;
-        std::shared_ptr<::darnel::Texture> m_texture;
+        std::shared_ptr<darnel::Sprite> m_star1, m_star2, m_color1, m_color2;
+        std::shared_ptr<darnel::Texture> m_texture;
     };
 }

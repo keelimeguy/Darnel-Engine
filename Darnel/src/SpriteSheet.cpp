@@ -1,3 +1,5 @@
+#include "Darnel.h"
+
 #include "SpriteSheet.h"
 #include "Texture.h"
 
@@ -32,7 +34,7 @@ namespace darnel {
             }
         }
 
-        return std::make_shared<Texture>(&buffer[0], m_tileWidth, m_tileHeight, 4);
+        return MakeTexture(&buffer[0], m_tileWidth, m_tileHeight, 4);
     }
 
 	std::shared_ptr<Texture> SpriteSheet::GrabTexture(int t_x, int t_y, int t_width, int t_height) {
@@ -48,6 +50,6 @@ namespace darnel {
             }
         }
 
-        return std::make_shared<Texture>(&buffer[0], t_width, t_height, 4);
+        return MakeTexture(&buffer[0], t_width, t_height, 4);
     }
 }

@@ -17,6 +17,7 @@ set( OPENGL3_HEADER_FILES
     include/OpenGL3/IndexBuffer.h
     include/OpenGL3/OpenGL3Renderer.h
     include/OpenGL3/OpenGL3Shader.h
+    include/OpenGL3/OpenGL3Sprite.h
     include/OpenGL3/OpenGL3Texture.h
     include/OpenGL3/VertexArray.h
     include/OpenGL3/VertexBuffer.h
@@ -25,9 +26,7 @@ set( OPENGL3_HEADER_FILES
 
 set( SRC_FILES
     src/Darnel.cpp
-    src/Sprite.cpp
     src/SpriteSheet.cpp
-    src/Texture.cpp
 )
 
 set( OPENGL3_SRC_FILES
@@ -36,6 +35,7 @@ set( OPENGL3_SRC_FILES
     src/OpenGL3/IndexBuffer.cpp
     src/OpenGL3/OpenGL3Renderer.cpp
     src/OpenGL3/OpenGL3Shader.cpp
+    src/OpenGL3/OpenGL3Sprite.cpp
     src/OpenGL3/OpenGL3Texture.cpp
     src/OpenGL3/VertexArray.cpp
     src/OpenGL3/VertexBuffer.cpp
