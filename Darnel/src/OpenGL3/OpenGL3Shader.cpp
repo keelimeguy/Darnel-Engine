@@ -1,22 +1,22 @@
-#include "OpenGL3Lib/Shader.h"
-#include "OpenGL3Lib/Renderer.h"
+#include "OpenGL3Shader.h"
+#include "OpenGL3Renderer.h"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
-Shader::Shader(const std::string& filePath)
+OpenGL3Shader::OpenGL3Shader(const std::string& filePath)
     : m_FilePath(filePath)
 {
     ShaderProgramSource source = ParseShader(filePath);
     m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
 }
 
-Shader::~Shader() {
+OpenGL3Shader::~OpenGL3Shader() {
     GLCALL(glDeleteProgram(m_RendererID));
 }
 
-ShaderProgramSource Shader::ParseShader(const std::string& filePath) {
+ShaderProgramSource OpenGL3Shader::ParseShader(const std::string& filePath) {
     std::ifstream stream(filePath);
 
     enum class ShaderType {
@@ -41,7 +41,7 @@ ShaderProgramSource Shader::ParseShader(const std::string& filePath) {
     return { ss[0].str(), ss[1].str() };
 }
 
-unsigned int Shader::CompileShader(unsigned int type, const std::string& source) {
+unsigned int OpenGL3Shader::CompileShader(unsigned int type, const std::string& source) {
     GLCALL(unsigned int id = glCreateShader(type));
     const char* src = source.c_str();
     GLCALL(glShaderSource(id, 1, &src, nullptr));
@@ -62,7 +62,7 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
     return id;
 }
 
-unsigned int Shader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader) {
+unsigned int OpenGL3Shader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader) {
     GLCALL(unsigned int program = glCreateProgram());
     unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
     unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
@@ -78,7 +78,7 @@ unsigned int Shader::CreateShader(const std::string& vertexShader, const std::st
     return program;
 }
 
-int Shader::GetUniformLocation(const std::string& name) {
+int OpenGL3Shader::GetUniformLocation(const std::string& name) {
     if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end()) {
         return m_UniformLocationCache[name];
     }
@@ -91,22 +91,22 @@ int Shader::GetUniformLocation(const std::string& name) {
     return location;
 }
 
-void Shader::SetUniform1i(const std::string& name, int i0) {
+void OpenGL3Shader::SetUniform1i(const std::string& name, int i0) {
     GLCALL(glUniform1i(GetUniformLocation(name), i0));
 }
 
-void Shader::SetUniformMat4f(const std::string& name, const glm::mat4 m0) {
+void OpenGL3Shader::SetUniformMat4f(const std::string& name, const glm::mat4 m0) {
     GLCALL(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &m0[0][0]));
 }
 
-void Shader::SetUniform4f(const std::string& name, float f0, float f1, float f2, float f3) {
+void OpenGL3Shader::SetUniform4f(const std::string& name, float f0, float f1, float f2, float f3) {
     GLCALL(glUniform4f(GetUniformLocation(name), f0, f1, f2, f3));
 }
 
-void Shader::Bind() const {
+void OpenGL3Shader::Bind() const {
     GLCALL(glUseProgram(m_RendererID));
 }
 
-void Shader::Unbind() const {
+void OpenGL3Shader::Unbind() const {
     GLCALL(glUseProgram(0));
 }

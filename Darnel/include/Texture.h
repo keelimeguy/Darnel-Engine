@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-class Texture;
+class OpenGL3Texture;
 
 namespace darnel {
     class Texture {
@@ -19,6 +19,6 @@ namespace darnel {
 		inline int GetWidth() const;
 		inline int GetHeight() const;
     private:
-        std::shared_ptr<::Texture> m_texture;
+        std::shared_ptr<OpenGL3Texture> m_texture;
     };
 }

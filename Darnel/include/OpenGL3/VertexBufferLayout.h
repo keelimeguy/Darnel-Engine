@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OpenGL3Lib/Renderer.h"
+#include "OpenGL3Renderer.h"
 #include <vector>
 
 struct VertexBufferElement {

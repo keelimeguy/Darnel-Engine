@@ -1,4 +1,4 @@
-#include "OpenGL3Lib/Renderer.h"
+#include "OpenGL3Renderer.h"
 #include <iostream>
 
 void GLClearError() {
@@ -15,11 +15,11 @@ bool GLLogCall(const char* function, const char* file, int line) {
     return ret;
 }
 
-void Renderer::Clear() const {
+void OpenGL3Renderer::Clear() const {
     GLCALL(glClear(GL_COLOR_BUFFER_BIT));
 }
 
-void Renderer::Draw(const VertexArray & va, const IndexBuffer & ib, const Shader & shader) const {
+void OpenGL3Renderer::Draw(const VertexArray & va, const IndexBuffer & ib, const OpenGL3Shader & shader) const {
     shader.Bind();
     va.Bind();
     ib.Bind();

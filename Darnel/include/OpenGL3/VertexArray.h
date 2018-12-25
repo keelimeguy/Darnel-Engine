@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OpenGL3Lib/VertexBuffer.h"
+#include "VertexBuffer.h"
 
 class VertexBufferLayout;
 

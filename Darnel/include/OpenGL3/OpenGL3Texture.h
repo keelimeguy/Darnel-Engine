@@ -1,9 +1,9 @@
 #pragma once
 
-#include "OpenGL3Lib/Renderer.h"
+#include "OpenGL3Renderer.h"
 #include <string>
 
-class Texture {
+class OpenGL3Texture {
 private:
     unsigned int m_RendererID;
     std::string m_FilePath;
@@ -13,11 +13,11 @@ private:
 
 public:
     unsigned char* m_LocalBuffer;
-    Texture(const std::string& path);
-    Texture(unsigned char* buffer, int width, int height, int bpp);
-    Texture(unsigned char r, unsigned char g, unsigned char b);
-    Texture(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
-    ~Texture();
+    OpenGL3Texture(const std::string& path);
+    OpenGL3Texture(unsigned char* buffer, int width, int height, int bpp);
+    OpenGL3Texture(unsigned char r, unsigned char g, unsigned char b);
+    OpenGL3Texture(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+    ~OpenGL3Texture();
 
     void Bind(unsigned int slot = 0) const;
     void Unbind() const;

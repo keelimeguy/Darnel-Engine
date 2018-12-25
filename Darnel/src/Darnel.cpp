@@ -14,7 +14,7 @@ static std::unique_ptr<darnel::CoreFramework> gs_Framework = std::make_unique<da
 static darnel::Window* gs_curWindow;
 
 namespace darnel {
-    bool DarnelInit(int width, int height, std::string name) {
+    bool Init(int width, int height, std::string name) {
         Window* window = gs_Framework->Init(width, height, name);
         if (window == NULL) {
             gs_Framework->Terminate();
@@ -26,7 +26,7 @@ namespace darnel {
         return true;
     }
 
-    bool DarnelCreateWindow(int width, int height, std::string name) {
+    bool CreateWindow(int width, int height, std::string name) {
         Window* window = gs_Framework->CreateWindow(width, height, name);
         if (!window->IsValid()) return false;
 
@@ -35,31 +35,31 @@ namespace darnel {
         return true;
     }
 
-    void DarnelTerminate() {
+    void Terminate() {
         return gs_Framework->Terminate();
     }
 
-    bool DarnelWindowLoop() {
+    bool WindowLoop() {
         return gs_Framework->WindowLoop(gs_curWindow);
     }
 
-    void DarnelClearWindow(float f1, float f2, float f3, float f4) {
+    void ClearWindow(float f1, float f2, float f3, float f4) {
         gs_curWindow->Clear(f1, f2, f3, f4);
     }
 
-    void ImGui_Darnel_Init() {
+    void ImGui_Init() {
         gs_Framework->ImGuiInit(gs_curWindow);
     }
 
-    void ImGui_Darnel_NewFrame() {
+    void ImGui_NewFrame() {
         gs_Framework->ImGuiNewFrame();
     }
 
-    void ImGui_Darnel_RenderDrawData(ImDrawData* drawData) {
+    void ImGui_RenderDrawData(ImDrawData* drawData) {
         gs_Framework->ImGuiRenderDrawData(drawData);
     }
 
-    void ImGui_Darnel_Shutdown() {
+    void ImGui_Shutdown() {
         gs_Framework->ImGuiShutdown();
     }
 }

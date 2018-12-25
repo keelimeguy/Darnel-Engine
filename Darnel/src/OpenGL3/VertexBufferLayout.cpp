@@ -1,4 +1,4 @@
-#include "OpenGL3Lib/VertexBufferLayout.h"
+#include "VertexBufferLayout.h"
 
 template<>
 void VertexBufferLayout::Push<float>(unsigned int count) {

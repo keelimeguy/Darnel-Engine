@@ -66,29 +66,6 @@ target_include_directories( imgui
         ${IMGUI_IMPL_INCLUDE_DIR}
 )
 
-target_sources( imgui
-    INTERFACE
-        ${IMGUI_SOURCE_LIST}
-)
-
-if( IMGUI_OPENGL3_ENABLE AND OPENGL3_GLEW_ENABLE )
-    get_target_property( IMGUI_INCLUDE imgui INTERFACE_INCLUDE_DIRECTORIES )
-    get_target_property( GLEW_INCLUDE glew INTERFACE_INCLUDE_DIRECTORIES )
-
-    list( APPEND IMGUI_INCLUDE ${GLEW_INCLUDE} )
-
-    set_target_properties( imgui
-        PROPERTIES
-            INTERFACE_INCLUDE_DIRECTORIES "${IMGUI_INCLUDE}"
-    )
-endif()
-
-target_link_libraries( imgui
-    INTERFACE
-        ${IMGUI_IMPL_LIBRARY}
-)
-
-target_compile_definitions( imgui
-    INTERFACE
-        ${IMGUI_IMPL_COMPILE_DEF}
-)
+target_sources( imgui INTERFACE ${IMGUI_SOURCE_LIST} )
+target_link_libraries( imgui INTERFACE ${IMGUI_IMPL_LIBRARY} )
+target_compile_definitions( imgui INTERFACE ${IMGUI_IMPL_COMPILE_DEF} )

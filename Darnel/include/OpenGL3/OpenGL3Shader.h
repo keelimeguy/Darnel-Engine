@@ -10,15 +10,15 @@ struct ShaderProgramSource {
     std::string FragmentSource;
 };
 
-class Shader {
+class OpenGL3Shader {
 private:
     unsigned int m_RendererID;
     std::string m_FilePath;
     std::unordered_map<std::string, int> m_UniformLocationCache;
 
 public:
-    Shader(const std::string& filePath);
-    ~Shader();
+    OpenGL3Shader(const std::string& filePath);
+    ~OpenGL3Shader();
 
     void Bind() const;
     void Unbind() const;
@@ -34,4 +34,3 @@ private:
 
     int GetUniformLocation(const std::string& name);
 };
-

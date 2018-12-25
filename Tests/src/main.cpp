@@ -13,10 +13,10 @@
 #include <iostream>
 
 int main() {
-    if (!darnel::DarnelInit(640, 480, "Darnel Window")) return -1;
+    if (!darnel::Init(640, 480, "Darnel Window")) return -1;
     {
         ImGui::CreateContext();
-        darnel::ImGui_Darnel_Init();
+        darnel::ImGui_Init();
 
         ImGui::StyleColorsDark();
 
@@ -28,10 +28,10 @@ int main() {
         testMenu->RegisterTest<test::TestSprite>("Sprite");
         testMenu->RegisterTest<test::TestSpriteSheet>("SpriteSheet");
 
-        while (!darnel::DarnelWindowLoop()) {
-            darnel::DarnelClearWindow(0.0f, 0.0f, 0.0f, 1.0f);
+        while (!darnel::WindowLoop()) {
+            darnel::ClearWindow(0.0f, 0.0f, 0.0f, 1.0f);
 
-            darnel::ImGui_Darnel_NewFrame();
+            darnel::ImGui_NewFrame();
             ImGui::NewFrame();
 
             if (currentTest) {
@@ -47,7 +47,7 @@ int main() {
             }
 
             ImGui::Render();
-            darnel::ImGui_Darnel_RenderDrawData(ImGui::GetDrawData());
+            darnel::ImGui_RenderDrawData(ImGui::GetDrawData());
         }
 
         if (currentTest != testMenu)
@@ -55,9 +55,9 @@ int main() {
         delete currentTest;
     }
 
-    darnel::ImGui_Darnel_Shutdown();
+    darnel::ImGui_Shutdown();
     ImGui::DestroyContext();
 
-    darnel::DarnelTerminate();
+    darnel::Terminate();
     return 0;
 }

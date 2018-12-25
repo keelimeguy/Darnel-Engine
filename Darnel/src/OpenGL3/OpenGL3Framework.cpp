@@ -2,7 +2,7 @@
 #include "OpenGL3Window.h"
 #include "Sprite.h"
 
-#include "OpenGL3Lib/Renderer.h"
+#include "OpenGL3Renderer.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 

@@ -1,8 +1,8 @@
-#include "OpenGL3Lib/Texture.h"
+#include "OpenGL3Texture.h"
 
 #include <stb_image.h>
 
-void Texture::Init() {
+void OpenGL3Texture::Init() {
     GLCALL(glGenTextures(1, &m_RendererID));
     GLCALL(glBindTexture(GL_TEXTURE_2D, m_RendererID));
 
@@ -15,7 +15,7 @@ void Texture::Init() {
     GLCALL(glBindTexture(GL_TEXTURE_2D, 0));
 }
 
-Texture::Texture(const std::string& path)
+OpenGL3Texture::OpenGL3Texture(const std::string& path)
     : m_RendererID(0), m_FilePath(path), m_LocalBuffer(nullptr), m_Width(0), m_Height(0), m_BPP(0)
 {
     stbi_set_flip_vertically_on_load(1);
@@ -27,7 +27,7 @@ Texture::Texture(const std::string& path)
         stbi_image_free(m_LocalBuffer);
 }
 
-Texture::Texture(unsigned char* buffer, int width, int height, int bpp)
+OpenGL3Texture::OpenGL3Texture(unsigned char* buffer, int width, int height, int bpp)
     : m_RendererID(0), m_FilePath(""), m_LocalBuffer(nullptr), m_Width(width), m_Height(height), m_BPP(bpp)
 {
     m_LocalBuffer = new unsigned char[4*width*height];
@@ -41,7 +41,7 @@ Texture::Texture(unsigned char* buffer, int width, int height, int bpp)
     Init();
 }
 
-Texture::Texture(unsigned char r, unsigned char g, unsigned char b)
+OpenGL3Texture::OpenGL3Texture(unsigned char r, unsigned char g, unsigned char b)
     : m_RendererID(0), m_FilePath(""), m_LocalBuffer(nullptr), m_Width(1), m_Height(1), m_BPP(3)
 {
     m_LocalBuffer = new unsigned char[4];
@@ -50,7 +50,7 @@ Texture::Texture(unsigned char r, unsigned char g, unsigned char b)
     Init();
 }
 
-Texture::Texture(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+OpenGL3Texture::OpenGL3Texture(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
     : m_RendererID(0), m_FilePath(""), m_LocalBuffer(nullptr), m_Width(1), m_Height(1), m_BPP(4)
 {
     m_LocalBuffer = new unsigned char[4];
@@ -59,17 +59,17 @@ Texture::Texture(unsigned char r, unsigned char g, unsigned char b, unsigned cha
     Init();
 }
 
-Texture::~Texture() {
+OpenGL3Texture::~OpenGL3Texture() {
     GLCALL(glDeleteTextures(1, &m_RendererID));
     if (m_LocalBuffer && m_FilePath == "")
         delete[] m_LocalBuffer;
 }
 
-void Texture::Bind(unsigned int slot) const {
+void OpenGL3Texture::Bind(unsigned int slot) const {
     GLCALL(glActiveTexture(GL_TEXTURE0 + slot));
     GLCALL(glBindTexture(GL_TEXTURE_2D, m_RendererID));
 }
 
-void Texture::Unbind() const {
+void OpenGL3Texture::Unbind() const {
     GLCALL(glBindTexture(GL_TEXTURE_2D, 0));
 }

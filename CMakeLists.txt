@@ -17,7 +17,6 @@ set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin ) # Output directory
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin ) # Output directory for executables (.EXE)
 
 add_subdirectory( vendor EXCLUDE_FROM_ALL )
-add_subdirectory( OpenGL3Lib EXCLUDE_FROM_ALL )
 
 add_subdirectory( Darnel )
 add_subdirectory( Tests )

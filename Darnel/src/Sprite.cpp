@@ -1,11 +1,11 @@
 #include "Sprite.h"
 #include "Texture.h"
 
-#include "OpenGL3Lib/VertexArray.h"
-#include "OpenGL3Lib/VertexBufferLayout.h"
-#include "OpenGL3Lib/VertexBuffer.h"
-#include "OpenGL3Lib/IndexBuffer.h"
-#include "OpenGL3Lib/Shader.h"
+#include "VertexArray.h"
+#include "VertexBufferLayout.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "OpenGL3Shader.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -14,7 +14,7 @@
 
 namespace darnel {
     std::unique_ptr<IndexBuffer> Sprite::SpriteContext::m_ib;
-    std::unique_ptr<Shader> Sprite::SpriteContext::m_shader;
+    std::unique_ptr<OpenGL3Shader> Sprite::SpriteContext::m_shader;
     std::unordered_map<std::string, std::weak_ptr<Sprite::SpriteContext>> Sprite::m_contextCache;
 
     Sprite::SpriteContext::SpriteContext(float width, float height)
@@ -29,7 +29,7 @@ namespace darnel {
         }
 
         if (!m_shader) {
-            m_shader = std::make_unique<Shader>("resources/shaders/Texture.shader");
+            m_shader = std::make_unique<OpenGL3Shader>("resources/shaders/Texture.shader");
         }
 
         float positions[] = {
@@ -76,7 +76,7 @@ namespace darnel {
     }
 
     void Sprite::Draw(const glm::mat4& proj_view) {
-        Renderer renderer;
+        OpenGL3Renderer renderer;
 
         glm::mat4 model = glm::translate(glm::mat4(1.0f), m_translation);
         glm::mat4 mvp = proj_view * model;

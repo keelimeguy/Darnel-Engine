@@ -11,7 +11,7 @@
 class VertexArray;
 class VertexBuffer;
 class IndexBuffer;
-class Shader;
+class OpenGL3Shader;
 
 namespace darnel {
     class Sprite {
@@ -24,7 +24,7 @@ namespace darnel {
         class SpriteContext {
         public:
             static std::unique_ptr<IndexBuffer> m_ib;
-            static std::unique_ptr<Shader> m_shader;
+            static std::unique_ptr<OpenGL3Shader> m_shader;
 
             SpriteContext(float width, float height);
 

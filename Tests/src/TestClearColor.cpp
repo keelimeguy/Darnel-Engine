@@ -12,7 +12,7 @@ namespace test {
     }
 
     void TestClearColor::OnRender() {
-        darnel::DarnelClearWindow(m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3]);
+        darnel::ClearWindow(m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3]);
     }
 
     void TestClearColor::OnImGuiRender() {
