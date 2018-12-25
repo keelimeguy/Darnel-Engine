@@ -23,8 +23,8 @@ namespace darnel {
 
         class SpriteContext {
         public:
-            static std::unique_ptr<IndexBuffer> m_ib;
-            static std::unique_ptr<OpenGL3Shader> m_shader;
+            static std::unique_ptr<IndexBuffer> s_ib;
+            static std::unique_ptr<OpenGL3Shader> s_shader;
 
             SpriteContext(float width, float height);
 
@@ -36,7 +36,7 @@ namespace darnel {
     private:
         void InitContext(float width, float height);
 
-        static std::unordered_map<std::string, std::weak_ptr<SpriteContext>> m_contextCache;
+        static std::unordered_map<std::string, std::weak_ptr<SpriteContext>> s_contextCache;
 
         std::shared_ptr<SpriteContext> m_context;
     };

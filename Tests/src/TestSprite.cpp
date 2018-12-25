@@ -11,7 +11,7 @@
 
 namespace test {
     const int TestSprite::s_NumSettings = 0;
-    const char* TestSprite::s_Settings[] = {};
+    const char* TestSprite::s_Settings[] = {""};
 
     TestSprite::TestSprite(int i) {
         m_texture = darnel::MakeTexture("resources/textures/star.png");

@@ -3,7 +3,7 @@
 
 namespace test {
     const int Test::s_NumSettings = 0;
-    const char* Test::s_Settings[] = {};
+	const char* Test::s_Settings[] = {""};
 
     TestMenu::TestMenu(Test*& currentTest)
         : m_currentTest(currentTest) {

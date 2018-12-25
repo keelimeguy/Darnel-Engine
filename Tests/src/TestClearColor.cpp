@@ -5,7 +5,7 @@
 
 namespace test {
     const int TestClearColor::s_NumSettings = 0;
-    const char* TestClearColor::s_Settings[] = {};
+    const char* TestClearColor::s_Settings[] = {""};
 
     TestClearColor::TestClearColor(int i)
         : m_clearColor{ 0.2f, 0.3f, 0.8f, 1.0f } {

@@ -41,13 +41,17 @@ if( IMGUI_WIN32_ENABLE )
         ${IMGUI_INCLUDE_DIR}/examples/imgui_impl_win32.h
         ${IMGUI_INCLUDE_DIR}/examples/imgui_impl_win32.cpp
     )
-endif()
-
-if( IMGUI_DX12_ENABLE )
-    list( APPEND IMGUI_IMPL_SOURCE_LIST
-        ${IMGUI_INCLUDE_DIR}/examples/imgui_impl_dx12.h
-        ${IMGUI_INCLUDE_DIR}/examples/imgui_impl_dx12.cpp
-    )
+    if( IMGUI_DX12_ENABLE )
+        list( APPEND IMGUI_IMPL_SOURCE_LIST
+            ${IMGUI_INCLUDE_DIR}/examples/imgui_impl_dx12.h
+            ${IMGUI_INCLUDE_DIR}/examples/imgui_impl_dx12.cpp
+        )
+        list( APPEND IMGUI_IMPL_LIBRARY
+            d3d12.lib
+            d3dcompiler.lib
+            dxgi.lib
+        )
+    endif()
 endif()
 
 set( IMGUI_SOURCE_LIST

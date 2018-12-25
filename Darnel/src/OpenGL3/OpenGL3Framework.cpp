@@ -31,6 +31,8 @@ namespace darnel {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // GLFW 3.2+
 
         Window* window = CreateWindow(width, height, name);
+        if (!window) return nullptr;
+
         window->MakeActive();
 
         if (glewInit())
@@ -43,8 +45,8 @@ namespace darnel {
     }
 
     void OpenGL3Framework::Terminate() {
-        OpenGL3Sprite::SpriteContext::m_ib = nullptr;
-        OpenGL3Sprite::SpriteContext::m_shader = nullptr;
+        OpenGL3Sprite::SpriteContext::s_ib = nullptr;
+        OpenGL3Sprite::SpriteContext::s_shader = nullptr;
         glfwTerminate();
     }
 

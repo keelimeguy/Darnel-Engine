@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.13.2 )
 
-add_library( darnel SHARED "" )
+add_library( darnel STATIC "" )
 
 set( HEADER_FILES
     include/CoreFramework.h
@@ -9,6 +9,21 @@ set( HEADER_FILES
     include/SpriteSheet.h
     include/Texture.h
     include/Window.h
+)
+set( SRC_FILES
+    src/Darnel.cpp
+    src/SpriteSheet.cpp
+)
+
+set( DIRECTX12_HEADER_FILES
+    include/DirectX12/DirectX12Framework.h
+    include/DirectX12/DirectX12Window.h
+    include/DirectX12/DirectX12Renderer.h
+)
+set( DIRECTX12_SRC_FILES
+    src/DirectX12/DirectX12Framework.cpp
+    src/DirectX12/DirectX12Window.cpp
+    src/DirectX12/DirectX12Renderer.cpp
 )
 
 set( OPENGL3_HEADER_FILES
@@ -23,12 +38,6 @@ set( OPENGL3_HEADER_FILES
     include/OpenGL3/VertexBuffer.h
     include/OpenGL3/VertexBufferLayout.h
 )
-
-set( SRC_FILES
-    src/Darnel.cpp
-    src/SpriteSheet.cpp
-)
-
 set( OPENGL3_SRC_FILES
     src/OpenGL3/OpenGL3Framework.cpp
     src/OpenGL3/OpenGL3Window.cpp
@@ -42,20 +51,40 @@ set( OPENGL3_SRC_FILES
     src/OpenGL3/VertexBufferLayout.cpp
 )
 
-target_include_directories( darnel
-    PUBLIC
-        ${CMAKE_CURRENT_LIST_DIR}/include
-    PRIVATE
-        ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
-)
+if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
+    target_include_directories( darnel
+        PUBLIC
+            ${CMAKE_CURRENT_LIST_DIR}/include
+            ${CMAKE_CURRENT_LIST_DIR}/include/DirectX12
+        PRIVATE
+            ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
+    )
 
-target_sources( darnel
-    PRIVATE
-        ${HEADER_FILES}
-        ${SRC_FILES}
-        ${OPENGL3_HEADER_FILES}
-        ${OPENGL3_SRC_FILES}
-)
+    target_sources( darnel
+        PRIVATE
+            ${HEADER_FILES}
+            ${SRC_FILES}
+            ${OPENGL3_HEADER_FILES}
+            ${OPENGL3_SRC_FILES}
+            ${DIRECTX12_HEADER_FILES}
+            ${DIRECTX12_SRC_FILES}
+    )
+else()
+    target_include_directories( darnel
+        PUBLIC
+            ${CMAKE_CURRENT_LIST_DIR}/include
+        PRIVATE
+            ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
+    )
+
+    target_sources( darnel
+        PRIVATE
+            ${HEADER_FILES}
+            ${SRC_FILES}
+            ${OPENGL3_HEADER_FILES}
+            ${OPENGL3_SRC_FILES}
+    )
+endif()
 
 get_target_property( DARNEL_INCLUDE darnel INCLUDE_DIRECTORIES )
 get_target_property( STB_IMAGE_INCLUDE stb_image INTERFACE_INCLUDE_DIRECTORIES )

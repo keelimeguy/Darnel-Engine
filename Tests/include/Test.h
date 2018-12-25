@@ -45,8 +45,10 @@ namespace test {
         template <typename T>
         void RegisterTest(const std::string& name) {
             std::cout << "Registering test " << name << std::endl;
-            m_Tests.push_back(std::make_unique<TestOption>(name, T::s_NumSettings, T::s_Settings,
-                (T::s_NumSettings ? [](int i){return new T(i);} : [](int i){return new T();})));
+            if (T::s_NumSettings)
+                m_Tests.push_back(std::make_unique<TestOption>(name, T::s_NumSettings, T::s_Settings, [](int i){return new T(i);}));
+            else
+                m_Tests.push_back(std::make_unique<TestOption>(name, T::s_NumSettings, T::s_Settings, [](int i) {return new T();}));
         }
 
     private:
