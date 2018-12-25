@@ -4,3 +4,6 @@
 [submodule "vendor/glfw"]
 	path = vendor/glfw
 	url = https://github.com/glfw/glfw
+[submodule "vendor/glew/glew"]
+	path = vendor/glew/glew
+	url = https://github.com/nigels-com/glew
