@@ -1,14 +1,1 @@
-
 *build/
-bin/
-lib/
-
-CMakeFiles/
-CMakeCache.txt
-Makefile
-cmake_install.cmake
-
-.dummy
-*.sln
-*.vcxproj
-*.vcxproj.filters
