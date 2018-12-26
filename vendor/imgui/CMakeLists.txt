@@ -1,5 +1,9 @@
 cmake_minimum_required( VERSION 3.13.2 )
 
+execute_process( COMMAND git submodule update --init imgui
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+)
+
 set( IMGUI_INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/imgui
     CACHE PATH "imgui include directory"
 )
@@ -16,10 +20,10 @@ if( IMGUI_OPENGL3_ENABLE )
     )
 
     if( OPENGL3_GLEW_ENABLE )
-        get_target_property( GLEW_INCLUDE glew INTERFACE_INCLUDE_DIRECTORIES )
-        list( APPEND IMGUI_IMPL_INCLUDE_DIR ${GLEW_INCLUDE} )
-        list( APPEND IMGUI_IMPL_LIBRARY glew )
+        list( APPEND IMGUI_IMPL_INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/../glew/glew/include )
+        list( APPEND IMGUI_IMPL_LIBRARY glew_s )
         list( APPEND IMGUI_IMPL_COMPILE_DEF IMGUI_IMPL_OPENGL_LOADER_GLEW )
+        list( APPEND IMGUI_IMPL_COMPILE_DEF GLEW_STATIC )
     endif()
 
 endif()

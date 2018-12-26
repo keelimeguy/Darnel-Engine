@@ -51,6 +51,20 @@ set( OPENGL3_SRC_FILES
     src/OpenGL3/VertexBufferLayout.cpp
 )
 
+source_group( TREE ${CMAKE_CURRENT_LIST_DIR}/src PREFIX "Source Files"
+    FILES
+        ${SRC_FILES}
+        ${DIRECTX12_SRC_FILES}
+        ${OPENGL3_SRC_FILES}
+)
+
+source_group( TREE ${CMAKE_CURRENT_LIST_DIR}/include PREFIX "Header Files"
+    FILES
+        ${HEADER_FILES}
+        ${DIRECTX12_HEADER_FILES}
+        ${OPENGL3_HEADER_FILES}
+)
+
 if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
     target_include_directories( darnel
         PUBLIC
@@ -87,32 +101,24 @@ else()
 endif()
 
 get_target_property( DARNEL_INCLUDE darnel INCLUDE_DIRECTORIES )
-get_target_property( STB_IMAGE_INCLUDE stb_image INTERFACE_INCLUDE_DIRECTORIES )
-get_target_property( GLM_INCLUDE glm_static INTERFACE_INCLUDE_DIRECTORIES )
+get_target_property( DARNEL_INTERFACE_INCLUDE darnel INTERFACE_INCLUDE_DIRECTORIES )
+get_target_property( GLM_INCLUDE glm_static INCLUDE_DIRECTORIES )
 get_target_property( IMGUI_INCLUDE imgui INTERFACE_INCLUDE_DIRECTORIES )
 
-list( APPEND DARNEL_INCLUDE ${STB_IMAGE_INCLUDE} )
 list( APPEND DARNEL_INCLUDE ${GLM_INCLUDE} )
-list( APPEND DARNEL_INCLUDE ${IMGUI_INCLUDE} )
+list( APPEND DARNEL_INTERFACE_INCLUDE ${GLM_INCLUDE} )
+list( APPEND DARNEL_INTERFACE_INCLUDE ${IMGUI_INCLUDE} )
 
 set_target_properties( darnel
     PROPERTIES
         INCLUDE_DIRECTORIES "${DARNEL_INCLUDE}"
 )
-
-get_target_property( DARNEL_INTERFACE_INCLUDE darnel INTERFACE_INCLUDE_DIRECTORIES )
-
-list( APPEND DARNEL_INTERFACE_INCLUDE ${GLM_INCLUDE} )
-list( APPEND DARNEL_INTERFACE_INCLUDE ${IMGUI_INCLUDE} )
-
 set_target_properties( darnel
     PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${DARNEL_INTERFACE_INCLUDE}"
 )
 
 source_group( "Imgui Files" FILES ${IMGUI_SOURCE_LIST} )
-source_group( TREE ${GLEW_INCLUDE_DIR} PREFIX "GLEW Files" FILES ${GLEW_SOURCE_LIST} )
-source_group( "STB_Image Files" FILES ${STB_IMAGE_SOURCE_LIST} )
 
 target_link_libraries( darnel
     PRIVATE

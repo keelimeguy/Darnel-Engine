@@ -17,8 +17,5 @@ or preferably..
 
 
 ## TODO
-- Make all applicable vendor libraries into submodules
-- Reorganize vendor libraries as static vs shared (as in glm)
 - Search locally for prebuilt vendor libraries first (before downloading submodules and building from source)
 - Separate platform specific build options (so far only assumes windows)
-- Separate core GPU APIs (so far only opengl+glfw+glew)

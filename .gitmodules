@@ -1,9 +1,16 @@
 [submodule "vendor/imgui/imgui"]
 	path = vendor/imgui/imgui
 	url = https://github.com/ocornut/imgui
-[submodule "vendor/glfw"]
-	path = vendor/glfw
+[submodule "vendor/glfw/glfw"]
+	path = vendor/glfw/glfw
 	url = https://github.com/glfw/glfw
 [submodule "vendor/glew/glew"]
 	path = vendor/glew/glew
 	url = https://github.com/nigels-com/glew
+	ignore = dirty
+[submodule "vendor/glm/glm"]
+	path = vendor/glm/glm
+	url = https://github.com/g-truc/glm
+[submodule "vendor/stb/stb"]
+	path = vendor/stb/stb
+	url = https://github.com/nothings/stb

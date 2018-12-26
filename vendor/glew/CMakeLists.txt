@@ -1,40 +1,36 @@
 cmake_minimum_required( VERSION 3.13.2 )
 
-set( GLEW_INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/include
-    CACHE PATH "glew include directory"
+execute_process( COMMAND git submodule update --init glew
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )
 
-set( GLEW_SOURCE_LIST
-    ${GLEW_INCLUDE_DIR}/GL/eglew.h
-    ${GLEW_INCLUDE_DIR}/GL/glew.h
-    ${GLEW_INCLUDE_DIR}/GL/glxew.h
-    ${GLEW_INCLUDE_DIR}/GL/wglew.h
-    CACHE PATH "glew source list"
-)
-
-add_library( glew INTERFACE )
-
-target_include_directories( glew INTERFACE ${GLEW_INCLUDE_DIR} )
-
-if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
-    set( GLEW_LIB_PATH ${CMAKE_CURRENT_LIST_DIR}/x64/glew32s.lib )
-else()
-    set( GLEW_LIB_PATH ${CMAKE_CURRENT_LIST_DIR}/mingw64/glew32.dll )
-    file( COPY ${GLEW_LIB_PATH} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} )
+if ( GLEW_MAKE_WORKAROUND_ENABLE )
+    execute_process( COMMAND make registry
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/glew/auto
+    )
+    execute_process( COMMAND make
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+    )
 endif()
 
-target_sources( glew
-    INTERFACE
-        ${GLEW_SOURCE_LIST}
+execute_process( COMMAND make
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/glew/auto
 )
 
-target_link_libraries( glew
-    INTERFACE
-        opengl32.lib
-        ${GLEW_LIB_PATH}
+if ( GLEW_GLEW_C_NEWLINE_FIX_ENABLE )
+    execute_process( COMMAND sed -i ":a;N;$!ba;s/\\r\", /\", /g" glew.c
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/glew/src
+    )
+endif()
+
+add_subdirectory( glew/build/cmake EXCLUDE_FROM_ALL )
+
+set_target_properties( glew
+    PROPERTIES
+        FOLDER "GLEW"
 )
 
-target_compile_definitions( glew
-    INTERFACE
-        GLEW_STATIC
+set_target_properties( glew_s
+    PROPERTIES
+        FOLDER "GLEW"
 )

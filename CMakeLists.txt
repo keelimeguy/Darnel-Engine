@@ -4,6 +4,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 project( Darnel LANGUAGES CXX C )
 
+option ( GLEW_MAKE_WORKAROUND_ENABLE "When making GLEW/auto, perform `make ext` separately" ON )
+option ( GLEW_GLEW_C_NEWLINE_FIX_ENABLE "After making GLEW/auto, fix newline issues within strings in glew.c" ON )
+
 if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
     option ( IMGUI_WIN32_ENABLE "Imgui Win32 implementation" ON )
     option ( IMGUI_DX12_ENABLE "Imgui DirectX12 implementation" ON )
