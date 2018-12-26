@@ -9,7 +9,13 @@ set( HEADER_FILES
     include/SpriteSheet.h
     include/Texture.h
     include/Window.h
+    include/Event.h
+    include/ApplicationEvent.h
+    include/KeyEvent.h
+    include/MouseEvent.h
+    include/WindowEvent.h
 )
+
 set( SRC_FILES
     src/Darnel.cpp
     src/SpriteSheet.cpp

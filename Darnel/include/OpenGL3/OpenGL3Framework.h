@@ -1,7 +1,11 @@
 #pragma once
 
 #include "CoreFramework.h"
+
 #include "Window.h"
+#include "Event.h"
+#include "WindowEvent.h"
+
 #include "Sprite.h"
 #include "Texture.h"
 
@@ -23,5 +27,11 @@ namespace darnel {
         void ImGuiNewFrame() override;
         void ImGuiRenderDrawData(ImDrawData* drawData) override;
         void ImGuiShutdown() override;
+
+    private:
+        void OnEvent(Event& e);
+        bool OnWindowClose(WindowCloseEvent& e);
+
+        bool m_Running = true;
     };
 }

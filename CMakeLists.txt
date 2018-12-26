@@ -32,7 +32,7 @@ add_subdirectory( Darnel )
 add_subdirectory( Tests )
 
 if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
-    add_subdirectory( SampleDX12 )
+    # add_subdirectory( SampleDX12 )
     set_directory_properties( PROPERTIES
         VS_STARTUP_PROJECT test_darneldx12
     )

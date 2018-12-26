@@ -4,11 +4,16 @@
 #include "OpenGL3Texture.h"
 
 #include "OpenGL3Renderer.h"
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "Event.h"
+#include "WindowEvent.h"
+
 #include <string>
 #include <iostream>
+#include <functional>
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -56,7 +61,21 @@ namespace darnel {
             m_windows.pop_back();
             return nullptr;
         }
+
+        m_windows.back()->SetEventCallback(std::bind(&OpenGL3Framework::OnEvent, this, std::placeholders::_1));
         return m_windows.back().get();
+    }
+
+    void OpenGL3Framework::OnEvent(Event& e) {
+        EventDispatcher dispatcher(e);
+        dispatcher.Dispatch<WindowCloseEvent>(std::bind(&OpenGL3Framework::OnWindowClose, this, std::placeholders::_1));
+
+        std::cout << e.ToString() << std::endl;
+    }
+
+    bool OpenGL3Framework::OnWindowClose(WindowCloseEvent& e) {
+        m_Running = false;
+        return true;
     }
 
     std::shared_ptr<Sprite> OpenGL3Framework::MakeSprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture) {
@@ -80,10 +99,8 @@ namespace darnel {
     }
 
     bool OpenGL3Framework::WindowLoop(Window* window) {
-        glfwSwapBuffers(((OpenGL3Window*)window)->m_window);
-        glfwPollEvents();
-
-        return glfwWindowShouldClose(((OpenGL3Window*)window)->m_window);
+        if (m_Running) ((OpenGL3Window*)window)->OnUpdate();
+        return !m_Running || glfwWindowShouldClose(((OpenGL3Window*)window)->m_window);
     }
 
     void OpenGL3Framework::ImGuiInit(Window* window) {
