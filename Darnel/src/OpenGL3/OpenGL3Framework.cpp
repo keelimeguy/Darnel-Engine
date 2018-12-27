@@ -14,6 +14,7 @@
 #include <string>
 #include <iostream>
 #include <functional>
+#include <algorithm>
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -38,8 +39,6 @@ namespace darnel {
         Window* window = CreateWindow(width, height, name);
         if (!window) return nullptr;
 
-        window->MakeActive();
-
         if (glewInit())
             return nullptr;
 
@@ -52,29 +51,61 @@ namespace darnel {
     void OpenGL3Framework::Terminate() {
         OpenGL3Sprite::SpriteContext::s_ib = nullptr;
         OpenGL3Sprite::SpriteContext::s_shader = nullptr;
+        m_Windows.clear();
         glfwTerminate();
     }
 
-    Window* OpenGL3Framework::CreateWindow(int width, int height, std::string name) {
-        m_windows.push_back(std::make_unique<OpenGL3Window>(width, height, name));
-        if (!m_windows.back()->IsValid()) {
-            m_windows.pop_back();
+    void OpenGL3Framework::PollEvents() {
+        glfwPollEvents();
+    }
+
+    Window* OpenGL3Framework::CreateWindow(int width, int height, std::string name, bool forceActive) {
+        m_Windows.push_back(std::make_unique<OpenGL3Window>(width, height, name));
+        Window* newWindow = m_Windows.back().get();
+        if (!newWindow->IsValid()) {
+            m_Windows.pop_back();
             return nullptr;
         }
-
-        m_windows.back()->SetEventCallback(std::bind(&OpenGL3Framework::OnEvent, this, std::placeholders::_1));
-        return m_windows.back().get();
+        newWindow->SetEventCallback(std::bind(&OpenGL3Framework::OnEvent, this, std::placeholders::_1, newWindow));
+        if (forceActive) {
+            m_ActiveWindow = newWindow;
+            newWindow->MakeActiveContext();
+        }
+        return newWindow;
     }
 
-    void OpenGL3Framework::OnEvent(Event& e) {
+    Window* OpenGL3Framework::GetWindow(std::string name) {
+        for(auto const& window: m_Windows)
+            if (window->GetName() == name) return window.get();
+        return nullptr;
+    }
+
+    void OpenGL3Framework::OnEvent(Event& e, Window* window) {
+        std::cout << "[" << window->GetName() << "] " << e.ToString() << std::endl << std::flush;
+
         EventDispatcher dispatcher(e);
-        dispatcher.Dispatch<WindowCloseEvent>(std::bind(&OpenGL3Framework::OnWindowClose, this, std::placeholders::_1));
-
-        std::cout << e.ToString() << std::endl;
+        if (dispatcher.Dispatch<WindowCloseEvent>(std::bind(&OpenGL3Framework::OnWindowClose, this, std::placeholders::_1, window)));
+        else if (dispatcher.Dispatch<WindowFocusEvent>(std::bind(&OpenGL3Framework::OnWindowFocus, this, std::placeholders::_1, window)));
     }
 
-    bool OpenGL3Framework::OnWindowClose(WindowCloseEvent& e) {
-        m_Running = false;
+    bool OpenGL3Framework::OnWindowFocus(WindowFocusEvent& e, Window* window) {
+        m_ActiveWindow = window;
+        window->MakeActiveContext();
+        return true;
+    }
+
+    bool OpenGL3Framework::OnWindowClose(WindowCloseEvent& e, Window* window) {
+        // We need a context still active during termination,
+        // so don't delete the window if it is the last one
+        if (m_Windows.size() == 1 && m_Windows[0].get() == window) {
+            m_Running = false;
+
+        } else {
+            m_Windows.erase(std::find_if(m_Windows.begin(), m_Windows.end(),
+                [window](auto& wnd) { return wnd.get() == window; }
+            ));
+            m_ActiveWindow = m_Windows.back().get();
+        }
         return true;
     }
 
@@ -98,13 +129,8 @@ namespace darnel {
         return std::make_shared<OpenGL3Texture>(r, g, b, a);
     }
 
-    bool OpenGL3Framework::WindowLoop(Window* window) {
-        if (m_Running) ((OpenGL3Window*)window)->OnUpdate();
-        return !m_Running || glfwWindowShouldClose(((OpenGL3Window*)window)->m_window);
-    }
-
-    void OpenGL3Framework::ImGuiInit(Window* window) {
-        ImGui_ImplGlfw_InitForOpenGL(((OpenGL3Window*)window)->m_window, true);
+    void OpenGL3Framework::ImGuiInit() {
+        ImGui_ImplGlfw_InitForOpenGL(((OpenGL3Window*)m_ActiveWindow)->m_Window, true);
         ImGui_ImplOpenGL3_Init(glsl_version);
     }
 

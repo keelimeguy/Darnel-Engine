@@ -11,9 +11,13 @@ struct ImDrawData;
 namespace darnel {
     bool Init(int width, int height, std::string name);
     bool CreateWindow(int width, int height, std::string name);
+    bool CloseWindow(std::string name);
+    bool SetWindowContext(std::string name, bool flush = false);
+    std::string GetActiveWindow();
     void Terminate();
     bool WindowLoop();
     void ClearWindow(float f1, float f2, float f3, float f4);
+    void Flush();
 
     std::shared_ptr<Sprite> MakeSprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture);
     std::shared_ptr<Texture> MakeTexture(const std::string& path);

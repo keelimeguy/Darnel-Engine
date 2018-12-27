@@ -7,7 +7,8 @@ namespace darnel {
     enum EventType {
         None = 0, KeyPressed, KeyReleased, AppTick, AppUpdate, AppRender,
         MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled,
-        WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved
+        MouseEnter, MouseLeave, WindowClose, WindowResize, WindowFocus,
+        WindowLostFocus, WindowMoved
     };
 
     class Event {

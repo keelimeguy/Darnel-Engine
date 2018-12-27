@@ -1,9 +1,9 @@
 #include "TestSpriteSheet.h"
 
-#include "Darnel.h"
 #include "SpriteSheet.h"
 #include "Sprite.h"
 
+#include "Darnel.h"
 #include <imgui.h>
 
 #include <glm/glm.hpp>
@@ -46,6 +46,7 @@ namespace test {
     }
 
     void TestSpriteSheet::OnRender() {
+        darnel::ClearWindow(0.0f, 0.0f, 0.0f, 1.0f);
         for (int i = 0; i < m_slices*m_slices; ++i)
             m_sprites[i]->Draw(m_proj_view);
     }

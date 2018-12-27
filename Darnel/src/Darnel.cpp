@@ -1,6 +1,7 @@
 #include "CoreFramework.h"
 #include "OpenGL3Framework.h"
 
+#include "Darnel.h"
 #include "Sprite.h"
 #include "Texture.h"
 
@@ -13,40 +14,61 @@
 #include <memory>
 
 static std::unique_ptr<darnel::CoreFramework> gs_Framework = std::make_unique<darnel::OpenGL3Framework>();
-static darnel::Window* gs_curWindow;
 
 namespace darnel {
     bool Init(int width, int height, std::string name) {
         Window* window = gs_Framework->Init(width, height, name);
-        if (window == NULL) {
+        if (window == nullptr) {
             gs_Framework->Terminate();
             return false;
         }
 
         if (!window->IsValid()) return false;
-        gs_curWindow = window;
         return true;
     }
 
     bool CreateWindow(int width, int height, std::string name) {
         Window* window = gs_Framework->CreateWindow(width, height, name);
-        if (!window->IsValid()) return false;
-
-        gs_curWindow = window;
-        gs_curWindow->MakeActive();
+        if (window == nullptr || !window->IsValid()) return false;
         return true;
     }
 
+    bool CloseWindow(std::string name) {
+        Window* window = gs_Framework->GetWindow(name);
+        if (window == nullptr || !window->IsValid()) return false;
+        window->Close();
+        return true;
+    }
+
+    bool SetWindowContext(std::string name, bool flush) {
+        Window* window = gs_Framework->GetWindow(name);
+        if (window == nullptr || !window->IsValid()) return false;
+
+        if (flush) Flush();
+        window->MakeActiveContext();
+        return true;
+    }
+
+    std::string GetActiveWindow() {
+        return gs_Framework->GetActiveWindow()->GetName();
+    }
+
     void Terminate() {
-        return gs_Framework->Terminate();
+        gs_Framework->Terminate();
+    }
+
+    void Flush() {
+        gs_Framework->GetActiveWindow()->OnRender();
     }
 
     bool WindowLoop() {
-        return gs_Framework->WindowLoop(gs_curWindow);
+        gs_Framework->PollEvents();
+        if (!gs_Framework->IsRunning()) return false;
+        return true;
     }
 
     void ClearWindow(float f1, float f2, float f3, float f4) {
-        gs_curWindow->Clear(f1, f2, f3, f4);
+        gs_Framework->GetActiveWindow()->Clear(f1, f2, f3, f4);
     }
 
     std::shared_ptr<Sprite> MakeSprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture) {
@@ -70,7 +92,7 @@ namespace darnel {
     }
 
     void ImGui_Init() {
-        gs_Framework->ImGuiInit(gs_curWindow);
+        gs_Framework->ImGuiInit();
     }
 
     void ImGui_NewFrame() {

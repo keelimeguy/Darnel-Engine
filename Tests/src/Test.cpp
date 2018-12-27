@@ -1,4 +1,6 @@
 #include "Test.h"
+
+#include "Darnel.h"
 #include <imgui.h>
 
 namespace test {
@@ -7,6 +9,10 @@ namespace test {
 
     TestMenu::TestMenu(Test*& currentTest)
         : m_currentTest(currentTest) {
+    }
+
+    void TestMenu::OnRender() {
+        darnel::ClearWindow(0.0f, 0.0f, 0.0f, 1.0f);
     }
 
     void TestMenu::OnImGuiRender() {

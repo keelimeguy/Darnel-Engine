@@ -11,16 +11,16 @@
 
 namespace darnel {
     OpenGL3Window::OpenGL3Window(int width, int height, std::string name)
-        : m_Width(width), m_Height(height)
+        : Window(width, height, name)
     {
-        m_window = glfwCreateWindow(width, height, name.c_str(), nullptr, nullptr);
-        m_valid = (m_window != NULL);
+        m_Window = glfwCreateWindow(width, height, name.c_str(), nullptr, nullptr);
+        m_Valid = (m_Window != NULL);
 
-        if (m_valid) {
-            glfwGetWindowPos(m_window, &m_XPos, &m_YPos);
-            glfwSetWindowUserPointer(m_window, this);
+        if (m_Valid) {
+            glfwGetWindowPos(m_Window, &m_XPos, &m_YPos);
+            glfwSetWindowUserPointer(m_Window, this);
 
-            glfwSetWindowSizeCallback(m_window, [](GLFWwindow* wnd, int width, int height) {
+            glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* wnd, int width, int height) {
                 OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
                 window.m_Width = width;
                 window.m_Height = height;
@@ -29,13 +29,13 @@ namespace darnel {
                 window.m_EventCallback(event);
             });
 
-            glfwSetWindowCloseCallback(m_window, [](GLFWwindow* wnd) {
+            glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* wnd) {
                 OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
                 WindowCloseEvent event;
                 window.m_EventCallback(event);
             });
 
-            glfwSetWindowPosCallback(m_window, [](GLFWwindow* wnd, int xPos, int yPos) {
+            glfwSetWindowPosCallback(m_Window, [](GLFWwindow* wnd, int xPos, int yPos) {
                 OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
                 int xOffset = xPos - window.m_XPos;
                 int yOffset = yPos - window.m_YPos;
@@ -45,7 +45,7 @@ namespace darnel {
                 window.m_EventCallback(event);
             });
 
-            glfwSetWindowFocusCallback(m_window, [](GLFWwindow* wnd, int focused) {
+            glfwSetWindowFocusCallback(m_Window, [](GLFWwindow* wnd, int focused) {
                 OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
 
                 switch (focused) {
@@ -64,7 +64,7 @@ namespace darnel {
                 }
             });
 
-            glfwSetKeyCallback(m_window, [](GLFWwindow* wnd, int key, int scancode, int action, int mods) {
+            glfwSetKeyCallback(m_Window, [](GLFWwindow* wnd, int key, int scancode, int action, int mods) {
                 OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
 
                 switch (action) {
@@ -89,7 +89,7 @@ namespace darnel {
                 }
             });
 
-            glfwSetMouseButtonCallback(m_window, [](GLFWwindow* wnd, int button, int action, int mods) {
+            glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* wnd, int button, int action, int mods) {
                 OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
 
                 switch (action) {
@@ -108,34 +108,54 @@ namespace darnel {
                 }
             });
 
-            glfwSetScrollCallback(m_window, [](GLFWwindow* wnd, double xOffset, double yOffset) {
+            glfwSetScrollCallback(m_Window, [](GLFWwindow* wnd, double xOffset, double yOffset) {
                 OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
 
                 MouseScrolledEvent event((float)xOffset, (float)yOffset);
                 window.m_EventCallback(event);
             });
 
-            glfwSetCursorPosCallback(m_window, [](GLFWwindow* wnd, double xPos, double yPos) {
+            glfwSetCursorPosCallback(m_Window, [](GLFWwindow* wnd, double xPos, double yPos) {
                 OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
 
                 MouseMovedEvent event((float)xPos, (float)yPos);
                 window.m_EventCallback(event);
             });
+
+            glfwSetCursorEnterCallback(m_Window, [](GLFWwindow* wnd, int entered) {
+                OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
+
+                if (entered) {
+                    MouseEnterEvent event;
+                    window.m_EventCallback(event);
+                } else {
+                    MouseLeaveEvent event;
+                    window.m_EventCallback(event);
+                }
+            });
         }
     }
 
     OpenGL3Window::~OpenGL3Window() {
-        glfwDestroyWindow(m_window);
+        if (m_Window) glfwDestroyWindow(m_Window);
     }
 
-    void OpenGL3Window::OnUpdate() {
-        glfwPollEvents();
-        glfwSwapBuffers(m_window);
+    void OpenGL3Window::OnRender() {
+        glfwSwapBuffers(m_Window);
     }
 
-    void OpenGL3Window::MakeActive() {
-        glfwMakeContextCurrent(m_window);
-        glfwSwapInterval(1); // VSync enabled
+    void OpenGL3Window::Close() {
+        WindowCloseEvent event;
+        m_EventCallback(event);
+    }
+
+    void OpenGL3Window::MakeActiveContext() {
+        glfwMakeContextCurrent(m_Window);
+        // glfwSwapInterval(1);
+    }
+
+    void OpenGL3Window::SetFocus() {
+        glfwFocusWindow(m_Window);
     }
 
     void OpenGL3Window::Clear(float f0, float f1, float f2, float f3) {

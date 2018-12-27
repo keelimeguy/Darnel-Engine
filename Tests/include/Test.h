@@ -40,6 +40,7 @@ namespace test {
     public:
         TestMenu(Test*& currentTest);
 
+        void OnRender() override;
         void OnImGuiRender() override;
 
         template <typename T>

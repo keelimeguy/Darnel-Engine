@@ -1,9 +1,9 @@
 #include "TestSprite.h"
 
-#include "Darnel.h"
 #include "Sprite.h"
 #include "Texture.h"
 
+#include "Darnel.h"
 #include <imgui.h>
 
 #include <glm/glm.hpp>
@@ -26,6 +26,7 @@ namespace test {
     }
 
     void TestSprite::OnRender() {
+        darnel::ClearWindow(0.0f, 0.0f, 0.0f, 1.0f);
         m_star1->Draw(m_proj_view);
         m_star2->Draw(m_proj_view);
         m_color1->Draw(m_proj_view);

@@ -86,4 +86,22 @@ namespace darnel {
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char* GetName() const override { return "MouseButtonReleasedEvent"; };
     };
+
+    class MouseEnterEvent : public Event {
+    public:
+        MouseEnterEvent() {}
+
+        static EventType GetStaticType() { return EventType::MouseEnter; }
+        virtual EventType GetEventType() const override { return GetStaticType(); }
+        virtual const char* GetName() const override { return "MouseEnterEvent"; };
+    };
+
+    class MouseLeaveEvent : public Event {
+    public:
+        MouseLeaveEvent() {}
+
+        static EventType GetStaticType() { return EventType::MouseLeave; }
+        virtual EventType GetEventType() const override { return GetStaticType(); }
+        virtual const char* GetName() const override { return "MouseLeaveEvent"; };
+    };
 }

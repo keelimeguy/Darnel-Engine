@@ -4,6 +4,7 @@
 #include "TestClearColor.h"
 #include "TestSprite.h"
 #include "TestSpriteSheet.h"
+#include "TestMultiWindow.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -14,7 +15,6 @@
 
 int main() {
     if (!darnel::Init(640, 480, "Darnel Window")) return -1;
-
     {
         ImGui::CreateContext();
         darnel::ImGui_Init();
@@ -28,10 +28,9 @@ int main() {
         testMenu->RegisterTest<test::TestClearColor>("Clear Color");
         testMenu->RegisterTest<test::TestSprite>("Sprite");
         testMenu->RegisterTest<test::TestSpriteSheet>("SpriteSheet");
+        testMenu->RegisterTest<test::TestMultiWindow>("MultiWindow");
 
-        while (!darnel::WindowLoop()) {
-            darnel::ClearWindow(0.0f, 0.0f, 0.0f, 1.0f);
-
+        while (darnel::WindowLoop()) {
             darnel::ImGui_NewFrame();
             ImGui::NewFrame();
 
@@ -49,6 +48,7 @@ int main() {
 
             ImGui::Render();
             darnel::ImGui_RenderDrawData(ImGui::GetDrawData());
+            darnel::Flush();
         }
 
         if (currentTest != testMenu)

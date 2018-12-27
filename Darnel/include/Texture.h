@@ -10,6 +10,7 @@ namespace darnel {
             : m_LocalBuffer(buffer), m_Width(width), m_Height(height), m_BPP(bpp) {}
         Texture(unsigned char r, unsigned char g, unsigned char b) {}
         Texture(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {}
+        virtual ~Texture() {}
 
         inline int GetWidth() const { return m_Width; }
         inline int GetHeight() const { return m_Height; }
