@@ -38,7 +38,7 @@ endif()
 
 file( COPY resources DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} )
 
-if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
+if( CMAKE_GENERATOR MATCHES "Visual Studio*" AND DX12_GLOBAL_ENABLE )
     add_executable( test_darneldx12 WIN32 "" )
     target_sources( test_darneldx12
         PRIVATE

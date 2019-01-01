@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.13.2 )
 
-if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
+if( CMAKE_GENERATOR MATCHES "Visual Studio*" AND DX12_GLOBAL_ENABLE )
     add_subdirectory( DirectXTex EXCLUDE_FROM_ALL )
     add_subdirectory( DX12Lib EXCLUDE_FROM_ALL )
 endif()

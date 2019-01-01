@@ -7,7 +7,7 @@ project( Darnel LANGUAGES CXX C )
 option ( GLEW_MAKE_WORKAROUND_ENABLE "When making GLEW/auto, perform `make ext` separately" ON )
 option ( GLEW_GLEW_C_NEWLINE_FIX_ENABLE "After making GLEW/auto, fix newline issues within strings in glew.c" ON )
 
-if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
+if( CMAKE_GENERATOR MATCHES "Visual Studio*" AND DX12_GLOBAL_ENABLE )
     option ( IMGUI_WIN32_ENABLE "Imgui Win32 implementation" ON )
     option ( IMGUI_DX12_ENABLE "Imgui DirectX12 implementation" ON )
 else()
@@ -32,8 +32,16 @@ add_subdirectory( Darnel )
 add_subdirectory( Tests )
 
 if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
-    # add_subdirectory( SampleDX12 )
-    set_directory_properties( PROPERTIES
-        VS_STARTUP_PROJECT test_darneldx12
-    )
+    if (DX12_GLOBAL_ENABLE)
+        if (DX12_SAMPLE_ENABLE)
+            add_subdirectory( SampleDX12 )
+        endif()
+        set_directory_properties( PROPERTIES
+            VS_STARTUP_PROJECT test_darneldx12
+        )
+    else()
+        set_directory_properties( PROPERTIES
+            VS_STARTUP_PROJECT test_darnel
+        )
+    endif()
 endif()
