@@ -31,14 +31,14 @@ target_link_libraries( test_darnel
 )
 
 # Tell Visual Studio to run through console (not as a Windows app)
-if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
+if( WINDOWS_VS )
     set( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:CONSOLE" )
     file( COPY resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR} )
 endif()
 
 file( COPY resources DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} )
 
-if( CMAKE_GENERATOR MATCHES "Visual Studio*" AND DX12_GLOBAL_ENABLE )
+if( WINDOWS_VS AND DX12_GLOBAL_ENABLE )
     add_executable( test_darneldx12 WIN32 "" )
     target_sources( test_darneldx12
         PRIVATE

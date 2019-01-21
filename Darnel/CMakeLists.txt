@@ -71,7 +71,7 @@ source_group( TREE ${CMAKE_CURRENT_LIST_DIR}/include PREFIX "Header Files"
         ${OPENGL3_HEADER_FILES}
 )
 
-if( CMAKE_GENERATOR MATCHES "Visual Studio*" AND DX12_GLOBAL_ENABLE )
+if( WINDOWS_VS AND DX12_GLOBAL_ENABLE )
     target_include_directories( darnel
         PUBLIC
             ${CMAKE_CURRENT_LIST_DIR}/include
@@ -110,7 +110,7 @@ endif()
 
 get_target_property( DARNEL_INCLUDE darnel INCLUDE_DIRECTORIES )
 get_target_property( DARNEL_INTERFACE_INCLUDE darnel INTERFACE_INCLUDE_DIRECTORIES )
-get_target_property( GLM_INCLUDE glm_static INCLUDE_DIRECTORIES )
+get_target_property( GLM_INCLUDE glm_static INTERFACE_INCLUDE_DIRECTORIES )
 get_target_property( IMGUI_INCLUDE imgui INTERFACE_INCLUDE_DIRECTORIES )
 
 list( APPEND DARNEL_INCLUDE ${GLM_INCLUDE} )
