@@ -7,13 +7,16 @@ The beginnings of the Darnel Engine. Not sure what it will do as of yet, but it 
 
 First, setup "PreLoad.cmake" to your liking..
 
+Then, populate "vendor/<lib>/bin" with library file and include directory for submoduled vendor libraries you have prebuilt. Otherwise, the source code will be downloaded and built.
+
 Then run:
 - `mkdir -p build`
 - `cd build`
 - `cmake ..`
+- `cmake --build .`
 
+NOTE: running install targets is undefined
 
 ## TODO
 - Add parent/child functionality to windows
-- Search locally for prebuilt vendor libraries first (before downloading submodules and building from source)
 - Separate platform specific build options (so far only assumes windows)
