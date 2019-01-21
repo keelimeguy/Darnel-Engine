@@ -1,6 +1,8 @@
 cmake_minimum_required( VERSION 3.13.2 )
 
 if( NOT ${GLEW_LIBRARY_RELEASE} MATCHES "GLEW_LIBRARY_RELEASE-NOTFOUND" )
+    find_package (OpenGL REQUIRED)
+
     add_library( glew_s INTERFACE )
     target_include_directories( glew_s
         INTERFACE ${CMAKE_CURRENT_LIST_DIR}/bin/include
@@ -10,7 +12,9 @@ if( NOT ${GLEW_LIBRARY_RELEASE} MATCHES "GLEW_LIBRARY_RELEASE-NOTFOUND" )
     get_filename_component( ITEM_NAME ${GLEW_LIBRARY_RELEASE} NAME )
 
     target_link_libraries( glew_s
-        INTERFACE ${GLEW_LIBRARY_RELEASE}
+        INTERFACE
+            ${GLEW_LIBRARY_RELEASE}
+            ${OPENGL_LIBRARIES}
     )
 
 else()
@@ -59,6 +63,14 @@ else()
     )
     add_custom_target( glew_copy_files ALL
         DEPENDS ${CMAKE_CURRENT_LIST_DIR}/bin/.dummy
+    )
+
+    get_target_property( GLEW_INTERFACE_INCLUDE glew_s INTERFACE_INCLUDE_DIRECTORIES )
+
+    list( APPEND GLEW_INTERFACE_INCLUDE ${CMAKE_CURRENT_LIST_DIR}/glew/include )
+
+    set_target_properties( glew_s
+        PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${GLEW_INTERFACE_INCLUDE}"
     )
 
 endif()
