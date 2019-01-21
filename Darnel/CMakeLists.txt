@@ -9,11 +9,11 @@ set( HEADER_FILES
     include/SpriteSheet.h
     include/Texture.h
     include/Window.h
-    include/Event.h
-    include/ApplicationEvent.h
-    include/KeyEvent.h
-    include/MouseEvent.h
-    include/WindowEvent.h
+    include/Event/Event.h
+    include/Event/ApplicationEvent.h
+    include/Event/KeyEvent.h
+    include/Event/MouseEvent.h
+    include/Event/WindowEvent.h
 )
 
 set( SRC_FILES
@@ -71,45 +71,30 @@ source_group( TREE ${CMAKE_CURRENT_LIST_DIR}/include PREFIX "Header Files"
         ${OPENGL3_HEADER_FILES}
 )
 
-if( CMAKE_GENERATOR MATCHES "Visual Studio*" )
-    if( CMAKE_GENERATOR MATCHES "Visual Studio*" AND DX12_GLOBAL_ENABLE )
-        target_include_directories( darnel
-            PUBLIC
-                ${CMAKE_CURRENT_LIST_DIR}/include
-                ${CMAKE_CURRENT_LIST_DIR}/include/DirectX12
-            PRIVATE
-                ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
-        )
+if( CMAKE_GENERATOR MATCHES "Visual Studio*" AND DX12_GLOBAL_ENABLE )
+    target_include_directories( darnel
+        PUBLIC
+            ${CMAKE_CURRENT_LIST_DIR}/include
+            ${CMAKE_CURRENT_LIST_DIR}/include/Event
+            ${CMAKE_CURRENT_LIST_DIR}/include/DirectX12
+        PRIVATE
+            ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
+    )
 
-        target_sources( darnel
-            PRIVATE
-                ${HEADER_FILES}
-                ${SRC_FILES}
-                ${OPENGL3_HEADER_FILES}
-                ${OPENGL3_SRC_FILES}
-                ${DIRECTX12_HEADER_FILES}
-                ${DIRECTX12_SRC_FILES}
-        )
-    else()
-        target_include_directories( darnel
-            PUBLIC
-                ${CMAKE_CURRENT_LIST_DIR}/include
-            PRIVATE
-                ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
-        )
-
-        target_sources( darnel
-            PRIVATE
-                ${HEADER_FILES}
-                ${SRC_FILES}
-                ${OPENGL3_HEADER_FILES}
-                ${OPENGL3_SRC_FILES}
-        )
-    endif()
+    target_sources( darnel
+        PRIVATE
+            ${HEADER_FILES}
+            ${SRC_FILES}
+            ${OPENGL3_HEADER_FILES}
+            ${OPENGL3_SRC_FILES}
+            ${DIRECTX12_HEADER_FILES}
+            ${DIRECTX12_SRC_FILES}
+    )
 else()
     target_include_directories( darnel
         PUBLIC
             ${CMAKE_CURRENT_LIST_DIR}/include
+            ${CMAKE_CURRENT_LIST_DIR}/include/Event
         PRIVATE
             ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
     )
