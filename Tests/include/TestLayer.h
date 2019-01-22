@@ -5,6 +5,7 @@
 #include "TestClearColor.h"
 #include "TestSprite.h"
 #include "TestSpriteSheet.h"
+#include "TestMultiWindow.h"
 
 namespace test {
     class TestLayer : public darnel::ImGuiLayer {
@@ -14,8 +15,9 @@ namespace test {
         {
             m_CurrentTest = &m_TestMenu;
             m_TestMenu.RegisterTest<test::TestClearColor>("Clear Color");
-            m_TestMenu.RegisterTest<test::TestSprite>("Test Sprite");
-            m_TestMenu.RegisterTest<test::TestSpriteSheet>("Test SpriteSheet");
+            m_TestMenu.RegisterTest<test::TestSprite>("Sprites");
+            m_TestMenu.RegisterTest<test::TestSpriteSheet>("SpriteSheet");
+            m_TestMenu.RegisterTest<test::TestMultiWindow>("Multiple Windows");
         }
 
         void Render() override {

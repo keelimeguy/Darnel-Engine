@@ -6,7 +6,9 @@
 namespace test {
     class TestApp : public darnel::Application {
     public:
-        TestApp() {
+        TestApp()
+            : darnel::Application("Darnel Test App")
+        {
             PushOverlay(new TestLayer());
         }
     };

@@ -63,7 +63,7 @@ namespace darnel {
         s_contextCache[name.str()] = m_context;
     }
 
-	OpenGL3Sprite::OpenGL3Sprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture)
+    OpenGL3Sprite::OpenGL3Sprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture)
         : Sprite(x, y, width, height, texture)
     {
         InitContext(width, height);

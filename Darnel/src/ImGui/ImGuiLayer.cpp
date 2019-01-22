@@ -41,8 +41,9 @@ namespace darnel {
 
     void ImGuiLayer::OnUpdate() {
         ImGuiIO& io = ImGui::GetIO();
-        Application& app = Application::Get();
-        io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+        auto wnd= Application::Get()->GetWindow().lock();
+        DARNEL_ASSERT(wnd, "No active window");
+        io.DisplaySize = ImVec2(wnd->GetWidth(), wnd->GetHeight());
 
         float time = (float)glfwGetTime();
         io.DeltaTime = m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);

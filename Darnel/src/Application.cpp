@@ -3,19 +3,37 @@
 namespace darnel {
     Application* Application::s_Instance = nullptr;
 
-    Application::Application() {
+    Application::Application(std::string name, unsigned int width, unsigned int height) {
         DARNEL_ASSERT(!s_Instance, "Application already exists!");
         s_Instance = this;
 
-        m_ActiveWindow = Window::Create();
-        m_ActiveWindow->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1, m_ActiveWindow));
-
-        m_Windows.push_back(std::unique_ptr<Window>(m_ActiveWindow));
+        m_Windows.push_back(Window::Create(name, width, height));
+        m_ActiveWindow = m_Windows.back().get();
+        m_ActiveWindow->AddEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1, m_ActiveWindow));
     }
 
     Application::~Application() {
-        m_Windows.clear();
-        Renderer::Terminate();
+        Renderer::Terminate(&m_Windows);
+    }
+
+    std::weak_ptr<Window> Application::NewWindow(std::string name, unsigned int width, unsigned int height) {
+        m_Windows.push_back(Window::Create(name, width, height));
+        auto window = m_Windows.back();
+        window->AddEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1, window.get()));
+
+        m_ActiveWindow->Focus();
+
+        return window;
+    }
+
+    std::weak_ptr<Window> Application::NewChildWindow(Window* parent, std::string name, unsigned int width, unsigned int height) {
+        m_Windows.push_back(parent->MakeChild(name, width, height));
+        auto window = m_Windows.back();
+        window->AddEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1, window.get()));
+
+        m_ActiveWindow->Focus();
+
+        return window;
     }
 
     void Application::PushLayer(Layer* layer) {
@@ -60,22 +78,37 @@ namespace darnel {
     bool Application::OnWindowClose(WindowCloseEvent& e, Window* window) {
         // We need a context still active during termination,
         // so don't delete the window if it is the last one
-        if (m_Windows.size() == 1 && m_Windows[0].get() == window)
+        if (m_Windows.size() == 1) {
+            DARNEL_ASSERT(m_Windows[0].get() == window, "Closing unknown window");
             m_Running = false;
 
-        else {
-            m_Windows.erase(std::find_if(m_Windows.begin(), m_Windows.end(),
+        } else {
+            if (window == m_ActiveWindow) {
+                m_ActiveWindow = nullptr;
+            }
+
+            auto it = std::find_if(m_Windows.begin(), m_Windows.end(),
                 [window](auto& wnd) { return wnd.get() == window; }
-            ));
-            m_ActiveWindow = m_Windows.back().get();
+            );
+            DARNEL_ASSERT(it != m_Windows.end(), "Closing unknown window");
+            DARNEL_ASSERT(it->get() == window, "Found wrong window");
+
+            auto wnd = *it; // Prevents immediate deletion of child windows
+            m_Windows.erase(it);
+
+            if (!m_ActiveWindow) m_ActiveWindow = m_Windows.back().get();
         }
 
         return true;
     }
 
     bool Application::OnWindowFocus(WindowFocusEvent& e, Window* window) {
-        m_ActiveWindow = window;
-        // window->MakeActiveContext();
+        auto it = std::find_if(m_Windows.begin(), m_Windows.end(),
+            [window](auto& wnd) { return wnd.get() == window; }
+        );
+        DARNEL_ASSERT(it != m_Windows.end(), "Set focus on unknown window");
+
+        m_ActiveWindow = it->get();
         return true;
     }
 }

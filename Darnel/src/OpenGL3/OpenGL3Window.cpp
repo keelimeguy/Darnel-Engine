@@ -10,8 +10,8 @@
 namespace darnel {
     static bool s_GLFWInitialized = false;
 
-    Window* Window::Create(std::string name, unsigned int width, unsigned int height) {
-        return new OpenGL3Window(name, width, height);
+    std::shared_ptr<Window> Window::Create(std::string name, unsigned int width, unsigned int height) {
+        return std::shared_ptr<Window>(new OpenGL3Window(name, width, height));
     }
 
     OpenGL3Window::OpenGL3Window(std::string name, unsigned int width, unsigned int height)
@@ -38,13 +38,13 @@ namespace darnel {
             window.m_Height = height;
 
             WindowResizeEvent event(width, height);
-            window.m_EventCallback(event);
+            window.Broadcast(event);
         });
 
         glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* wnd) {
             OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
             WindowCloseEvent event;
-            window.m_EventCallback(event);
+            window.Broadcast(event);
         });
 
         glfwSetWindowPosCallback(m_Window, [](GLFWwindow* wnd, int xPos, int yPos) {
@@ -54,7 +54,7 @@ namespace darnel {
             window.m_XPos = xPos;
             window.m_YPos = yPos;
             WindowMovedEvent event(xOffset, yOffset, xPos, yPos);
-            window.m_EventCallback(event);
+            window.Broadcast(event);
         });
 
         glfwSetWindowFocusCallback(m_Window, [](GLFWwindow* wnd, int focused) {
@@ -64,13 +64,13 @@ namespace darnel {
                 case GLFW_TRUE:
                 {
                     WindowFocusEvent event;
-                    window.m_EventCallback(event);
+                    window.Broadcast(event);
                     break;
                 }
                 case GLFW_FALSE:
                 {
                     WindowLostFocusEvent event;
-                    window.m_EventCallback(event);
+                    window.Broadcast(event);
                     break;
                 }
             }
@@ -83,19 +83,19 @@ namespace darnel {
                 case GLFW_PRESS:
                 {
                     KeyPressedEvent event(key, 0);
-                    window.m_EventCallback(event);
+                    window.Broadcast(event);
                     break;
                 }
                 case GLFW_RELEASE:
                 {
                     KeyReleasedEvent event(key);
-                    window.m_EventCallback(event);
+                    window.Broadcast(event);
                     break;
                 }
                 case GLFW_REPEAT:
                 {
                     KeyPressedEvent event(key, 1);
-                    window.m_EventCallback(event);
+                    window.Broadcast(event);
                     break;
                 }
             }
@@ -105,7 +105,7 @@ namespace darnel {
             OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
 
             KeyTypedEvent event(key);
-            window.m_EventCallback(event);
+            window.Broadcast(event);
         });
 
         glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* wnd, int button, int action, int mods) {
@@ -115,13 +115,13 @@ namespace darnel {
                 case GLFW_PRESS:
                 {
                     MouseButtonPressedEvent event(button);
-                    window.m_EventCallback(event);
+                    window.Broadcast(event);
                     break;
                 }
                 case GLFW_RELEASE:
                 {
                     MouseButtonReleasedEvent event(button);
-                    window.m_EventCallback(event);
+                    window.Broadcast(event);
                     break;
                 }
             }
@@ -131,14 +131,14 @@ namespace darnel {
             OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
 
             MouseScrolledEvent event((float)xOffset, (float)yOffset);
-            window.m_EventCallback(event);
+            window.Broadcast(event);
         });
 
         glfwSetCursorPosCallback(m_Window, [](GLFWwindow* wnd, double xPos, double yPos) {
             OpenGL3Window& window = *(OpenGL3Window*)glfwGetWindowUserPointer(wnd);
 
             MouseMovedEvent event((float)xPos, (float)yPos);
-            window.m_EventCallback(event);
+            window.Broadcast(event);
         });
 
         glfwSetCursorEnterCallback(m_Window, [](GLFWwindow* wnd, int entered) {
@@ -146,10 +146,10 @@ namespace darnel {
 
             if (entered) {
                 MouseEnterEvent event;
-                window.m_EventCallback(event);
+                window.Broadcast(event);
             } else {
                 MouseLeaveEvent event;
-                window.m_EventCallback(event);
+                window.Broadcast(event);
             }
         });
     }
@@ -159,13 +159,13 @@ namespace darnel {
     }
 
     void OpenGL3Window::OnUpdate() {
-        glfwPollEvents();
         glfwSwapBuffers(m_Window);
+        glfwPollEvents();
     }
 
     void OpenGL3Window::Close() {
         WindowCloseEvent event;
-        m_EventCallback(event);
+        Broadcast(event);
     }
 
     // void OpenGL3Window::MakeActiveContext() {
@@ -174,6 +174,7 @@ namespace darnel {
     // }
 
     void OpenGL3Window::Focus() {
+        glfwMakeContextCurrent(m_Window);
         glfwFocusWindow(m_Window);
     }
 }

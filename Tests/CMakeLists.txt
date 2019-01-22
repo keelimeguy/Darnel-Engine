@@ -11,11 +11,13 @@ target_sources( test_darnel
         include/TestApp.h
         include/TestClearColor.h
         include/TestLayer.h
+        include/TestMultiWindow.h
         include/TestSprite.h
         include/TestSpriteSheet.h
         src/main.cpp
         src/Test.cpp
         src/TestClearColor.cpp
+        src/TestMultiWindow.cpp
         src/TestSprite.cpp
         src/TestSpriteSheet.cpp
 )

@@ -14,8 +14,9 @@ namespace test {
 
     void TestMenu::OnImGuiRender() {
         for (auto& test : m_Tests) {
-            if (ImGui::Button(test->Name().c_str()))
+            if (ImGui::Button(test->Name().c_str())) {
                 m_CurrentTest = test->Callback()(test->m_choice);
+            }
             if (test->NumSettings()) {
                 ImGui::SameLine();
                 ImGui::Combo("Setting", &(test->m_choice), test->Settings(), test->NumSettings());

@@ -8,9 +8,12 @@ namespace darnel {
         GLCALL(glClear(GL_COLOR_BUFFER_BIT));
     }
 
-    void Renderer::Terminate() {
+    void Renderer::Terminate(std::vector<std::shared_ptr<Window>>* windows) {
         OpenGL3Sprite::SpriteContext::s_ib = nullptr;
         OpenGL3Sprite::SpriteContext::s_shader = nullptr;
+        if (windows) {
+            windows->clear();
+        }
         glfwTerminate();
     }
 
