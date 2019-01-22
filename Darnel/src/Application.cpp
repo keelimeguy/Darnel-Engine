@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "OpenGL3Renderer.h"
 
 namespace darnel {
     Application* Application::s_Instance = nullptr;
@@ -46,7 +45,7 @@ namespace darnel {
 
     void Application::Run() {
         while (m_Running) {
-            OpenGL3Renderer::Clear(1, 0, 1, 1);
+            OpenGL3Renderer::Clear();
 
             for (Layer* layer : m_LayerStack)
                 layer->OnUpdate();

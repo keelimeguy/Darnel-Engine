@@ -6,6 +6,8 @@
 #include "MouseEvent.h"
 #include "WindowEvent.h"
 
+#include "imgui.h"
+
 namespace darnel {
     class ImGuiLayer : public Layer {
     public:

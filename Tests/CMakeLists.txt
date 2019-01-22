@@ -7,8 +7,13 @@ add_executable( test_darnel WIN32 "" )
 
 target_sources( test_darnel
     PRIVATE
+        include/Test.h
         include/TestApp.h
+        include/TestClearColor.h
+        include/TestLayer.h
         src/main.cpp
+        src/Test.cpp
+        src/TestClearColor.cpp
 )
 
 target_include_directories( test_darnel
@@ -16,8 +21,7 @@ target_include_directories( test_darnel
 )
 
 target_link_libraries( test_darnel
-    PRIVATE
-        darnel
+    PRIVATE darnel
 )
 
 # Tell Visual Studio to run through console (not as a Windows app)

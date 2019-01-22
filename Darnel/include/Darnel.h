@@ -6,7 +6,4 @@
 #include "ImGuiLayer.h"
 
 namespace darnel {
-    void Init() {
-
-    }
 }

@@ -1,15 +1,17 @@
 #pragma once
 
 #include "Darnel.h"
+#include "TestLayer.h"
 
-class TestApp : public darnel::Application {
-public:
-    TestApp() {
-        // PushLayer();
-        PushOverlay(new darnel::ImGuiLayer());
-    }
-};
+namespace test {
+    class TestApp : public darnel::Application {
+    public:
+        TestApp() {
+            PushOverlay(new TestLayer());
+        }
+    };
+}
 
 darnel::Application* darnel::CreateApplication() {
-    return new TestApp();
+    return new test::TestApp();
 }

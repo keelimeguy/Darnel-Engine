@@ -23,7 +23,7 @@ namespace darnel {
     public:
         static GLFWwindow* Init(std::string name, unsigned int width, unsigned int height);
         static void Terminate();
-        static void Clear(float f0 = 0.0f, float f1 = 0.0f, float f2 = 0.0f, float f3 = 0.0f);
+        static void Clear(float f0 = 0.0f, float f1 = 0.0f, float f2 = 0.0f, float f3 = 1.0f);
         static void Draw(const VertexArray& va, const IndexBuffer& ib, const OpenGL3Shader& shader);
     };
 }
