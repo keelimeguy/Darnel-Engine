@@ -3,55 +3,49 @@ cmake_minimum_required( VERSION 3.13.2 )
 add_library( darnel STATIC "" )
 
 set( HEADER_FILES
-    include/CoreFramework.h
+    include/Application.h
+    include/Core.h
     include/Darnel.h
-    include/Sprite.h
-    include/SpriteSheet.h
-    include/Texture.h
+    include/Layer.h
+    include/LayerStack.h
     include/Window.h
-    include/Event/Event.h
     include/Event/ApplicationEvent.h
+    include/Event/Event.h
     include/Event/KeyEvent.h
     include/Event/MouseEvent.h
     include/Event/WindowEvent.h
+    include/ImGui/ImGuiLayer.h
 )
 
 set( SRC_FILES
-    src/Darnel.cpp
-    src/SpriteSheet.cpp
+    src/Application.cpp
+    src/LayerStack.cpp
+    src/ImGui/ImGuiLayer.cpp
 )
 
 set( DIRECTX12_HEADER_FILES
-    include/DirectX12/DirectX12Framework.h
-    include/DirectX12/DirectX12Window.h
-    include/DirectX12/DirectX12Renderer.h
 )
 set( DIRECTX12_SRC_FILES
-    src/DirectX12/DirectX12Framework.cpp
-    src/DirectX12/DirectX12Window.cpp
-    src/DirectX12/DirectX12Renderer.cpp
 )
 
 set( OPENGL3_HEADER_FILES
-    include/OpenGL3/OpenGL3Framework.h
-    include/OpenGL3/OpenGL3Window.h
     include/OpenGL3/IndexBuffer.h
     include/OpenGL3/OpenGL3Renderer.h
     include/OpenGL3/OpenGL3Shader.h
     include/OpenGL3/OpenGL3Sprite.h
     include/OpenGL3/OpenGL3Texture.h
+    include/OpenGL3/OpenGL3Window.h
     include/OpenGL3/VertexArray.h
     include/OpenGL3/VertexBuffer.h
     include/OpenGL3/VertexBufferLayout.h
 )
 set( OPENGL3_SRC_FILES
-    src/OpenGL3/OpenGL3Framework.cpp
-    src/OpenGL3/OpenGL3Window.cpp
     src/OpenGL3/IndexBuffer.cpp
     src/OpenGL3/OpenGL3Renderer.cpp
     src/OpenGL3/OpenGL3Shader.cpp
     src/OpenGL3/OpenGL3Sprite.cpp
     src/OpenGL3/OpenGL3Texture.cpp
+    src/OpenGL3/OpenGL3Window.cpp
     src/OpenGL3/VertexArray.cpp
     src/OpenGL3/VertexBuffer.cpp
     src/OpenGL3/VertexBufferLayout.cpp
@@ -76,8 +70,9 @@ if( WINDOWS_VS AND DX12_GLOBAL_ENABLE )
         PUBLIC
             ${CMAKE_CURRENT_LIST_DIR}/include
             ${CMAKE_CURRENT_LIST_DIR}/include/Event
-            ${CMAKE_CURRENT_LIST_DIR}/include/DirectX12
+            ${CMAKE_CURRENT_LIST_DIR}/include/ImGui
         PRIVATE
+            ${CMAKE_CURRENT_LIST_DIR}/include/DirectX12
             ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
     )
 
@@ -95,6 +90,7 @@ else()
         PUBLIC
             ${CMAKE_CURRENT_LIST_DIR}/include
             ${CMAKE_CURRENT_LIST_DIR}/include/Event
+            ${CMAKE_CURRENT_LIST_DIR}/include/ImGui
         PRIVATE
             ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
     )

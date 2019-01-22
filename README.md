@@ -2,7 +2,6 @@
 
 The beginnings of the Darnel Engine. Not sure what it will do as of yet, but it will probably be related to 3D/2D graphics, sound, games, and the like.
 
-
 ## Command line
 
 First, setup "PreLoad.cmake" to your liking..

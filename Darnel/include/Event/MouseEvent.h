@@ -22,6 +22,7 @@ namespace darnel {
         static EventType GetStaticType() { return EventType::MouseMoved; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char* GetName() const override { return "MouseMovedEvent"; };
+
     private:
         float m_MouseX, m_MouseY;
     };
@@ -43,6 +44,7 @@ namespace darnel {
         static EventType GetStaticType() { return EventType::MouseScrolled; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char* GetName() const override { return "MouseScrolledEvent"; };
+
     private:
         float m_XOffset, m_YOffset;
     };
@@ -50,6 +52,7 @@ namespace darnel {
     class MouseButtonEvent : public Event {
     public:
         inline int GetMouseButton() const { return m_Button; }
+
     protected:
         MouseButtonEvent(int button)
             : m_Button(button) {}

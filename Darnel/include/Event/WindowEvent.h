@@ -22,6 +22,7 @@ namespace darnel {
         static EventType GetStaticType() { return EventType::WindowResize; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char* GetName() const override { return "WindowResizeEvent"; };
+
     private:
         unsigned int m_Width, m_Height;
     };
@@ -54,6 +55,7 @@ namespace darnel {
         static EventType GetStaticType() { return EventType::WindowMoved; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char* GetName() const override { return "WindowMovedEvent"; };
+
     private:
         int m_XOffset, m_YOffset, m_XPos, m_YPos;
     };

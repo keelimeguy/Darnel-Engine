@@ -5,7 +5,7 @@
 
 namespace darnel {
     enum EventType {
-        None = 0, KeyPressed, KeyReleased, AppTick, AppUpdate, AppRender,
+        None = 0, KeyPressed, KeyReleased, KeyTyped, AppTick, AppUpdate, AppRender,
         MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled,
         MouseEnter, MouseLeave, WindowClose, WindowResize, WindowFocus,
         WindowLostFocus, WindowMoved
@@ -16,8 +16,12 @@ namespace darnel {
         virtual EventType GetEventType() const = 0;
         virtual const char* GetName() const = 0;
         virtual std::string ToString() const { return GetName(); }
+
+        bool inline IsHandled() const { return m_Handled; }
+
     protected:
         bool m_Handled = false;
+
     private:
         friend class EventDispatcher;
     };
@@ -34,6 +38,7 @@ namespace darnel {
             }
             return false;
         }
+
     private:
         Event& m_Event;
     };
