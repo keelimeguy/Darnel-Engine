@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace darnel {
     class AppTickEvent : public Event {
     public:

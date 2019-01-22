@@ -1,8 +1,6 @@
 #pragma once
 
-#include <string>
-#include <memory>
-
+#include "Core.h"
 #include "Texture.h"
 
 namespace darnel {

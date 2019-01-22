@@ -1,7 +1,19 @@
 #include "OpenGL3Renderer.h"
-#include <iostream>
+#include "OpenGL3Sprite.h"
+#include "Renderer.h"
 
 namespace darnel {
+    void Renderer::Clear(float f0, float f1, float f2, float f3) {
+        GLCALL(glClearColor(f0, f1, f2, f3));
+        GLCALL(glClear(GL_COLOR_BUFFER_BIT));
+    }
+
+    void Renderer::Terminate() {
+        OpenGL3Sprite::SpriteContext::s_ib = nullptr;
+        OpenGL3Sprite::SpriteContext::s_shader = nullptr;
+        glfwTerminate();
+    }
+
     static void glfw_error_callback(int error, const char* description) {
         fprintf(stderr, "Glfw Error %d: %s\n", error, description);
     }
@@ -40,17 +52,6 @@ namespace darnel {
         GLCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
         return window;
-    }
-
-    void OpenGL3Renderer::Terminate() {
-        // OpenGL3Sprite::SpriteContext::s_ib = nullptr;
-        // OpenGL3Sprite::SpriteContext::s_shader = nullptr;
-        glfwTerminate();
-    }
-
-    void OpenGL3Renderer::Clear(float f0, float f1, float f2, float f3) {
-        GLCALL(glClearColor(f0, f1, f2, f3));
-        GLCALL(glClear(GL_COLOR_BUFFER_BIT));
     }
 
     void OpenGL3Renderer::Draw(const VertexArray & va, const IndexBuffer & ib, const OpenGL3Shader & shader) {

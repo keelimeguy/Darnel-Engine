@@ -8,6 +8,7 @@ set( HEADER_FILES
     include/Darnel.h
     include/Layer.h
     include/LayerStack.h
+    include/Renderer.h
     include/Window.h
     include/Event/ApplicationEvent.h
     include/Event/Event.h

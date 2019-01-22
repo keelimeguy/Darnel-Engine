@@ -5,5 +5,8 @@
 
 #include "ImGuiLayer.h"
 
+#include "Sprite.h"
+#include "Texture.h"
+
 namespace darnel {
 }

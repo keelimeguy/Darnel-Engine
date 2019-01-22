@@ -15,7 +15,7 @@ namespace darnel {
 
     Application::~Application() {
         m_Windows.clear();
-        OpenGL3Renderer::Terminate();
+        Renderer::Terminate();
     }
 
     void Application::PushLayer(Layer* layer) {
@@ -45,7 +45,7 @@ namespace darnel {
 
     void Application::Run() {
         while (m_Running) {
-            OpenGL3Renderer::Clear();
+            Renderer::Clear();
 
             for (Layer* layer : m_LayerStack)
                 layer->OnUpdate();

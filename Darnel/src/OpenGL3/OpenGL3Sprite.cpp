@@ -16,6 +16,10 @@ namespace darnel {
     std::unique_ptr<OpenGL3Shader> OpenGL3Sprite::SpriteContext::s_shader;
     std::unordered_map<std::string, std::weak_ptr<OpenGL3Sprite::SpriteContext>> OpenGL3Sprite::s_contextCache;
 
+    std::shared_ptr<Sprite> Sprite::Create(float x, float y, float width, float height, std::shared_ptr<Texture> texture) {
+        return std::shared_ptr<Sprite>(new OpenGL3Sprite(x, y, width, height, texture));
+    }
+
     OpenGL3Sprite::SpriteContext::SpriteContext(float width, float height)
         : m_width(width), m_height(height)
     {

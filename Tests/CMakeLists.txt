@@ -11,9 +11,11 @@ target_sources( test_darnel
         include/TestApp.h
         include/TestClearColor.h
         include/TestLayer.h
+        include/TestSprite.h
         src/main.cpp
         src/Test.cpp
         src/TestClearColor.cpp
+        src/TestSprite.cpp
 )
 
 target_include_directories( test_darnel

@@ -1,9 +1,8 @@
 #include "ImGuiLayer.h"
 #include "Application.h"
 
-#include "imgui.h"
-#include "imgui_impl_opengl3.h"
-#include "GLFW/glfw3.h"
+#include <imgui_impl_opengl3.h>
+#include <GLFW/glfw3.h>
 
 namespace darnel {
 

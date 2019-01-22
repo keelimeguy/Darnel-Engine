@@ -5,9 +5,7 @@
 #include "Window.h"
 #include "Event.h"
 #include "WindowEvent.h"
-
-// TODO: separate into own Renderer.h
-#include "OpenGL3/OpenGL3Renderer.h"
+#include "Renderer.h"
 
 namespace darnel {
     class Application {

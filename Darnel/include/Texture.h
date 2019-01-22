@@ -1,10 +1,15 @@
 #pragma once
 
-#include <string>
+#include "Core.h"
 
 namespace darnel {
     class Texture {
     public:
+        static std::shared_ptr<Texture> Create(const std::string& path);
+        static std::shared_ptr<Texture> Create(unsigned char* buffer, int width, int height, int bpp);
+        static std::shared_ptr<Texture> Create(unsigned char r, unsigned char g, unsigned char b);
+        static std::shared_ptr<Texture> Create(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+
         Texture(const std::string& path) {}
         Texture(unsigned char* buffer, int width, int height, int bpp)
             : m_LocalBuffer(buffer), m_Width(width), m_Height(height), m_BPP(bpp) {}

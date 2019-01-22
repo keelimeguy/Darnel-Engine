@@ -6,7 +6,8 @@
 namespace darnel {
     class Window {
     public:
-        static Window* Create( std::string name = "New Window",
+        static Window* Create(
+            std::string name = "New Window",
             unsigned int width = 1280,
             unsigned int height = 720
         );

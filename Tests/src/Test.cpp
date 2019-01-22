@@ -9,7 +9,7 @@ namespace test {
     {}
 
     void TestMenu::OnRender() {
-        darnel::OpenGL3Renderer::Clear(0.0f, 0.0f, 0.0f, 1.0f);
+        darnel::Renderer::Clear();
     }
 
     void TestMenu::OnImGuiRender() {

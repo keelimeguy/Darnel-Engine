@@ -1,14 +1,15 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
-#include <memory>
-
+#include "Core.h"
 #include "Texture.h"
+
+#include <glm/glm.hpp>
 
 namespace darnel {
     class Sprite {
     public:
+        static std::shared_ptr<Sprite> Create(float x, float y, float width, float height, std::shared_ptr<Texture> texture);
+
         Sprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture)
             : m_translation(x, y, 0), m_texture(texture) {}
         virtual ~Sprite() {}
