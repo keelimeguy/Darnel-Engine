@@ -4,7 +4,6 @@
 #include "Texture.h"
 
 #include "Darnel.h"
-#include <imgui.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

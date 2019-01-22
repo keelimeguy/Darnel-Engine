@@ -17,5 +17,6 @@ Then run:
 NOTE: running install targets is undefined
 
 ## TODO
+- Fix terminate issue (freezes)
 - Add parent/child functionality to windows
 - Separate platform specific build options (so far only assumes windows)

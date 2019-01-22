@@ -2,13 +2,15 @@
 
 #include "Test.h"
 
+#include "SpriteSheet.h"
 #include "Sprite.h"
-#include "Texture.h"
+
+#include <glm/glm.hpp>
 
 namespace test {
-    class TestSprite : public Test {
+    class TestSpriteSheet : public Test {
     public:
-        TestSprite(int i = 0);
+        TestSpriteSheet(int setting = 0);
 
         void OnRender() override;
         void OnImGuiRender() override;
@@ -17,8 +19,9 @@ namespace test {
         static const char* s_Settings[];
 
     private:
+        int m_slices;
         glm::mat4 m_proj_view;
-        std::shared_ptr<darnel::Sprite> m_star1, m_star2, m_color1, m_color2;
-        std::shared_ptr<darnel::Texture> m_texture;
+        std::unique_ptr<darnel::SpriteSheet> m_sheet;
+        std::vector<std::shared_ptr<darnel::Sprite>> m_sprites;
     };
 }

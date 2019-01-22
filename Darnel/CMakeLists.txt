@@ -21,6 +21,7 @@ set( HEADER_FILES
 set( SRC_FILES
     src/Application.cpp
     src/LayerStack.cpp
+    src/SpriteSheet.cpp
     src/ImGui/ImGuiLayer.cpp
 )
 

@@ -4,6 +4,7 @@
 #include "Test.h"
 #include "TestClearColor.h"
 #include "TestSprite.h"
+#include "TestSpriteSheet.h"
 
 namespace test {
     class TestLayer : public darnel::ImGuiLayer {
@@ -14,6 +15,7 @@ namespace test {
             m_CurrentTest = &m_TestMenu;
             m_TestMenu.RegisterTest<test::TestClearColor>("Clear Color");
             m_TestMenu.RegisterTest<test::TestSprite>("Test Sprite");
+            m_TestMenu.RegisterTest<test::TestSpriteSheet>("Test SpriteSheet");
         }
 
         void Render() override {
