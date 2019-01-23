@@ -7,7 +7,6 @@
 #include "OpenGL3Shader.h"
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 #include <sstream>
 
@@ -16,8 +15,8 @@ namespace darnel {
     std::unique_ptr<OpenGL3Shader> OpenGL3Sprite::SpriteContext::s_shader;
     std::unordered_map<std::string, std::weak_ptr<OpenGL3Sprite::SpriteContext>> OpenGL3Sprite::s_contextCache;
 
-    std::shared_ptr<Sprite> Sprite::Create(float x, float y, float width, float height, std::shared_ptr<Texture> texture) {
-        return std::shared_ptr<Sprite>(new OpenGL3Sprite(x, y, width, height, texture));
+    std::shared_ptr<Sprite> Sprite::Create(float width, float height, std::shared_ptr<Texture> texture) {
+        return std::shared_ptr<Sprite>(new OpenGL3Sprite(width, height, texture));
     }
 
     OpenGL3Sprite::SpriteContext::SpriteContext(float width, float height)
@@ -63,8 +62,8 @@ namespace darnel {
         s_contextCache[name.str()] = m_context;
     }
 
-    OpenGL3Sprite::OpenGL3Sprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture)
-        : Sprite(x, y, width, height, texture)
+    OpenGL3Sprite::OpenGL3Sprite(float width, float height, std::shared_ptr<Texture> texture)
+        : Sprite(width, height, texture)
     {
         InitContext(width, height);
     }
@@ -78,11 +77,8 @@ namespace darnel {
             s_contextCache.erase(name.str());
     }
 
-    void OpenGL3Sprite::Draw(const glm::mat4& proj_view) {
+    void OpenGL3Sprite::Draw(const glm::mat4& mvp) {
         OpenGL3Renderer renderer;
-
-        glm::mat4 model = glm::translate(glm::mat4(1.0f), m_translation);
-        glm::mat4 mvp = proj_view * model;
 
         m_texture->Bind();
 

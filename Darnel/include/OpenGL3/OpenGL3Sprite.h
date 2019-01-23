@@ -16,10 +16,10 @@
 namespace darnel {
     class OpenGL3Sprite : public Sprite {
     public:
-        OpenGL3Sprite(float x, float y, float width, float height, std::shared_ptr<Texture> texture);
+        OpenGL3Sprite(float width, float height, std::shared_ptr<Texture> texture);
         ~OpenGL3Sprite();
 
-        void Draw(const glm::mat4& proj_view) override;
+        void Draw(const glm::mat4& mvp) override;
 
         class SpriteContext {
         public:

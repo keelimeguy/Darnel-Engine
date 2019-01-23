@@ -1,6 +1,7 @@
 #include "TestSpriteSheet.h"
 
 #include "SpriteSheet.h"
+#include "Entity.h"
 #include "Sprite.h"
 
 #include "Darnel.h"
@@ -13,7 +14,7 @@ namespace test {
     const char* TestSpriteSheet::s_Settings[] = {"All", "One"};
 
     TestSpriteSheet::TestSpriteSheet(int setting)
-        : m_slices(24), m_sprites(m_slices*m_slices)
+        : m_slices(24), m_entities(m_slices*m_slices)
     {
         m_sheet = std::make_unique<darnel::SpriteSheet>("resources/textures/star.png", m_slices, m_slices);
 
@@ -31,7 +32,7 @@ namespace test {
                 std::shared_ptr<darnel::Texture> tex = m_sheet->GrabTexture(0, 0);
                 for (int j = 0; j < m_slices; ++j)
                     for (int i = 0; i < m_slices; ++i)
-                        m_sprites[i+j*m_slices] = darnel::Sprite::Create(x*i, y*j, w, h, tex);
+                        m_entities[i+j*m_slices] = std::make_shared<darnel::Entity>(x*i, y*j, darnel::Sprite::Create(w, h, tex));
                 break;
             }
 
@@ -39,7 +40,7 @@ namespace test {
             {
                 for (int j = 0; j < m_slices; ++j)
                     for (int i = 0; i < m_slices; ++i)
-                        m_sprites[i+j*m_slices] = darnel::Sprite::Create(x*i, y*j, w, h, m_sheet->GrabTexture(i, j));
+                        m_entities[i+j*m_slices] = std::make_shared<darnel::Entity>(x*i, y*j, darnel::Sprite::Create(w, h, m_sheet->GrabTexture(i, j)));
             }
         }
     }
@@ -47,7 +48,7 @@ namespace test {
     void TestSpriteSheet::OnRender() {
         darnel::Renderer::Clear();
         for (int i = 0; i < m_slices*m_slices; ++i)
-            m_sprites[i]->Draw(m_proj_view);
+            m_entities[i]->Draw(m_proj_view);
     }
 
     void TestSpriteSheet::OnImGuiRender() {

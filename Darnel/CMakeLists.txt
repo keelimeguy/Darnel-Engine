@@ -15,6 +15,10 @@ set( HEADER_FILES
     include/Event/KeyEvent.h
     include/Event/MouseEvent.h
     include/Event/WindowEvent.h
+    include/Graphics2D/Entity.h
+    include/Graphics2D/Sprite.h
+    include/Graphics2D/SpriteSheet.h
+    include/Graphics2D/Texture.h
     include/ImGui/ImGuiLayer.h
 )
 
@@ -72,18 +76,16 @@ if( WINDOWS_VS AND DX12_GLOBAL_ENABLE )
         PUBLIC
             ${CMAKE_CURRENT_LIST_DIR}/include
             ${CMAKE_CURRENT_LIST_DIR}/include/Event
+            ${CMAKE_CURRENT_LIST_DIR}/include/Graphics2D
             ${CMAKE_CURRENT_LIST_DIR}/include/ImGui
         PRIVATE
             ${CMAKE_CURRENT_LIST_DIR}/include/DirectX12
-            ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
     )
 
     target_sources( darnel
         PRIVATE
             ${HEADER_FILES}
             ${SRC_FILES}
-            ${OPENGL3_HEADER_FILES}
-            ${OPENGL3_SRC_FILES}
             ${DIRECTX12_HEADER_FILES}
             ${DIRECTX12_SRC_FILES}
     )
@@ -92,6 +94,7 @@ else()
         PUBLIC
             ${CMAKE_CURRENT_LIST_DIR}/include
             ${CMAKE_CURRENT_LIST_DIR}/include/Event
+            ${CMAKE_CURRENT_LIST_DIR}/include/Graphics2D
             ${CMAKE_CURRENT_LIST_DIR}/include/ImGui
         PRIVATE
             ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
