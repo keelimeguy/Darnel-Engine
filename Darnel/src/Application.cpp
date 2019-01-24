@@ -63,15 +63,15 @@ namespace darnel {
 
     void Application::Run() {
         while (m_Running) {
+            Window::PollEvents();
+
             Renderer::Clear();
 
             for (Layer* layer : m_LayerStack)
                 layer->OnUpdate();
 
-            // for (Window* window : m_Windows)
-                // window->OnUpdate();
-
-            m_ActiveWindow->OnUpdate();
+            for (auto& window : m_Windows)
+                window->OnUpdate();
         }
     }
 

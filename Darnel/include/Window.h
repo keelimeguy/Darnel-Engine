@@ -8,6 +8,7 @@ namespace darnel {
     class Window {
     public:
         static std::shared_ptr<Window> Create(std::string name, unsigned int width, unsigned int height);
+        static void PollEvents();
 
         Window(std::string name, unsigned int width, unsigned int height)
             : m_Name(name), m_Width(width), m_Height(height)

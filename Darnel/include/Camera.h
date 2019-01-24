@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core.h"
+#include "Event.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -22,13 +23,16 @@ namespace darnel {
             : m_proj(proj), m_view(glm::mat4(1.0f))
         {}
 
-        void Move(float dx, float dy, float dz) {
-            m_view = glm::translate(m_view, glm::vec3(dx, dy, dz));
+        void Move(float dx, float dy, float dz = 0.0f) {
+            m_view = glm::translate(m_view, glm::vec3(-dx, -dy, -dz));
         }
 
         void MoveTo(float x, float y, float z) {
             m_view = glm::translate(glm::mat4(1.0f), glm::vec3(-x, -y, -z));
         }
+
+        virtual void OnUpdate() {}
+        virtual void OnEvent(Event& e) {}
 
         glm::mat4 GetProjView() { return m_proj*m_view; }
 

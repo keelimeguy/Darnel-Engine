@@ -18,6 +18,14 @@ namespace darnel {
         virtual void OnEvent(Event& e) {}
         virtual void OnUpdate() {}
 
+        virtual void Move(float dx, float dy, float dz = 0.0f) {
+            m_translation += glm::vec3(dx, dy, dz);
+        }
+
+        virtual void MoveTo(float x, float y, float z) {
+            m_translation = glm::vec3(x, y, z);
+        }
+
         virtual void Draw(const glm::mat4& proj_view) {
             glm::mat4 model = glm::translate(glm::mat4(1.0f), m_translation);
             glm::mat4 mvp = proj_view * model;

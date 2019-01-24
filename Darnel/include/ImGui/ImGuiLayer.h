@@ -13,9 +13,9 @@ namespace darnel {
     public:
         ImGuiLayer() : Layer("ImGuiLayer") {}
 
-        void OnAttach() override;
-        void OnUpdate() override;
-        void OnEvent(Event& event) override;
+        virtual void OnAttach() override;
+        virtual void OnEvent(Event& event) override;
+        virtual void OnUpdate() override;
 
         virtual void Render();
 

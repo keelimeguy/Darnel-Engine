@@ -8,7 +8,8 @@ namespace test {
         Test(int i = 0) {}
         virtual ~Test() {}
 
-        virtual void OnUpdate(float deltaTime) {}
+        virtual void OnEvent(darnel::Event& e) {}
+        virtual void OnUpdate() {}
         virtual void OnRender() {}
         virtual void OnImGuiRender() {}
 
@@ -21,17 +22,17 @@ namespace test {
 
         class TestOption {
         public:
-            TestOption(std::string name, int numSettings, const char** settings, std::function<Test*(int)> callback)
+            TestOption(std::string name, const int numSettings, const char** settings, std::function<Test*(int)> callback)
                 : m_choice(0), m_Name(name), m_NumSettings(numSettings), m_Settings(settings), m_Callback(callback) {}
             std::string Name() { return m_Name; }
-            int NumSettings() { return m_NumSettings; }
+            const int NumSettings() { return m_NumSettings; }
             const char** Settings() { return m_Settings; }
             std::function<Test*(int)> Callback() { return m_Callback; }
             int m_choice;
 
         private:
             std::string m_Name;
-            int m_NumSettings;
+            const int m_NumSettings;
             const char** m_Settings;
             std::function<Test*(int)> m_Callback;
         };

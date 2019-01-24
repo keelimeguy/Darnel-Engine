@@ -14,6 +14,10 @@ namespace darnel {
         return std::shared_ptr<Window>(new OpenGL3Window(name, width, height));
     }
 
+    void Window::PollEvents() {
+        glfwPollEvents();
+    }
+
     OpenGL3Window::OpenGL3Window(std::string name, unsigned int width, unsigned int height)
         : Window(name, width, height)
     {
@@ -160,7 +164,6 @@ namespace darnel {
 
     void OpenGL3Window::OnUpdate() {
         glfwSwapBuffers(m_Window);
-        glfwPollEvents();
     }
 
     void OpenGL3Window::Close() {

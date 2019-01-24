@@ -19,7 +19,9 @@ namespace test {
             }
             if (test->NumSettings()) {
                 ImGui::SameLine();
-                ImGui::Combo("Setting", &(test->m_choice), test->Settings(), test->NumSettings());
+                std::stringstream ss;
+                ss << "##Setting: " << test->Name();
+                ImGui::Combo(ss.str().c_str(), &(test->m_choice), test->Settings(), test->NumSettings());
             }
         }
     }
