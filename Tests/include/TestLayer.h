@@ -2,6 +2,7 @@
 
 #include "Darnel.h"
 #include "Test.h"
+#include "TestCamera.h"
 #include "TestClearColor.h"
 #include "TestSprite.h"
 #include "TestSpriteSheet.h"
@@ -17,6 +18,7 @@ namespace test {
             m_TestMenu.RegisterTest<test::TestClearColor>("Clear Color");
             m_TestMenu.RegisterTest<test::TestSprite>("Sprites");
             m_TestMenu.RegisterTest<test::TestSpriteSheet>("SpriteSheet");
+            m_TestMenu.RegisterTest<test::TestCamera>("Camera");
             m_TestMenu.RegisterTest<test::TestMultiWindow>("Multiple Windows");
         }
 

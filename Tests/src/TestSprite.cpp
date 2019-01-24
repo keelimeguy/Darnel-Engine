@@ -1,5 +1,6 @@
 #include "TestSprite.h"
 
+#include "Camera.h"
 #include "Entity.h"
 #include "Sprite.h"
 #include "Texture.h"
@@ -20,17 +21,16 @@ namespace test {
         m_color1 = std::make_shared<darnel::Entity>(50.0f, 50.0f, darnel::Sprite::Create(50.0f, 50.0f, darnel::Texture::Create(255, 255, 0, 100)));
         m_color2 = std::make_shared<darnel::Entity>(565.0f, 25.0f, darnel::Sprite::Create(50.0f, 50.0f, darnel::Texture::Create(255, 0, 255)));
 
-        glm::mat4 proj = glm::ortho(0.0f, 640.0f, 0.0f, 480.0f, -1.0f, 1.0f);
-        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-        m_proj_view = proj * view;
+        m_camera = darnel::MakeOrthographicCamera(0.0f, 640.0f, 0.0f, 480.0f, -1.0f, 1.0f);
     }
 
     void TestSprite::OnRender() {
+        auto proj_view = m_camera->GetProjView();
         darnel::Renderer::Clear();
-        m_star1->Draw(m_proj_view);
-        m_star2->Draw(m_proj_view);
-        m_color1->Draw(m_proj_view);
-        m_color2->Draw(m_proj_view);
+        m_star1->Draw(proj_view);
+        m_star2->Draw(proj_view);
+        m_color1->Draw(proj_view);
+        m_color2->Draw(proj_view);
     }
 
     void TestSprite::OnImGuiRender() {

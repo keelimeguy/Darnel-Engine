@@ -9,6 +9,7 @@ target_sources( test_darnel
     PRIVATE
         include/Test.h
         include/TestApp.h
+        include/TestCamera.h
         include/TestClearColor.h
         include/TestLayer.h
         include/TestMultiWindow.h
@@ -16,6 +17,7 @@ target_sources( test_darnel
         include/TestSpriteSheet.h
         src/main.cpp
         src/Test.cpp
+        src/TestCamera.cpp
         src/TestClearColor.cpp
         src/TestMultiWindow.cpp
         src/TestSprite.cpp

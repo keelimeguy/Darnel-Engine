@@ -4,6 +4,7 @@ add_library( darnel STATIC "" )
 
 set( HEADER_FILES
     include/Application.h
+    include/Camera.h
     include/Core.h
     include/Darnel.h
     include/Layer.h

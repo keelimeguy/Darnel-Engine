@@ -2,6 +2,7 @@
 
 #include "Test.h"
 
+#include "Camera.h"
 #include "Entity.h"
 #include "Sprite.h"
 #include "Texture.h"
@@ -18,7 +19,7 @@ namespace test {
         static const char* s_Settings[];
 
     private:
-        glm::mat4 m_proj_view;
+        std::shared_ptr<darnel::Camera> m_camera;
         std::shared_ptr<darnel::Entity> m_star1, m_star2, m_color1, m_color2;
         std::shared_ptr<darnel::Texture> m_texture;
     };
