@@ -10,6 +10,9 @@ namespace darnel {
         m_Windows.push_back(Window::Create(name, width, height));
         m_ActiveWindow = m_Windows.back().get();
         m_ActiveWindow->AddEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1, m_ActiveWindow));
+
+        m_ImGuiLayer = new ImGuiLayer();
+        PushOverlay(m_ImGuiLayer);
     }
 
     Application::~Application() {
@@ -72,6 +75,11 @@ namespace darnel {
 
             for (Layer *layer : m_LayerStack)
                 layer->OnUpdate();
+
+            m_ImGuiLayer->Begin();
+            for (Layer *layer : m_LayerStack)
+                layer->OnImGuiRender();
+            m_ImGuiLayer->End();
 
             for (auto &window : m_Windows)
                 window->OnUpdate();

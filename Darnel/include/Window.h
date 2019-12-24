@@ -22,6 +22,8 @@ namespace darnel {
         virtual void Focus() = 0;
         virtual void Close() = 0;
 
+        virtual void *GetNativeWindow() const = 0;
+
         virtual std::string GetName() const { return m_Name; }
         virtual unsigned int GetWidth() const { return m_Width; }
         virtual unsigned int GetHeight() const { return m_Height; }

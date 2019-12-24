@@ -11,7 +11,7 @@
 #include "TestLevel.h"
 
 namespace test {
-    class TestLayer : public darnel::ImGuiLayer {
+    class TestLayer : public darnel::Layer {
     public:
         TestLayer()
             : m_CurrentTest(nullptr), m_TestMenu(m_CurrentTest) {
@@ -21,34 +21,28 @@ namespace test {
             m_TestMenu.RegisterTest<test::TestPlayer>("Player");
             m_TestMenu.RegisterTest<test::TestSpriteSheet>("SpriteSheet");
             m_TestMenu.RegisterTest<test::TestCamera>("Camera");
-            m_TestMenu.RegisterTest<test::TestMultiWindow>("Multiple Windows");
+            // m_TestMenu.RegisterTest<test::TestMultiWindow>("Multiple Windows");
             m_TestMenu.RegisterTest<test::TestLevel>("Level");
         }
 
         void OnUpdate() override {
-            darnel::ImGuiLayer::OnUpdate();
-
             if (m_CurrentTest)
                 m_CurrentTest->OnUpdate();
         }
 
         void OnEvent(darnel::Event &event) override {
-            darnel::ImGuiLayer::OnEvent(event);
-
             if (m_CurrentTest)
                 m_CurrentTest->OnEvent(event);
         }
 
-        void Render() override {
+        void OnImGuiRender() override {
             if (m_CurrentTest) {
                 m_CurrentTest->OnRender();
-                ImGui::Begin("Test");
                 if (m_CurrentTest != &m_TestMenu && ImGui::Button("<-")) {
                     delete m_CurrentTest;
                     m_CurrentTest = &m_TestMenu;
                 }
                 m_CurrentTest->OnImGuiRender();
-                ImGui::End();
             }
         }
 

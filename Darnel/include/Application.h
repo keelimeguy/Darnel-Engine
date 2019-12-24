@@ -6,6 +6,7 @@
 #include "Event.h"
 #include "WindowEvent.h"
 #include "Renderer.h"
+#include "ImGuiLayer.h"
 
 namespace darnel {
     class Application {
@@ -47,8 +48,9 @@ namespace darnel {
         static Application *s_Instance;
 
         std::vector<std::shared_ptr<Window>> m_Windows;
-        LayerStack m_LayerStack;
         Window *m_ActiveWindow;
+        ImGuiLayer *m_ImGuiLayer;
+        LayerStack m_LayerStack;
         bool m_Running = true;
 
         bool OnWindowClose(WindowCloseEvent &e, Window *window);

@@ -14,6 +14,8 @@ namespace darnel {
         void Focus() override;
         void Close() override;
 
+        virtual void *GetNativeWindow() const { return m_Window; }
+
     private:
         struct GLFWwindow *m_Window;
     };
