@@ -18,7 +18,7 @@ namespace darnel {
         int GetHeight() { return m_height; }
 
     private:
-        unsigned char* m_LocalBuffer;
+        unsigned char *m_LocalBuffer;
         int m_width, m_height, m_BPP;
         int m_tileWidth, m_tileHeight;
     };

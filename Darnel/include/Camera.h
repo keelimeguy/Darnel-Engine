@@ -12,8 +12,7 @@ namespace darnel {
     static std::shared_ptr<Camera> MakeOrthographicCamera(
         float left = 0.0f, float right = 640.0f,
         float bottom = 0.0f, float top = 480.0f,
-        float near = -1.0f, float far = 1.0f)
-    {
+        float near = -1.0f, float far = 1.0f) {
         return std::make_shared<Camera>(glm::ortho(left, right, bottom, top, near, far));
     }
 
@@ -32,9 +31,9 @@ namespace darnel {
         }
 
         virtual void OnUpdate() {}
-        virtual void OnEvent(Event& e) {}
+        virtual void OnEvent(Event &e) {}
 
-        glm::mat4 GetProjView() { return m_proj*m_view; }
+        glm::mat4 GetProjView() { return m_proj * m_view; }
 
     private:
         glm::mat4 m_proj, m_view;

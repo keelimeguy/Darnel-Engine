@@ -12,14 +12,16 @@
 
 namespace test {
     const int TestSprite::s_NumSettings = 0;
-    const char* TestSprite::s_Settings[] = {""};
+    const char *TestSprite::s_Settings[] = {""};
 
     TestSprite::TestSprite(int i) {
         m_texture = darnel::Texture::Create("resources/textures/star.png");
         m_star1 = std::make_shared<darnel::Entity>(270.0f, 190.0f, darnel::Sprite::Create(100.0f, 100.0f, m_texture));
         m_star2 = std::make_shared<darnel::Entity>(25.0f, 25.0f, darnel::Sprite::Create(50.0f, 50.0f, m_texture));
-        m_color1 = std::make_shared<darnel::Entity>(50.0f, 50.0f, darnel::Sprite::Create(50.0f, 50.0f, darnel::Texture::Create(255, 255, 0, 100)));
-        m_color2 = std::make_shared<darnel::Entity>(565.0f, 25.0f, darnel::Sprite::Create(50.0f, 50.0f, darnel::Texture::Create(255, 0, 255)));
+        m_color1 = std::make_shared<darnel::Entity>(50.0f, 50.0f, darnel::Sprite::Create(50.0f, 50.0f,
+                   darnel::Texture::Create(255, 255, 0, 100)));
+        m_color2 = std::make_shared<darnel::Entity>(565.0f, 25.0f, darnel::Sprite::Create(50.0f, 50.0f,
+                   darnel::Texture::Create(255, 0, 255)));
 
         m_camera = darnel::MakeOrthographicCamera(0.0f, 640.0f, 0.0f, 480.0f, -1.0f, 1.0f);
     }
@@ -34,6 +36,7 @@ namespace test {
     }
 
     void TestSprite::OnImGuiRender() {
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
+                    ImGui::GetIO().Framerate);
     }
 }

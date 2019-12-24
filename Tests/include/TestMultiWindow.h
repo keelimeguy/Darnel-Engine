@@ -12,7 +12,7 @@ namespace test {
         void OnImGuiRender() override;
 
         static const int s_NumSettings;
-        static const char* s_Settings[];
+        static const char *s_Settings[];
 
     private:
         std::weak_ptr<darnel::Window> m_OrigWindow;

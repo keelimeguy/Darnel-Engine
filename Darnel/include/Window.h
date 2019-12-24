@@ -28,7 +28,7 @@ namespace darnel {
         virtual unsigned int GetXPos() const { return m_XPos; }
         virtual unsigned int GetYPos() const { return m_YPos; }
 
-        virtual void AddEventCallback(const std::function<void(Event&)>& callback) {
+        virtual void AddEventCallback(const std::function<void(Event &)> &callback) {
             m_EventCallbacks.push_back(callback);
         }
 
@@ -43,23 +43,23 @@ namespace darnel {
     protected:
         std::string m_Name;
         int m_Width, m_Height, m_XPos, m_YPos;
-        std::vector<std::function<void(Event&)>> m_EventCallbacks;
-        std::vector<Window*> m_Children;
+        std::vector<std::function<void(Event &)>> m_EventCallbacks;
+        std::vector<Window *> m_Children;
 
-        virtual void Broadcast(Event& e) {
+        virtual void Broadcast(Event &e) {
             for (auto callback : m_EventCallbacks)
                 callback(e);
         }
 
-        virtual void OnChildEvent(Event& e, Window* window) {
+        virtual void OnChildEvent(Event &e, Window *window) {
             EventDispatcher dispatcher(e);
             dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Window::OnChildClose, this, std::placeholders::_1, window));
         }
 
-        virtual bool OnChildClose(WindowCloseEvent& e, Window* window) {
+        virtual bool OnChildClose(WindowCloseEvent &e, Window *window) {
             auto it = std::find_if(m_Children.begin(), m_Children.end(),
-                [window](auto& wnd) { return wnd == window; }
-            );
+            [window](auto & wnd) { return wnd == window; }
+                                  );
             DARNEL_ASSERT(it != m_Children.end(), "Unknown child");
             m_Children.erase(it);
             return true;

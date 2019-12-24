@@ -11,7 +11,7 @@ namespace test {
         void OnImGuiRender() override;
 
         static const int s_NumSettings;
-        static const char* s_Settings[];
+        static const char *s_Settings[];
 
     private:
         float m_clearColor[4];

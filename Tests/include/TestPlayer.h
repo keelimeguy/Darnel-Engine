@@ -16,13 +16,13 @@ namespace test {
     public:
         TestPlayer(int i = 0);
 
-        void OnEvent(darnel::Event& e) override;
+        void OnEvent(darnel::Event &e) override;
         void OnUpdate() override;
         void OnRender() override;
         void OnImGuiRender() override;
 
         static const int s_NumSettings;
-        static const char* s_Settings[];
+        static const char *s_Settings[];
 
     private:
         bool m_fixPlayer = false;
@@ -47,15 +47,16 @@ namespace test {
             Move(vel_x, vel_y);
         }
 
-        void OnEvent(darnel::Event& e) override {
+        void OnEvent(darnel::Event &e) override {
             darnel::EventDispatcher dispatcher(e);
             if (dispatcher.Dispatch<darnel::KeyPressedEvent>(std::bind(&PlayerCamera::OnKeyPress, this, std::placeholders::_1))) ;
-            else if (dispatcher.Dispatch<darnel::KeyReleasedEvent>(std::bind(&PlayerCamera::OnKeyRelease, this, std::placeholders::_1))) ;
+            else if (dispatcher.Dispatch<darnel::KeyReleasedEvent>(std::bind(&PlayerCamera::OnKeyRelease, this,
+                     std::placeholders::_1))) ;
         }
 
     private:
-        bool OnKeyPress(darnel::KeyPressedEvent& e) {
-            switch(e.GetKeyCode()) {
+        bool OnKeyPress(darnel::KeyPressedEvent &e) {
+            switch (e.GetKeyCode()) {
                 case 262://GLFW_KEY_RIGHT:
                     m_right = 1; break;
                 case 263://GLFW_KEY_LEFT:
@@ -68,8 +69,8 @@ namespace test {
             return true;
         }
 
-        bool OnKeyRelease(darnel::KeyReleasedEvent& e) {
-            switch(e.GetKeyCode()) {
+        bool OnKeyRelease(darnel::KeyReleasedEvent &e) {
+            switch (e.GetKeyCode()) {
                 case 262://GLFW_KEY_RIGHT:
                     m_right = 0; break;
                 case 263://GLFW_KEY_LEFT:
@@ -100,15 +101,15 @@ namespace test {
             Move(vel_x, vel_y);
         }
 
-        virtual void OnEvent(darnel::Event& e) {
+        virtual void OnEvent(darnel::Event &e) {
             darnel::EventDispatcher dispatcher(e);
             if (dispatcher.Dispatch<darnel::KeyPressedEvent>(std::bind(&Player::OnKeyPress, this, std::placeholders::_1))) ;
             else if (dispatcher.Dispatch<darnel::KeyReleasedEvent>(std::bind(&Player::OnKeyRelease, this, std::placeholders::_1))) ;
         }
 
     private:
-        bool OnKeyPress(darnel::KeyPressedEvent& e) {
-            switch(e.GetKeyCode()) {
+        bool OnKeyPress(darnel::KeyPressedEvent &e) {
+            switch (e.GetKeyCode()) {
                 case 262://GLFW_KEY_RIGHT:
                     m_right = 1; break;
                 case 263://GLFW_KEY_LEFT:
@@ -121,8 +122,8 @@ namespace test {
             return true;
         }
 
-        bool OnKeyRelease(darnel::KeyReleasedEvent& e) {
-            switch(e.GetKeyCode()) {
+        bool OnKeyRelease(darnel::KeyReleasedEvent &e) {
+            switch (e.GetKeyCode()) {
                 case 262://GLFW_KEY_RIGHT:
                     m_right = 0; break;
                 case 263://GLFW_KEY_LEFT:

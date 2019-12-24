@@ -20,8 +20,7 @@ namespace darnel {
     }
 
     OpenGL3Sprite::SpriteContext::SpriteContext(float width, float height)
-        : m_width(width), m_height(height)
-    {
+        : m_width(width), m_height(height) {
         if (!s_ib) {
             unsigned int indices[] = {
                 0, 1, 2,
@@ -63,8 +62,7 @@ namespace darnel {
     }
 
     OpenGL3Sprite::OpenGL3Sprite(float width, float height, std::shared_ptr<Texture> texture)
-        : Sprite(width, height, texture)
-    {
+        : Sprite(width, height, texture) {
         InitContext(width, height);
     }
 
@@ -77,7 +75,7 @@ namespace darnel {
             s_contextCache.erase(name.str());
     }
 
-    void OpenGL3Sprite::Draw(const glm::mat4& mvp) {
+    void OpenGL3Sprite::Draw(const glm::mat4 &mvp) {
         OpenGL3Renderer renderer;
 
         m_texture->Bind();

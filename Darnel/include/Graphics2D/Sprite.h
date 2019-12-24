@@ -14,7 +14,7 @@ namespace darnel {
             : m_texture(texture) {}
         virtual ~Sprite() {}
 
-        virtual void Draw(const glm::mat4& mvp) = 0;
+        virtual void Draw(const glm::mat4 &mvp) = 0;
 
     protected:
         std::shared_ptr<Texture> m_texture;

@@ -4,11 +4,11 @@
 #include <stb_image.h>
 
 namespace darnel {
-    std::shared_ptr<Texture> Texture::Create(const std::string& path) {
+    std::shared_ptr<Texture> Texture::Create(const std::string &path) {
         return std::shared_ptr<Texture>(new OpenGL3Texture(path));
     }
 
-    std::shared_ptr<Texture> Texture::Create(unsigned char* buffer, int width, int height, int bpp) {
+    std::shared_ptr<Texture> Texture::Create(unsigned char *buffer, int width, int height, int bpp) {
         return std::shared_ptr<Texture>(new OpenGL3Texture(buffer, width, height, bpp));
     }
 
@@ -33,9 +33,8 @@ namespace darnel {
         GLCALL(glBindTexture(GL_TEXTURE_2D, 0));
     }
 
-    OpenGL3Texture::OpenGL3Texture(const std::string& path)
-        : Texture(nullptr, 0, 0, 0), m_RendererID(0), m_FilePath(path)
-    {
+    OpenGL3Texture::OpenGL3Texture(const std::string &path)
+        : Texture(nullptr, 0, 0, 0), m_RendererID(0), m_FilePath(path) {
         stbi_set_flip_vertically_on_load(1);
         m_LocalBuffer = stbi_load(path.c_str(), &m_Width, &m_Height, &m_BPP, 4);
 
@@ -45,12 +44,11 @@ namespace darnel {
             stbi_image_free(m_LocalBuffer);
     }
 
-    OpenGL3Texture::OpenGL3Texture(unsigned char* buffer, int width, int height, int bpp)
-        : Texture(nullptr, width, height, bpp), m_RendererID(0), m_FilePath("")
-    {
-        m_LocalBuffer = new unsigned char[4*width*height];
-        for (int i = 0, j = 0; i < 4*width*height; ++i) {
-            if (bpp < 4 && i%4 >= bpp)
+    OpenGL3Texture::OpenGL3Texture(unsigned char *buffer, int width, int height, int bpp)
+        : Texture(nullptr, width, height, bpp), m_RendererID(0), m_FilePath("") {
+        m_LocalBuffer = new unsigned char[4 * width * height];
+        for (int i = 0, j = 0; i < 4 * width * height; ++i) {
+            if (bpp < 4 && i % 4 >= bpp)
                 m_LocalBuffer[i] = (unsigned char)255;
             else
                 m_LocalBuffer[i] = buffer[j++];
@@ -60,8 +58,7 @@ namespace darnel {
     }
 
     OpenGL3Texture::OpenGL3Texture(unsigned char r, unsigned char g, unsigned char b)
-        : Texture(nullptr, 1, 1, 3), m_RendererID(0), m_FilePath("")
-    {
+        : Texture(nullptr, 1, 1, 3), m_RendererID(0), m_FilePath("") {
         m_LocalBuffer = new unsigned char[4];
         m_LocalBuffer[0] = r; m_LocalBuffer[1] = g; m_LocalBuffer[2] = b; m_LocalBuffer[3] = (unsigned char)255;
 
@@ -69,8 +66,7 @@ namespace darnel {
     }
 
     OpenGL3Texture::OpenGL3Texture(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
-        : Texture(nullptr, 1, 1, 4), m_RendererID(0), m_FilePath("")
-    {
+        : Texture(nullptr, 1, 1, 4), m_RendererID(0), m_FilePath("") {
         m_LocalBuffer = new unsigned char[4];
         m_LocalBuffer[0] = r; m_LocalBuffer[1] = g; m_LocalBuffer[2] = b; m_LocalBuffer[3] = a;
 

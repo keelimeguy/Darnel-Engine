@@ -16,7 +16,7 @@ namespace test {
         void OnImGuiRender() override;
 
         static const int s_NumSettings;
-        static const char* s_Settings[];
+        static const char *s_Settings[];
 
     private:
         std::shared_ptr<darnel::Camera> m_camera;

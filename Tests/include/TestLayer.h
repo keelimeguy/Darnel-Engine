@@ -13,8 +13,7 @@ namespace test {
     class TestLayer : public darnel::ImGuiLayer {
     public:
         TestLayer()
-            : m_CurrentTest(nullptr), m_TestMenu(m_CurrentTest)
-        {
+            : m_CurrentTest(nullptr), m_TestMenu(m_CurrentTest) {
             m_CurrentTest = &m_TestMenu;
             m_TestMenu.RegisterTest<test::TestClearColor>("Clear Color");
             m_TestMenu.RegisterTest<test::TestSprite>("Sprites");
@@ -31,7 +30,7 @@ namespace test {
                 m_CurrentTest->OnUpdate();
         }
 
-        void OnEvent(darnel::Event& event) override {
+        void OnEvent(darnel::Event &event) override {
             darnel::ImGuiLayer::OnEvent(event);
 
             if (m_CurrentTest)
@@ -52,7 +51,7 @@ namespace test {
         }
 
     private:
-        Test* m_CurrentTest;
+        Test *m_CurrentTest;
         TestMenu m_TestMenu;
     };
 }

@@ -12,17 +12,19 @@
 
 namespace test {
     const int TestPlayer::s_NumSettings = 2;
-    const char* TestPlayer::s_Settings[] = {"Fixed Camera", "Fixed Player"};
+    const char *TestPlayer::s_Settings[] = {"Fixed Camera", "Fixed Player"};
 
     TestPlayer::TestPlayer(int i) {
         m_fixPlayer = (i == 1);
         m_x = 320.0;
         m_y = 240.0;
         if (m_fixPlayer) {
-            m_player = std::make_shared<Player>(m_x, m_y, darnel::Sprite::Create(100.0f, 100.0f, darnel::Texture::Create("resources/textures/star.png")));
+            m_player = std::make_shared<Player>(m_x, m_y, darnel::Sprite::Create(100.0f, 100.0f,
+                                                darnel::Texture::Create("resources/textures/star.png")));
             m_camera = std::make_shared<PlayerCamera>();
         } else {
-            m_player = std::make_shared<Player>(590.0f, 430.0f, darnel::Sprite::Create(100.0f, 100.0f, darnel::Texture::Create("resources/textures/star.png")));
+            m_player = std::make_shared<Player>(590.0f, 430.0f, darnel::Sprite::Create(100.0f, 100.0f,
+                                                darnel::Texture::Create("resources/textures/star.png")));
             m_camera = std::make_shared<PlayerCamera>();
         }
     }
@@ -35,7 +37,7 @@ namespace test {
         m_camera->OnUpdate();
     }
 
-    void TestPlayer::OnEvent(darnel::Event& e) {
+    void TestPlayer::OnEvent(darnel::Event &e) {
         if (m_fixPlayer) m_camera->OnEvent(e);
         else m_player->OnEvent(e);
     }
@@ -47,7 +49,8 @@ namespace test {
     }
 
     void TestPlayer::OnImGuiRender() {
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
+                    ImGui::GetIO().Framerate);
 
         if (m_fixPlayer) {
             ImGui::SliderFloat("Player X", &m_x, 0.0f, 640.0f, "%.3f");

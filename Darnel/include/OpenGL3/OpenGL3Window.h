@@ -15,6 +15,6 @@ namespace darnel {
         void Close() override;
 
     private:
-        struct GLFWwindow* m_Window;
+        struct GLFWwindow *m_Window;
     };
 }

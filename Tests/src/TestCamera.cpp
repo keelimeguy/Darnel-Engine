@@ -12,10 +12,11 @@
 
 namespace test {
     const int TestCamera::s_NumSettings = 0;
-    const char* TestCamera::s_Settings[] = {""};
+    const char *TestCamera::s_Settings[] = {""};
 
     TestCamera::TestCamera(int i) {
-        m_star = std::make_shared<darnel::Entity>(200.0f, 200.0f, darnel::Sprite::Create(100.0f, 100.0f, darnel::Texture::Create("resources/textures/star.png")));
+        m_star = std::make_shared<darnel::Entity>(200.0f, 200.0f, darnel::Sprite::Create(100.0f, 100.0f,
+                 darnel::Texture::Create("resources/textures/star.png")));
     }
 
     void TestCamera::OnRender() {
@@ -27,7 +28,8 @@ namespace test {
     }
 
     void TestCamera::OnImGuiRender() {
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
+                    ImGui::GetIO().Framerate);
 
         ImGui::SliderFloat("Camera Left", &m_left, 0.0f, 1000.0f, "%.3f");
         ImGui::SliderFloat("Camera Right", &m_right, 0.0f, 1000.0f, "%.3f");

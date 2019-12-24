@@ -8,7 +8,7 @@ namespace darnel {
         GLCALL(glClear(GL_COLOR_BUFFER_BIT));
     }
 
-    void Renderer::Terminate(std::vector<std::shared_ptr<Window>>* windows) {
+    void Renderer::Terminate(std::vector<std::shared_ptr<Window>> *windows) {
         OpenGL3Sprite::SpriteContext::s_ib = nullptr;
         OpenGL3Sprite::SpriteContext::s_shader = nullptr;
         if (windows) {
@@ -17,27 +17,27 @@ namespace darnel {
         glfwTerminate();
     }
 
-    static void glfw_error_callback(int error, const char* description) {
+    static void glfw_error_callback(int error, const char *description) {
         fprintf(stderr, "Glfw Error %d: %s\n", error, description);
     }
 
-    const char* glsl_version = "#version 150";
+    const char *glsl_version = "#version 150";
 
     void GLClearError() {
         while (glGetError() != GL_NO_ERROR);
     }
 
-    bool GLLogCall(const char* function, const char* file, int line) {
+    bool GLLogCall(const char *function, const char *file, int line) {
         bool ret = true;
         while (GLenum error = glGetError()) {
             std::cout << "[OpenGL Error] (0x" << std::hex << error << "):"
-                << function << " " << file << ":" << line << std::endl;
+                      << function << " " << file << ":" << line << std::endl;
             ret = false;
         }
         return ret;
     }
 
-    GLFWwindow* OpenGL3Renderer::Init(std::string name, unsigned int width, unsigned int height) {
+    GLFWwindow *OpenGL3Renderer::Init(std::string name, unsigned int width, unsigned int height) {
         ASSERT(glfwInit());
         glfwSetErrorCallback(glfw_error_callback);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -57,7 +57,7 @@ namespace darnel {
         return window;
     }
 
-    void OpenGL3Renderer::Draw(const VertexArray & va, const IndexBuffer & ib, const OpenGL3Shader & shader) {
+    void OpenGL3Renderer::Draw(const VertexArray &va, const IndexBuffer &ib, const OpenGL3Shader &shader) {
         shader.Bind();
         va.Bind();
         ib.Bind();

@@ -1,7 +1,7 @@
 #include "Application.h"
 
 namespace darnel {
-    Application* Application::s_Instance = nullptr;
+    Application *Application::s_Instance = nullptr;
 
     Application::Application(std::string name, unsigned int width, unsigned int height) {
         DARNEL_ASSERT(!s_Instance, "Application already exists!");
@@ -26,7 +26,8 @@ namespace darnel {
         return window;
     }
 
-    std::weak_ptr<Window> Application::NewChildWindow(Window* parent, std::string name, unsigned int width, unsigned int height) {
+    std::weak_ptr<Window> Application::NewChildWindow(Window *parent, std::string name, unsigned int width,
+            unsigned int height) {
         m_Windows.push_back(parent->MakeChild(name, width, height));
         auto window = m_Windows.back();
         window->AddEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1, window.get()));
@@ -36,22 +37,24 @@ namespace darnel {
         return window;
     }
 
-    void Application::PushLayer(Layer* layer) {
+    void Application::PushLayer(Layer *layer) {
         m_LayerStack.PushLayer(layer);
         layer->OnAttach();
     }
 
-    void Application::PushOverlay(Layer* layer) {
+    void Application::PushOverlay(Layer *layer) {
         m_LayerStack.PushOverlay(layer);
         layer->OnAttach();
     }
 
-    void Application::OnEvent(Event& e, Window* window) {
+    void Application::OnEvent(Event &e, Window *window) {
         std::cout << "[" << window->GetName() << "] " << e.ToString() << std::endl << std::flush;
 
         EventDispatcher dispatcher(e);
-        if (dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1, window))) ;
-        else if (dispatcher.Dispatch<WindowFocusEvent>(std::bind(&Application::OnWindowFocus, this, std::placeholders::_1, window))) ;
+        if (dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1,
+                window))) ;
+        else if (dispatcher.Dispatch<WindowFocusEvent>(std::bind(&Application::OnWindowFocus, this, std::placeholders::_1,
+                 window))) ;
         else {
             for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); ) {
                 (*--it)->OnEvent(e);
@@ -67,15 +70,15 @@ namespace darnel {
 
             Renderer::Clear();
 
-            for (Layer* layer : m_LayerStack)
+            for (Layer *layer : m_LayerStack)
                 layer->OnUpdate();
 
-            for (auto& window : m_Windows)
+            for (auto &window : m_Windows)
                 window->OnUpdate();
         }
     }
 
-    bool Application::OnWindowClose(WindowCloseEvent& e, Window* window) {
+    bool Application::OnWindowClose(WindowCloseEvent &e, Window *window) {
         // We need a context still active during termination,
         // so don't delete the window if it is the last one
         if (m_Windows.size() == 1) {
@@ -88,8 +91,8 @@ namespace darnel {
             }
 
             auto it = std::find_if(m_Windows.begin(), m_Windows.end(),
-                [window](auto& wnd) { return wnd.get() == window; }
-            );
+            [window](auto & wnd) { return wnd.get() == window; }
+                                  );
             DARNEL_ASSERT(it != m_Windows.end(), "Closing unknown window");
             DARNEL_ASSERT(it->get() == window, "Found wrong window");
 
@@ -102,10 +105,10 @@ namespace darnel {
         return true;
     }
 
-    bool Application::OnWindowFocus(WindowFocusEvent& e, Window* window) {
+    bool Application::OnWindowFocus(WindowFocusEvent &e, Window *window) {
         auto it = std::find_if(m_Windows.begin(), m_Windows.end(),
-            [window](auto& wnd) { return wnd.get() == window; }
-        );
+        [window](auto & wnd) { return wnd.get() == window; }
+                              );
         DARNEL_ASSERT(it != m_Windows.end(), "Set focus on unknown window");
 
         m_ActiveWindow = it->get();

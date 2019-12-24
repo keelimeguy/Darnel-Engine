@@ -27,7 +27,7 @@ namespace darnel {
 
     public:
         VertexBufferLayout()
-            :m_Stride(0) {}
+            : m_Stride(0) {}
         ~VertexBufferLayout() {}
 
         template<typename T>

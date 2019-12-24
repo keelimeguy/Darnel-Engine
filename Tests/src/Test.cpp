@@ -2,9 +2,9 @@
 
 namespace test {
     const int Test::s_NumSettings = 0;
-    const char* Test::s_Settings[] = {""};
+    const char *Test::s_Settings[] = {""};
 
-    TestMenu::TestMenu(Test*& currentTest)
+    TestMenu::TestMenu(Test *&currentTest)
         : m_CurrentTest(currentTest)
     {}
 
@@ -13,7 +13,7 @@ namespace test {
     }
 
     void TestMenu::OnImGuiRender() {
-        for (auto& test : m_Tests) {
+        for (auto &test : m_Tests) {
             if (ImGui::Button(test->Name().c_str())) {
                 m_CurrentTest = test->Callback()(test->m_choice);
             }

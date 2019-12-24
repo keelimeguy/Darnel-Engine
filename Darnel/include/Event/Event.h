@@ -13,7 +13,7 @@ namespace darnel {
     class Event {
     public:
         virtual EventType GetEventType() const = 0;
-        virtual const char* GetName() const = 0;
+        virtual const char *GetName() const = 0;
         virtual std::string ToString() const { return GetName(); }
 
         bool inline IsHandled() const { return m_Handled; }
@@ -27,18 +27,18 @@ namespace darnel {
 
     class EventDispatcher {
     public:
-        EventDispatcher(Event& event) : m_Event(event) {}
+        EventDispatcher(Event &event) : m_Event(event) {}
 
         template<typename T>
-        bool Dispatch(std::function<bool(T&)> listener) {
+        bool Dispatch(std::function<bool(T &)> listener) {
             if (m_Event.GetEventType() == T::GetStaticType()) {
-                m_Event.m_Handled = listener(*(T*)&m_Event);
+                m_Event.m_Handled = listener(*(T *)&m_Event);
                 return true;
             }
             return false;
         }
 
     private:
-        Event& m_Event;
+        Event &m_Event;
     };
 }

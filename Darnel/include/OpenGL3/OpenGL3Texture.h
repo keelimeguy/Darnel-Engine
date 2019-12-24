@@ -12,8 +12,8 @@ namespace darnel {
 
         void Init();
     public:
-        OpenGL3Texture(const std::string& path);
-        OpenGL3Texture(unsigned char* buffer, int width, int height, int bpp);
+        OpenGL3Texture(const std::string &path);
+        OpenGL3Texture(unsigned char *buffer, int width, int height, int bpp);
         OpenGL3Texture(unsigned char r, unsigned char g, unsigned char b);
         OpenGL3Texture(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
         ~OpenGL3Texture();

@@ -10,7 +10,7 @@ namespace darnel {
         ImGui::CreateContext();
         ImGui::StyleColorsDark();
 
-        ImGuiIO& io = ImGui::GetIO();
+        ImGuiIO &io = ImGui::GetIO();
         io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
         io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 
@@ -40,8 +40,8 @@ namespace darnel {
     }
 
     void ImGuiLayer::OnUpdate() {
-        ImGuiIO& io = ImGui::GetIO();
-        auto wnd= Application::Get()->GetWindow().lock();
+        ImGuiIO &io = ImGui::GetIO();
+        auto wnd = Application::Get()->GetWindow().lock();
         DARNEL_ASSERT(wnd, "No active window");
         io.DisplaySize = ImVec2(wnd->GetWidth(), wnd->GetHeight());
 
@@ -60,49 +60,52 @@ namespace darnel {
 
     void ImGuiLayer::Render() {
         ImGui::Begin("Default ImGuiLayer");
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
+                    ImGui::GetIO().Framerate);
         ImGui::End();
     };
 
-    void ImGuiLayer::OnEvent(Event& event) {
+    void ImGuiLayer::OnEvent(Event &event) {
         EventDispatcher dispatcher(event);
         dispatcher.Dispatch<MouseMovedEvent>(std::bind(&ImGuiLayer::OnMouseMovedEvent, this, std::placeholders::_1));
         dispatcher.Dispatch<MouseScrolledEvent>(std::bind(&ImGuiLayer::OnMouseScrolledEvent, this, std::placeholders::_1));
-        dispatcher.Dispatch<MouseButtonPressedEvent>(std::bind(&ImGuiLayer::OnMouseButtonPressedEvent, this, std::placeholders::_1));
-        dispatcher.Dispatch<MouseButtonReleasedEvent>(std::bind(&ImGuiLayer::OnMouseButtonReleasedEvent, this, std::placeholders::_1));
+        dispatcher.Dispatch<MouseButtonPressedEvent>(std::bind(&ImGuiLayer::OnMouseButtonPressedEvent, this,
+                std::placeholders::_1));
+        dispatcher.Dispatch<MouseButtonReleasedEvent>(std::bind(&ImGuiLayer::OnMouseButtonReleasedEvent, this,
+                std::placeholders::_1));
         dispatcher.Dispatch<KeyPressedEvent>(std::bind(&ImGuiLayer::OnKeyPressedEvent, this, std::placeholders::_1));
         dispatcher.Dispatch<KeyReleasedEvent>(std::bind(&ImGuiLayer::OnKeyReleasedEvent, this, std::placeholders::_1));
         dispatcher.Dispatch<KeyTypedEvent>(std::bind(&ImGuiLayer::OnKeyTypedEvent, this, std::placeholders::_1));
         dispatcher.Dispatch<WindowResizeEvent>(std::bind(&ImGuiLayer::OnWindowResizeEvent, this, std::placeholders::_1));
     }
 
-    bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent& e) {
-        ImGuiIO& io = ImGui::GetIO();
+    bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent &e) {
+        ImGuiIO &io = ImGui::GetIO();
         io.MousePos = ImVec2(e.GetX(), e.GetY());
         return false;
     }
 
-    bool ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent& e) {
-        ImGuiIO& io = ImGui::GetIO();
+    bool ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent &e) {
+        ImGuiIO &io = ImGui::GetIO();
         io.MouseWheel += e.GetYOffset();
         io.MouseWheelH += e.GetXOffset();
         return false;
     }
 
-    bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e) {
-        ImGuiIO& io = ImGui::GetIO();
+    bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent &e) {
+        ImGuiIO &io = ImGui::GetIO();
         io.MouseDown[e.GetMouseButton()] = true;
         return false;
     }
 
-    bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e) {
-        ImGuiIO& io = ImGui::GetIO();
+    bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent &e) {
+        ImGuiIO &io = ImGui::GetIO();
         io.MouseDown[e.GetMouseButton()] = false;
         return false;
     }
 
-    bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& e) {
-        ImGuiIO& io = ImGui::GetIO();
+    bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent &e) {
+        ImGuiIO &io = ImGui::GetIO();
         io.KeysDown[e.GetKeyCode()] = true;
 
         io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
@@ -112,15 +115,15 @@ namespace darnel {
         return false;
     }
 
-    bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& e) {
-        ImGuiIO& io = ImGui::GetIO();
+    bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent &e) {
+        ImGuiIO &io = ImGui::GetIO();
         io.KeysDown[e.GetKeyCode()] = false;
 
         return false;
     }
 
-    bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent& e) {
-        ImGuiIO& io = ImGui::GetIO();
+    bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent &e) {
+        ImGuiIO &io = ImGui::GetIO();
 
         int c = e.GetKeyCode();
         if (c > 0 && c < 0x10000)
@@ -129,8 +132,8 @@ namespace darnel {
         return false;
     }
 
-    bool ImGuiLayer::OnWindowResizeEvent(WindowResizeEvent& e) {
-        ImGuiIO& io = ImGui::GetIO();
+    bool ImGuiLayer::OnWindowResizeEvent(WindowResizeEvent &e) {
+        ImGuiIO &io = ImGui::GetIO();
         io.DisplaySize = ImVec2(e.GetWidth(), e.GetHeight());
         io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
         return false;

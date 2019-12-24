@@ -14,7 +14,7 @@ namespace darnel {
         ImGuiLayer() : Layer("ImGuiLayer") {}
 
         virtual void OnAttach() override;
-        virtual void OnEvent(Event& event) override;
+        virtual void OnEvent(Event &event) override;
         virtual void OnUpdate() override;
 
         virtual void Render();
@@ -22,13 +22,13 @@ namespace darnel {
     private:
         float m_Time = 0.0f;
 
-        bool OnMouseMovedEvent(MouseMovedEvent& e);
-        bool OnMouseScrolledEvent(MouseScrolledEvent& e);
-        bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
-        bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
-        bool OnKeyPressedEvent(KeyPressedEvent& e);
-        bool OnKeyReleasedEvent(KeyReleasedEvent& e);
-        bool OnKeyTypedEvent(KeyTypedEvent& e);
-        bool OnWindowResizeEvent(WindowResizeEvent& e);
+        bool OnMouseMovedEvent(MouseMovedEvent &e);
+        bool OnMouseScrolledEvent(MouseScrolledEvent &e);
+        bool OnMouseButtonPressedEvent(MouseButtonPressedEvent &e);
+        bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent &e);
+        bool OnKeyPressedEvent(KeyPressedEvent &e);
+        bool OnKeyReleasedEvent(KeyReleasedEvent &e);
+        bool OnKeyTypedEvent(KeyTypedEvent &e);
+        bool OnWindowResizeEvent(WindowResizeEvent &e);
     };
 }
