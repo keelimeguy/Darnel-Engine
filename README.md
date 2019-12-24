@@ -1,6 +1,8 @@
 # Darnel Engine
 
-The beginnings of the Darnel Engine. Not sure what it will do as of yet, but it will probably be related to 3D/2D graphics, sound, games, and the like.
+The beginnings of the Darnel Engine. Not sure what it will do as of yet, but it will probably be related to 3D/2D graphics, sound, games, and the like.  
+
+Largely follows The Cherno's [Game Engine](https://www.youtube.com/playlist?list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT) series on youtube.
 
 ## Command line
 
