@@ -9,7 +9,6 @@ namespace test {
         ~TestMultiWindow();
 
         void OnRender() override;
-        void OnImGuiRender() override;
 
         static const int s_NumSettings;
         static const char *s_Settings[];

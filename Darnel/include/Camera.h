@@ -33,6 +33,7 @@ namespace darnel {
         virtual void OnUpdate() {}
         virtual void OnEvent(Event &e) {}
 
+        glm::mat4 GetProj() { return m_proj; }
         glm::mat4 GetProjView() { return m_proj * m_view; }
 
     private:

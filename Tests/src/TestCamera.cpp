@@ -28,8 +28,7 @@ namespace test {
     }
 
     void TestCamera::OnImGuiRender() {
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
-                    ImGui::GetIO().Framerate);
+        Test::OnImGuiRender();
 
         ImGui::SliderFloat("Camera Left", &m_left, 0.0f, 1000.0f, "%.3f");
         ImGui::SliderFloat("Camera Right", &m_right, 0.0f, 1000.0f, "%.3f");

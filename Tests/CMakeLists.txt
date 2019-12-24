@@ -7,11 +7,14 @@ source_group( TREE "${CMAKE_CURRENT_LIST_DIR}" FILES ${RESOURCE_FILES} )
 
 target_sources( test_darnel
     PRIVATE
+        include/Level.h
+        include/PlayerCamera.h
         include/Test.h
         include/TestApp.h
         include/TestCamera.h
         include/TestClearColor.h
         include/TestLayer.h
+        include/TestLevel.h
         include/TestMultiWindow.h
         include/TestPlayer.h
         include/TestSprite.h
@@ -20,6 +23,7 @@ target_sources( test_darnel
         src/Test.cpp
         src/TestCamera.cpp
         src/TestClearColor.cpp
+        src/TestLevel.cpp
         src/TestMultiWindow.cpp
         src/TestPlayer.cpp
         src/TestSprite.cpp

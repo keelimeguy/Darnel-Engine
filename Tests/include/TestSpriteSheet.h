@@ -13,7 +13,6 @@ namespace test {
         TestSpriteSheet(int setting = 0);
 
         void OnRender() override;
-        void OnImGuiRender() override;
 
         static const int s_NumSettings;
         static const char *s_Settings[];

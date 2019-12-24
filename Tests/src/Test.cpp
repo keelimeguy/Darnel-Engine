@@ -13,6 +13,7 @@ namespace test {
     }
 
     void TestMenu::OnImGuiRender() {
+        Test::OnImGuiRender();
         for (auto &test : m_Tests) {
             if (ImGui::Button(test->Name().c_str())) {
                 m_CurrentTest = test->Callback()(test->m_choice);

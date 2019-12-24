@@ -49,8 +49,7 @@ namespace test {
     }
 
     void TestPlayer::OnImGuiRender() {
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
-                    ImGui::GetIO().Framerate);
+        Test::OnImGuiRender();
 
         if (m_fixPlayer) {
             ImGui::SliderFloat("Player X", &m_x, 0.0f, 640.0f, "%.3f");

@@ -19,14 +19,18 @@ set( HEADER_FILES
     include/Graphics2D/SpriteSheet.h
     include/Graphics2D/Texture.h
     include/ImGui/ImGuiLayer.h
+    include/Layers/CameraLayer.h
+    include/Layers/EntityLayer.h
     include/Layers/Layer.h
     include/Layers/LayerStack.h
+    include/Layers/StaticEntityLayer.h
 )
 
 set( SRC_FILES
     src/Application.cpp
     src/Graphics2D/SpriteSheet.cpp
     src/ImGui/ImGuiLayer.cpp
+    src/Layers/EntityLayer.cpp
     src/Layers/LayerStack.cpp
 )
 

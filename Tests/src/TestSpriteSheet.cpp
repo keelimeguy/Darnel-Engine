@@ -48,9 +48,4 @@ namespace test {
         for (int i = 0; i < m_slices * m_slices; ++i)
             m_entities[i]->Draw(m_proj_view);
     }
-
-    void TestSpriteSheet::OnImGuiRender() {
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
-                    ImGui::GetIO().Framerate);
-    }
 }

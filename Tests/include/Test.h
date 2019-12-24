@@ -11,7 +11,11 @@ namespace test {
         virtual void OnEvent(darnel::Event &e) {}
         virtual void OnUpdate() {}
         virtual void OnRender() {}
-        virtual void OnImGuiRender() {}
+
+        virtual void OnImGuiRender() {
+            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
+                        ImGui::GetIO().Framerate);
+        }
 
         static const int s_NumSettings;
         static const char *s_Settings[];

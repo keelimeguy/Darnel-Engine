@@ -8,6 +8,7 @@
 #include "TestSpriteSheet.h"
 #include "TestPlayer.h"
 #include "TestMultiWindow.h"
+#include "TestLevel.h"
 
 namespace test {
     class TestLayer : public darnel::ImGuiLayer {
@@ -21,6 +22,7 @@ namespace test {
             m_TestMenu.RegisterTest<test::TestSpriteSheet>("SpriteSheet");
             m_TestMenu.RegisterTest<test::TestCamera>("Camera");
             m_TestMenu.RegisterTest<test::TestMultiWindow>("Multiple Windows");
+            m_TestMenu.RegisterTest<test::TestLevel>("Level");
         }
 
         void OnUpdate() override {
