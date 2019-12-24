@@ -7,7 +7,7 @@ namespace darnel {
     class LayerStack {
     public:
         LayerStack();
-        ~LayerStack();
+        virtual ~LayerStack();
 
         void PushLayer(Layer *layer);
         void PushOverlay(Layer *overlay);

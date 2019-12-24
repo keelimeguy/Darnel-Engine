@@ -7,8 +7,6 @@ set( HEADER_FILES
     include/Camera.h
     include/Core.h
     include/Darnel.h
-    include/Layer.h
-    include/LayerStack.h
     include/Renderer.h
     include/Window.h
     include/Event/ApplicationEvent.h
@@ -21,13 +19,15 @@ set( HEADER_FILES
     include/Graphics2D/SpriteSheet.h
     include/Graphics2D/Texture.h
     include/ImGui/ImGuiLayer.h
+    include/Layers/Layer.h
+    include/Layers/LayerStack.h
 )
 
 set( SRC_FILES
     src/Application.cpp
-    src/LayerStack.cpp
-    src/SpriteSheet.cpp
+    src/Graphics2D/SpriteSheet.cpp
     src/ImGui/ImGuiLayer.cpp
+    src/Layers/LayerStack.cpp
 )
 
 set( DIRECTX12_HEADER_FILES
@@ -79,6 +79,7 @@ if( WINDOWS_VS AND DX12_GLOBAL_ENABLE )
             ${CMAKE_CURRENT_LIST_DIR}/include/Event
             ${CMAKE_CURRENT_LIST_DIR}/include/Graphics2D
             ${CMAKE_CURRENT_LIST_DIR}/include/ImGui
+            ${CMAKE_CURRENT_LIST_DIR}/include/Layers
         PRIVATE
             ${CMAKE_CURRENT_LIST_DIR}/include/DirectX12
     )
@@ -97,6 +98,7 @@ else()
             ${CMAKE_CURRENT_LIST_DIR}/include/Event
             ${CMAKE_CURRENT_LIST_DIR}/include/Graphics2D
             ${CMAKE_CURRENT_LIST_DIR}/include/ImGui
+            ${CMAKE_CURRENT_LIST_DIR}/include/Layers
         PRIVATE
             ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
     )
