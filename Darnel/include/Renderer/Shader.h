@@ -7,6 +7,13 @@
 #include <unordered_map>
 
 namespace darnel {
+    enum class ShaderDataType {
+        None = 0,
+        Float,
+        UnsignedInt,
+        UnsignedByte
+    };
+
     struct ShaderProgramSource {
         std::string VertexSource;
         std::string FragmentSource;

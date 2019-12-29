@@ -1,20 +1,34 @@
 #pragma once
 
+#include "Shader.h"
 #include "VertexBufferLayout.h"
 #include "OpenGL3Renderer.h"
 
 namespace darnel {
     struct OpenGL3VertexBufferElement : public VertexBufferElement {
-        OpenGL3VertexBufferElement(unsigned int type, unsigned int count, unsigned char normalized)
-            : VertexBufferElement(type, count, normalized) {}
-        unsigned int GetSizeOfType(unsigned int type) const override {
+        OpenGL3VertexBufferElement(const std::string &name, ShaderDataType type, unsigned int count, bool normalized)
+            : VertexBufferElement(name, type, count, normalized) {
+
             switch (type) {
-                case GL_FLOAT:          return 4;
-                case GL_UNSIGNED_INT:   return 4;
-                case GL_UNSIGNED_BYTE:  return 1;
+                case ShaderDataType::None:
+                    DARNEL_ASSERT(false, "None is an invalid shader type.");
+                    break;
+
+                case ShaderDataType::Float:
+                    size = count * 4;
+                    break;
+
+                case ShaderDataType::UnsignedInt:
+                    size = count * 4;
+                    break;
+
+                case ShaderDataType::UnsignedByte:
+                    size = count * 1;
+                    break;
+
+                default:
+                    DARNEL_ASSERT(false, "Unknown shader type.");
             }
-            ASSERT(false);
-            return 0;
         }
     };
 
@@ -23,8 +37,6 @@ namespace darnel {
         OpenGL3VertexBufferLayout() {}
         ~OpenGL3VertexBufferLayout() override {}
 
-        virtual void PushFloat(unsigned int count) override;
-        virtual void PushInt(unsigned int count) override;
-        virtual void PushByte(unsigned int count) override;
+        virtual void Push(const std::string &name, ShaderDataType type, unsigned int count, bool normalized = false) override;
     };
 }

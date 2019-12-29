@@ -17,6 +17,8 @@ namespace test {
         for (auto &test : m_Tests) {
             if (ImGui::Button(test->Name().c_str())) {
                 m_CurrentTest = test->Callback()(test->m_choice);
+                auto wnd = darnel::Application::Get()->GetWindow().lock();
+                wnd->Focus();
             }
             if (test->NumSettings()) {
                 ImGui::SameLine();

@@ -21,9 +21,33 @@ namespace darnel {
         for (unsigned int i = 0; i < elements.size(); ++i) {
             const auto &element = elements[i];
             GLCALL(glEnableVertexAttribArray(i));
-            GLCALL(glVertexAttribPointer(i, element->count, element->type, element->normalized, layout.GetStride(),
-                                         (const void *)(uintptr_t)offset));
-            offset += element->count * element->GetSizeOfType(element->type);
+
+            unsigned int type;
+            switch (element->type) {
+                case ShaderDataType::None:
+                    DARNEL_ASSERT(false, "None is an invalid shader type.");
+                    break;
+
+                case ShaderDataType::Float:
+                    type = GL_FLOAT;
+                    break;
+
+                case ShaderDataType::UnsignedInt:
+                    type = GL_UNSIGNED_INT;
+                    break;
+
+                case ShaderDataType::UnsignedByte:
+                    type = GL_UNSIGNED_BYTE;
+                    break;
+
+                default:
+                    DARNEL_ASSERT(false, "Unknown shader type.");
+            }
+
+            GLCALL(glVertexAttribPointer(i, element->count, type,
+                                         element->normalized ? GL_TRUE : GL_FALSE,
+                                         layout.GetStride(), (const void *)(uintptr_t)offset));
+            offset += element->size;
         }
     }
 

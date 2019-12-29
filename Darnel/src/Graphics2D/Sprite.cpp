@@ -81,6 +81,10 @@ namespace darnel {
             // s_shader = Shader::Create(shaderSrc);
         }
 
+        auto layout = VertexBufferLayout::Create();
+        layout->Push("position", ShaderDataType::Float, 2);
+        layout->Push("texCoord", ShaderDataType::Float, 2);
+
         float positions[] = {
             0.0f, 0.0f, 0.0f, 0.0f,    // 0
             width, 0.0f, 1.0f, 0.0f,   // 1
@@ -88,11 +92,7 @@ namespace darnel {
             0.0f, height, 0.0f, 1.0f,  // 3
         };
 
-        m_vb = VertexBuffer::Create(positions, 4 * 4 * (unsigned int) sizeof(float));
-
-        auto layout = VertexBufferLayout::Create();
-        layout->PushFloat(2);
-        layout->PushFloat(2);
+        m_vb = VertexBuffer::Create(positions, (unsigned int) sizeof(positions));
 
         m_va = VertexArray::Create();
         m_va->AddBuffer(*m_vb, *layout);
