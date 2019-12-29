@@ -4,22 +4,6 @@
 #include <stb_image.h>
 
 namespace darnel {
-    std::shared_ptr<Texture> Texture::Create(const std::string &path) {
-        return std::shared_ptr<Texture>(new OpenGL3Texture(path));
-    }
-
-    std::shared_ptr<Texture> Texture::Create(unsigned char *buffer, int width, int height, int bpp) {
-        return std::shared_ptr<Texture>(new OpenGL3Texture(buffer, width, height, bpp));
-    }
-
-    std::shared_ptr<Texture> Texture::Create(unsigned char r, unsigned char g, unsigned char b) {
-        return std::shared_ptr<Texture>(new OpenGL3Texture(r, g, b));
-    }
-
-    std::shared_ptr<Texture> Texture::Create(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-        return std::shared_ptr<Texture>(new OpenGL3Texture(r, g, b, a));
-    }
-
     void OpenGL3Texture::Init() {
         GLCALL(glGenTextures(1, &m_RendererID));
         GLCALL(glBindTexture(GL_TEXTURE_2D, m_RendererID));

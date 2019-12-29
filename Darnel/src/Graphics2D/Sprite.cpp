@@ -20,7 +20,13 @@ namespace darnel {
     std::unordered_map<std::string, std::weak_ptr<Sprite::SpriteContext>> Sprite::s_contextCache;
 
     std::shared_ptr<Sprite> Sprite::Create(float width, float height, std::shared_ptr<Texture> texture) {
-        return std::shared_ptr<Sprite>(new Sprite(width, height, texture));
+        switch (Renderer::GetAPI()) {
+            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::OpenGL3: return std::shared_ptr<Sprite>(new Sprite(width, height, texture));
+        }
+
+        DARNEL_ASSERT(false, "Unknown RendererAPI.");
+        return nullptr;
     }
 
     Sprite::SpriteContext::SpriteContext(float width, float height)

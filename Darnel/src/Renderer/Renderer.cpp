@@ -7,9 +7,7 @@ namespace darnel {
 
     Renderer *Renderer::Get() {
         switch (GetAPI()) {
-            case RendererAPI::None:
-                DARNEL_ASSERT(false, "None is not a valid RendererAPI.");
-                return nullptr;
+            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
 
             case RendererAPI::OpenGL3:
                 if (!s_OpenGL3Instance) s_OpenGL3Instance = new OpenGL3Renderer();

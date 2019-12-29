@@ -11,10 +11,6 @@
 namespace darnel {
     static bool s_GLFWInitialized = false;
 
-    std::shared_ptr<Window> Window::Create(std::string name, unsigned int width, unsigned int height) {
-        return std::shared_ptr<Window>(new OpenGL3Window(name, width, height));
-    }
-
     void Window::PollEvents() {
         glfwPollEvents();
     }

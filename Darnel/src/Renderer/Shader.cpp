@@ -1,21 +1,41 @@
 #include "Shader.h"
 #include "OpenGL3Shader.h"
 
+#include "Renderer.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
 namespace darnel {
     std::shared_ptr<Shader> Shader::Create(const ShaderProgramSource &shaderSrc) {
-        return std::shared_ptr<Shader>(new OpenGL3Shader(shaderSrc));
+        switch (Renderer::GetAPI()) {
+            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::OpenGL3: return std::shared_ptr<Shader>(new OpenGL3Shader(shaderSrc));
+        }
+
+        DARNEL_ASSERT(false, "Unknown RendererAPI.");
+        return nullptr;
     }
 
     std::shared_ptr<Shader> Shader::Create(const std::string &vertexFilePath, const std::string &fragmentFilePath) {
-        return std::shared_ptr<Shader>(new OpenGL3Shader(vertexFilePath, fragmentFilePath));
+        switch (Renderer::GetAPI()) {
+            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::OpenGL3: return std::shared_ptr<Shader>(new OpenGL3Shader(vertexFilePath, fragmentFilePath));
+        }
+
+        DARNEL_ASSERT(false, "Unknown RendererAPI.");
+        return nullptr;
     }
 
     std::shared_ptr<Shader> Shader::Create(const std::string &filePath) {
-        return std::shared_ptr<Shader>(new OpenGL3Shader(filePath));
+        switch (Renderer::GetAPI()) {
+            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::OpenGL3: return std::shared_ptr<Shader>(new OpenGL3Shader(filePath));
+        }
+
+        DARNEL_ASSERT(false, "Unknown RendererAPI.");
+        return nullptr;
     }
 
     ShaderProgramSource Shader::ParseShader(const std::string &filePath) {

@@ -34,8 +34,10 @@ set( HEADER_FILES
 
 set( SRC_FILES
     src/Application.cpp
+    src/Window.cpp
     src/Graphics2D/Sprite.cpp
     src/Graphics2D/SpriteSheet.cpp
+    src/Graphics2D/Texture.cpp
     src/ImGui/ImGuiLayer.cpp
     src/Layers/EntityLayer.cpp
     src/Layers/LayerStack.cpp

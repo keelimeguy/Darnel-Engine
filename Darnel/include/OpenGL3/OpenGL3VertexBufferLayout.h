@@ -10,24 +10,11 @@ namespace darnel {
             : VertexBufferElement(name, type, count, normalized) {
 
             switch (type) {
-                case ShaderDataType::None:
-                    DARNEL_ASSERT(false, "None is an invalid shader type.");
-                    break;
-
-                case ShaderDataType::Float:
-                    size = count * 4;
-                    break;
-
-                case ShaderDataType::UnsignedInt:
-                    size = count * 4;
-                    break;
-
-                case ShaderDataType::UnsignedByte:
-                    size = count * 1;
-                    break;
-
-                default:
-                    DARNEL_ASSERT(false, "Unknown shader type.");
+                case ShaderDataType::None: DARNEL_ASSERT(false, "None is an invalid shader type."); break;
+                case ShaderDataType::Float:         size = count * 4; break;
+                case ShaderDataType::UnsignedInt:   size = count * 4; break;
+                case ShaderDataType::UnsignedByte:  size = count * 1; break;
+                default: DARNEL_ASSERT(false, "Unknown shader type.");
             }
         }
     };
