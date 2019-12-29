@@ -7,7 +7,6 @@ set( HEADER_FILES
     include/Camera.h
     include/Core.h
     include/Darnel.h
-    include/Renderer.h
     include/Window.h
     include/Event/ApplicationEvent.h
     include/Event/Event.h
@@ -24,14 +23,28 @@ set( HEADER_FILES
     include/Layers/Layer.h
     include/Layers/LayerStack.h
     include/Layers/StaticEntityLayer.h
+    include/Renderer/GraphicsContext.h
+    include/Renderer/IndexBuffer.h
+    include/Renderer/Renderer.h
+    include/Renderer/Shader.h
+    include/Renderer/VertexArray.h
+    include/Renderer/VertexBuffer.h
+    include/Renderer/VertexBufferLayout.h
 )
 
 set( SRC_FILES
     src/Application.cpp
+    src/Graphics2D/Sprite.cpp
     src/Graphics2D/SpriteSheet.cpp
     src/ImGui/ImGuiLayer.cpp
     src/Layers/EntityLayer.cpp
     src/Layers/LayerStack.cpp
+    src/Renderer/IndexBuffer.cpp
+    src/Renderer/Renderer.cpp
+    src/Renderer/Shader.cpp
+    src/Renderer/VertexArray.cpp
+    src/Renderer/VertexBuffer.cpp
+    src/Renderer/VertexBufferLayout.cpp
 )
 
 set( DIRECTX12_HEADER_FILES
@@ -40,26 +53,26 @@ set( DIRECTX12_SRC_FILES
 )
 
 set( OPENGL3_HEADER_FILES
-    include/OpenGL3/IndexBuffer.h
+    include/OpenGL3/OpenGL3Context.h
+    include/OpenGL3/OpenGL3IndexBuffer.h
     include/OpenGL3/OpenGL3Renderer.h
     include/OpenGL3/OpenGL3Shader.h
-    include/OpenGL3/OpenGL3Sprite.h
     include/OpenGL3/OpenGL3Texture.h
+    include/OpenGL3/OpenGL3VertexArray.h
+    include/OpenGL3/OpenGL3VertexBuffer.h
+    include/OpenGL3/OpenGL3VertexBufferLayout.h
     include/OpenGL3/OpenGL3Window.h
-    include/OpenGL3/VertexArray.h
-    include/OpenGL3/VertexBuffer.h
-    include/OpenGL3/VertexBufferLayout.h
 )
 set( OPENGL3_SRC_FILES
-    src/OpenGL3/IndexBuffer.cpp
+    src/OpenGL3/OpenGL3Context.cpp
+    src/OpenGL3/OpenGL3IndexBuffer.cpp
     src/OpenGL3/OpenGL3Renderer.cpp
     src/OpenGL3/OpenGL3Shader.cpp
-    src/OpenGL3/OpenGL3Sprite.cpp
     src/OpenGL3/OpenGL3Texture.cpp
+    src/OpenGL3/OpenGL3VertexArray.cpp
+    src/OpenGL3/OpenGL3VertexBuffer.cpp
+    src/OpenGL3/OpenGL3VertexBufferLayout.cpp
     src/OpenGL3/OpenGL3Window.cpp
-    src/OpenGL3/VertexArray.cpp
-    src/OpenGL3/VertexBuffer.cpp
-    src/OpenGL3/VertexBufferLayout.cpp
 )
 
 source_group( TREE ${CMAKE_CURRENT_LIST_DIR}/src PREFIX "Source Files"
@@ -84,6 +97,7 @@ if( WINDOWS_VS AND DX12_GLOBAL_ENABLE )
             ${CMAKE_CURRENT_LIST_DIR}/include/Graphics2D
             ${CMAKE_CURRENT_LIST_DIR}/include/ImGui
             ${CMAKE_CURRENT_LIST_DIR}/include/Layers
+            ${CMAKE_CURRENT_LIST_DIR}/include/Renderer
         PRIVATE
             ${CMAKE_CURRENT_LIST_DIR}/include/DirectX12
     )
@@ -103,6 +117,7 @@ else()
             ${CMAKE_CURRENT_LIST_DIR}/include/Graphics2D
             ${CMAKE_CURRENT_LIST_DIR}/include/ImGui
             ${CMAKE_CURRENT_LIST_DIR}/include/Layers
+            ${CMAKE_CURRENT_LIST_DIR}/include/Renderer
         PRIVATE
             ${CMAKE_CURRENT_LIST_DIR}/include/OpenGL3
     )
@@ -141,4 +156,8 @@ target_link_libraries( darnel
         imgui
         stb_image
         glm_static
+)
+
+target_compile_options( darnel
+    PRIVATE -Werror
 )

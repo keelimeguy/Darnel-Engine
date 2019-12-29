@@ -1,25 +1,24 @@
-#include "IndexBuffer.h"
+#include "OpenGL3IndexBuffer.h"
 #include "OpenGL3Renderer.h"
 
 namespace darnel {
-    IndexBuffer::IndexBuffer(const unsigned int *data, unsigned int count)
-        : m_Count(count) {
-        ASSERT(sizeof(unsigned int) == sizeof(GLuint));
+    OpenGL3IndexBuffer::OpenGL3IndexBuffer(const unsigned int *data, unsigned int count)
+        : IndexBuffer(data, count) {
 
-        GLCALL(glGenBuffers(1, &m_RendererID));
+        GLCALL(glCreateBuffers(1, &m_RendererID));
         GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID));
         GLCALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW));
     }
 
-    IndexBuffer::~IndexBuffer() {
+    OpenGL3IndexBuffer::~OpenGL3IndexBuffer() {
         GLCALL(glDeleteBuffers(1, &m_RendererID));
     }
 
-    void IndexBuffer::Bind() const {
+    void OpenGL3IndexBuffer::Bind() const {
         GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID));
     }
 
-    void IndexBuffer::Unbind() const {
+    void OpenGL3IndexBuffer::Unbind() const {
         GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
     }
 }

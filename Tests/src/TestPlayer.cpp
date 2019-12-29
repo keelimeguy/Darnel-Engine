@@ -44,7 +44,7 @@ namespace test {
 
     void TestPlayer::OnRender() {
         auto proj_view = m_camera->GetProjView();
-        darnel::Renderer::Clear();
+        darnel::Renderer::Get()->Clear();
         m_player->Draw(proj_view);
     }
 

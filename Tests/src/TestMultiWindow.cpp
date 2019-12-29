@@ -20,6 +20,6 @@ namespace test {
     }
 
     void TestMultiWindow::OnRender() {
-        darnel::Renderer::Clear(0.5f, 0.0f, 0.5f, 1.0f);
+        darnel::Renderer::Get()->Clear(0.5f, 0.0f, 0.5f, 1.0f);
     }
 }

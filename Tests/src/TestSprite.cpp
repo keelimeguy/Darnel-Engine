@@ -28,7 +28,7 @@ namespace test {
 
     void TestSprite::OnRender() {
         auto proj_view = m_camera->GetProjView();
-        darnel::Renderer::Clear();
+        darnel::Renderer::Get()->Clear();
         m_star1->Draw(proj_view);
         m_star2->Draw(proj_view);
         m_color1->Draw(proj_view);

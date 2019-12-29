@@ -44,7 +44,7 @@ namespace test {
     }
 
     void TestSpriteSheet::OnRender() {
-        darnel::Renderer::Clear();
+        darnel::Renderer::Get()->Clear();
         for (int i = 0; i < m_slices * m_slices; ++i)
             m_entities[i]->Draw(m_proj_view);
     }

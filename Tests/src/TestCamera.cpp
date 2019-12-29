@@ -23,7 +23,7 @@ namespace test {
         auto camera = darnel::MakeOrthographicCamera(m_left, m_right, m_bottom, m_top, m_near, m_far);
         camera->MoveTo(m_x, m_y, m_z);
 
-        darnel::Renderer::Clear();
+        darnel::Renderer::Get()->Clear();
         m_star->Draw(camera->GetProjView());
     }
 

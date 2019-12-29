@@ -38,6 +38,10 @@ target_link_libraries( test_darnel
     PRIVATE darnel
 )
 
+target_compile_options( test_darnel
+    PRIVATE -Werror
+)
+
 # Tell Visual Studio to run through console (not as a Windows app)
 if( WINDOWS_VS )
     set( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:CONSOLE" )

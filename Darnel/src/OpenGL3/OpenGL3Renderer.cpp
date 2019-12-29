@@ -1,22 +1,8 @@
 #include "OpenGL3Renderer.h"
-#include "OpenGL3Sprite.h"
+#include "Sprite.h"
 #include "Renderer.h"
 
 namespace darnel {
-    void Renderer::Clear(float f0, float f1, float f2, float f3) {
-        GLCALL(glClearColor(f0, f1, f2, f3));
-        GLCALL(glClear(GL_COLOR_BUFFER_BIT));
-    }
-
-    void Renderer::Terminate(std::vector<std::shared_ptr<Window>> *windows) {
-        OpenGL3Sprite::SpriteContext::s_ib = nullptr;
-        OpenGL3Sprite::SpriteContext::s_shader = nullptr;
-        if (windows) {
-            windows->clear();
-        }
-        glfwTerminate();
-    }
-
     static void glfw_error_callback(int error, const char *description) {
         fprintf(stderr, "Glfw Error %d: %s\n", error, description);
     }
@@ -50,14 +36,27 @@ namespace darnel {
         glfwMakeContextCurrent(window);
 
         ASSERT(!glewInit());
-        GLCALL(std::cout << glGetString(GL_VERSION) << std::endl);
+        GLCALL(std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl);
+        GLCALL(std::cout << "GPU: " << glGetString(GL_RENDERER) << std::endl);
         GLCALL(glEnable(GL_BLEND));
         GLCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
         return window;
     }
 
-    void OpenGL3Renderer::Draw(const VertexArray &va, const IndexBuffer &ib, const OpenGL3Shader &shader) {
+    void OpenGL3Renderer::Clear(float f0, float f1, float f2, float f3) {
+        GLCALL(glClearColor(f0, f1, f2, f3));
+        GLCALL(glClear(GL_COLOR_BUFFER_BIT));
+    }
+
+    void OpenGL3Renderer::Terminate(std::vector<std::shared_ptr<Window>> *windows) {
+        if (windows) {
+            windows->clear();
+        }
+        glfwTerminate();
+    }
+
+    void OpenGL3Renderer::Draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) {
         shader.Bind();
         va.Bind();
         ib.Bind();

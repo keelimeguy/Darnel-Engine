@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Sprite.h"
 
 namespace darnel {
     Application *Application::s_Instance = nullptr;
@@ -16,13 +17,17 @@ namespace darnel {
     }
 
     Application::~Application() {
-        Renderer::Terminate(&m_Windows);
+        Sprite::SpriteContext::s_ib = nullptr;
+        Sprite::SpriteContext::s_shader = nullptr;
+        Renderer::Get()->Terminate(&m_Windows);
     }
 
     std::weak_ptr<Window> Application::NewWindow(std::string name, unsigned int width, unsigned int height) {
         m_Windows.push_back(Window::Create(name, width, height));
         auto window = m_Windows.back();
         window->AddEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1, window.get()));
+
+        std::cout << "[" << name << "] " << "Created" << std::endl << std::flush;
 
         m_ActiveWindow->Focus();
 
@@ -34,6 +39,8 @@ namespace darnel {
         m_Windows.push_back(parent->MakeChild(name, width, height));
         auto window = m_Windows.back();
         window->AddEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1, window.get()));
+
+        std::cout << "[" << name << "] " << "Created" << std::endl << std::flush;
 
         m_ActiveWindow->Focus();
 
@@ -71,7 +78,7 @@ namespace darnel {
         while (m_Running) {
             Window::PollEvents();
 
-            Renderer::Clear();
+            Renderer::Get()->Clear();
 
             for (Layer *layer : m_LayerStack)
                 layer->OnUpdate();

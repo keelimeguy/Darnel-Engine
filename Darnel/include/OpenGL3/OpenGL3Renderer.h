@@ -10,18 +10,24 @@
     x;\
     ASSERT(GLLogCall(#x, __FILE__, __LINE__))
 
+#include "Renderer.h"
 
-#include "VertexArray.h"
-#include "IndexBuffer.h"
+#include "OpenGL3VertexArray.h"
+#include "OpenGL3VertexBuffer.h"
+#include "OpenGL3VertexBufferLayout.h"
+#include "OpenGL3IndexBuffer.h"
 #include "OpenGL3Shader.h"
 
 namespace darnel {
     bool GLLogCall(const char *function, const char *file, int line);
     void GLClearError();
 
-    class OpenGL3Renderer {
+    class OpenGL3Renderer : public Renderer {
     public:
         static GLFWwindow *Init(std::string name, unsigned int width, unsigned int height);
-        static void Draw(const VertexArray &va, const IndexBuffer &ib, const OpenGL3Shader &shader);
+
+        void Clear(float f0 = 0.0f, float f1 = 0.0f, float f2 = 0.0f, float f3 = 1.0f) override;
+        void Terminate(std::vector<std::shared_ptr<Window>> *windows = nullptr) override;
+        void Draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) override;
     };
 }

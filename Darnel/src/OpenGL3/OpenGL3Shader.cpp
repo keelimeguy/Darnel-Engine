@@ -6,38 +6,29 @@
 #include <sstream>
 
 namespace darnel {
+
+    OpenGL3Shader::OpenGL3Shader(const ShaderProgramSource &shaderSrc)
+        : Shader(shaderSrc) {
+
+        m_RendererID = CreateShader(shaderSrc.VertexSource, shaderSrc.FragmentSource);
+    }
+
+    OpenGL3Shader::OpenGL3Shader(const std::string &vertexFilePath, const std::string &fragmentFilePath)
+        : Shader(vertexFilePath, fragmentFilePath) {
+
+        ShaderProgramSource source = ParseShader(vertexFilePath, fragmentFilePath);
+        m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
+    }
+
     OpenGL3Shader::OpenGL3Shader(const std::string &filePath)
-        : m_FilePath(filePath) {
+        : Shader(filePath) {
+
         ShaderProgramSource source = ParseShader(filePath);
         m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
     }
 
     OpenGL3Shader::~OpenGL3Shader() {
         GLCALL(glDeleteProgram(m_RendererID));
-    }
-
-    ShaderProgramSource OpenGL3Shader::ParseShader(const std::string &filePath) {
-        std::ifstream stream(filePath);
-
-        enum class ShaderType {
-            NONE = -1, VERTEX = 0, FRAGMENT = 1
-        };
-
-        std::string line;
-        std::stringstream ss[2];
-        ShaderType type = ShaderType::NONE;
-        while (getline(stream, line)) {
-            if (line.find("#shader") != std::string::npos) {
-                if (line.find("vertex") != std::string::npos)
-                    type = ShaderType::VERTEX;
-                else if (line.find("fragment") != std::string::npos)
-                    type = ShaderType::FRAGMENT;
-            } else {
-                ss[(int)type] << line << '\n';
-            }
-        }
-
-        return { ss[0].str(), ss[1].str() };
     }
 
     unsigned int OpenGL3Shader::CompileShader(unsigned int type, const std::string &source) {
@@ -55,7 +46,12 @@ namespace darnel {
             GLCALL(glGetShaderInfoLog(id, length, &length, message));
             std::cout << length << ": " << message << std::endl << std::flush;
             GLCALL(glDeleteShader(id));
-            ASSERT(false);
+            if (type == GL_VERTEX_SHADER)
+                DARNEL_ASSERT(false, "Could not compile vertex shader!");
+            else if (type == GL_FRAGMENT_SHADER)
+                DARNEL_ASSERT(false, "Could not compile fragment shader!");
+            else
+                DARNEL_ASSERT(false, "Could not compile shader!");
         }
 
         return id;
@@ -71,8 +67,22 @@ namespace darnel {
         GLCALL(glLinkProgram(program));
         GLCALL(glValidateProgram(program));
 
-        GLCALL(glDeleteShader(vs));
-        GLCALL(glDeleteShader(fs));
+        int result;
+        GLCALL(glGetProgramiv(program, GL_LINK_STATUS, &result));
+        if (result == GL_FALSE) {
+            int length;
+            GLCALL(glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length));
+            char *message = (char *)alloca(length * sizeof(char));
+            GLCALL(glGetProgramInfoLog(program, length, &length, message));
+            std::cout << length << ": " << message << std::endl << std::flush;
+            GLCALL(glDeleteShader(vs));
+            GLCALL(glDeleteShader(fs));
+            GLCALL(glDeleteProgram(program));
+            DARNEL_ASSERT(false, "Could not link shaders!");
+        }
+
+        GLCALL(glDetachShader(program, vs));
+        GLCALL(glDetachShader(program, fs));
 
         return program;
     }

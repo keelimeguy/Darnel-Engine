@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Window.h"
+#include "GraphicsContext.h"
 
 struct GLFWwindow;
 
@@ -18,5 +19,6 @@ namespace darnel {
 
     private:
         struct GLFWwindow *m_Window;
+        GraphicsContext *m_Context;
     };
 }

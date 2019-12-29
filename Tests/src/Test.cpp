@@ -9,7 +9,7 @@ namespace test {
     {}
 
     void TestMenu::OnRender() {
-        darnel::Renderer::Clear();
+        darnel::Renderer::Get()->Clear();
     }
 
     void TestMenu::OnImGuiRender() {

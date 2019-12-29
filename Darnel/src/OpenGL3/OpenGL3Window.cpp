@@ -1,6 +1,7 @@
 #include "OpenGL3Window.h"
 
 #include "OpenGL3Renderer.h"
+#include "OpenGL3Context.h"
 
 #include "Event.h"
 #include "WindowEvent.h"
@@ -20,6 +21,7 @@ namespace darnel {
 
     OpenGL3Window::OpenGL3Window(std::string name, unsigned int width, unsigned int height)
         : Window(name, width, height) {
+
         if (s_GLFWInitialized) {
             m_Window = glfwCreateWindow(width, height, name.c_str(), nullptr, nullptr);
         } else {
@@ -29,7 +31,9 @@ namespace darnel {
 
         DARNEL_ASSERT(m_Window, "GLFW window creation failed.");
 
-        glfwMakeContextCurrent(m_Window);
+        m_Context = new OpenGL3Context(m_Window);
+        m_Context->Init();
+
         glfwSwapInterval(1); // set VSync
 
         glfwGetWindowPos(m_Window, &m_XPos, &m_YPos);
@@ -155,7 +159,7 @@ namespace darnel {
     }
 
     void OpenGL3Window::OnUpdate() {
-        glfwSwapBuffers(m_Window);
+        m_Context->SwapBuffers();
     }
 
     void OpenGL3Window::Close() {
