@@ -7,12 +7,7 @@
 namespace darnel {
     class Window {
     public:
-        static std::shared_ptr<Window> Create(std::string name, unsigned int width, unsigned int height);
-        static void PollEvents();
-
-        Window(std::string name, unsigned int width, unsigned int height)
-            : m_Name(name), m_Width(width), m_Height(height)
-        {}
+        Window(std::string name, unsigned int width, unsigned int height) : m_Name(name), m_Width(width), m_Height(height) {}
 
         virtual ~Window() {
             for (auto child : m_Children) child->Close();
@@ -42,12 +37,10 @@ namespace darnel {
             return child;
         }
 
-    protected:
-        std::string m_Name;
-        int m_Width, m_Height, m_XPos, m_YPos;
-        std::vector<std::function<void(Event &)>> m_EventCallbacks;
-        std::vector<Window *> m_Children;
+        static std::shared_ptr<Window> Create(std::string name, unsigned int width, unsigned int height);
+        static void PollEvents();
 
+    protected:
         virtual void Broadcast(Event &e) {
             for (auto callback : m_EventCallbacks)
                 callback(e);
@@ -66,5 +59,10 @@ namespace darnel {
             m_Children.erase(it);
             return true;
         }
+
+        std::string m_Name;
+        int m_Width, m_Height, m_XPos, m_YPos;
+        std::vector<std::function<void(Event &)>> m_EventCallbacks;
+        std::vector<Window *> m_Children;
     };
 }

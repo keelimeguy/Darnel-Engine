@@ -6,11 +6,6 @@
 
 namespace darnel {
     class OpenGL3Texture : public Texture {
-    private:
-        unsigned int m_RendererID;
-        std::string m_FilePath;
-
-        void Init();
     public:
         OpenGL3Texture(const std::string &path);
         OpenGL3Texture(unsigned char *buffer, int width, int height, int bpp);
@@ -20,5 +15,11 @@ namespace darnel {
 
         void Bind(unsigned int slot = 0) const override;
         void Unbind() const override;
+
+    private:
+        unsigned int m_RendererID;
+        std::string m_FilePath;
+
+        void Init();
     };
 }

@@ -18,9 +18,10 @@ namespace darnel {
 
     class Camera {
     public:
-        Camera(glm::mat4 proj)
-            : m_proj(proj), m_view(glm::mat4(1.0f))
-        {}
+        Camera(glm::mat4 proj) : m_proj(proj), m_view(glm::mat4(1.0f)) {}
+
+        glm::mat4 GetProj() { return m_proj; }
+        glm::mat4 GetProjView() { return m_proj * m_view; }
 
         void Move(float dx, float dy, float dz = 0.0f) {
             m_view = glm::translate(m_view, glm::vec3(-dx, -dy, -dz));
@@ -32,9 +33,6 @@ namespace darnel {
 
         virtual void OnUpdate() {}
         virtual void OnEvent(Event &e) {}
-
-        glm::mat4 GetProj() { return m_proj; }
-        glm::mat4 GetProjView() { return m_proj * m_view; }
 
     private:
         glm::mat4 m_proj, m_view;

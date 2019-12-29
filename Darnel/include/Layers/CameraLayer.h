@@ -8,23 +8,13 @@
 namespace darnel {
     class CameraLayer : public Layer {
     public:
-        CameraLayer(const std::string &name = "Camera Layer")
-            : Layer(name)
-        {}
-
+        CameraLayer(const std::string &name = "Camera Layer") : Layer(name) {}
         virtual ~CameraLayer() {}
 
-        virtual void OnUpdate() {
-            m_Camera->OnUpdate();
-        }
+        void SetCamera(std::shared_ptr<Camera> camera) { m_Camera = camera; }
 
-        virtual void OnEvent(darnel::Event &event) {
-            m_Camera->OnEvent(event);
-        }
-
-        void SetCamera(std::shared_ptr<Camera> camera) {
-            m_Camera = camera;
-        }
+        virtual void OnUpdate() { m_Camera->OnUpdate(); }
+        virtual void OnEvent(darnel::Event &event) { m_Camera->OnEvent(event); }
 
     protected:
         std::shared_ptr<Camera> m_Camera;

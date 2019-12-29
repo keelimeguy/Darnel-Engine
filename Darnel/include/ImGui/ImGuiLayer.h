@@ -13,11 +13,11 @@ namespace darnel {
     public:
         ImGuiLayer() : Layer("ImGuiLayer") {}
 
-        virtual void OnAttach() override;
-        virtual void OnDetach() override;
-
         void Begin();
         void End();
+
+        virtual void OnAttach() override;
+        virtual void OnDetach() override;
 
     private:
         float m_Time = 0.0f;

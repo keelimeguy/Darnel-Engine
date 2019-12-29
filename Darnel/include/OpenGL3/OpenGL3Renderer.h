@@ -37,10 +37,10 @@ namespace darnel {
     public:
         OpenGL3Renderer() {}
 
-        static GLFWwindow *Init(std::string name, unsigned int width, unsigned int height);
-
         void BeginScene() override;
         void EndScene() override;
         void Terminate(std::vector<std::shared_ptr<Window>> *windows = nullptr) override;
+
+        static GLFWwindow *Init(std::string name, unsigned int width, unsigned int height);
     };
 }

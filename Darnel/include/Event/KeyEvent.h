@@ -25,9 +25,10 @@ namespace darnel {
             return ss.str();
         }
 
-        static EventType GetStaticType() { return EventType::KeyPressed; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "KeyPressedEvent"; };
+
+        static EventType GetStaticType() { return EventType::KeyPressed; }
 
     private:
         int m_RepeatCount;
@@ -44,9 +45,10 @@ namespace darnel {
             return ss.str();
         }
 
-        static EventType GetStaticType() { return EventType::KeyReleased; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "KeyReleasedEvent"; };
+
+        static EventType GetStaticType() { return EventType::KeyReleased; }
     };
 
     class KeyTypedEvent : public KeyEvent {
@@ -60,8 +62,9 @@ namespace darnel {
             return ss.str();
         }
 
-        static EventType GetStaticType() { return EventType::KeyTyped; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "KeyTypedEvent"; };
+
+        static EventType GetStaticType() { return EventType::KeyTyped; }
     };
 }

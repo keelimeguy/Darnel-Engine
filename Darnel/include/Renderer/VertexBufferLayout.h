@@ -18,10 +18,6 @@ namespace darnel {
     };
 
     class VertexBufferLayout {
-    protected:
-        std::vector<std::shared_ptr<VertexBufferElement>> m_Elements;
-        unsigned int m_Stride;
-
     public:
         VertexBufferLayout() : m_Stride(0) {}
         virtual ~VertexBufferLayout() {}
@@ -32,5 +28,9 @@ namespace darnel {
         inline unsigned int GetStride() const { return m_Stride; }
 
         static std::shared_ptr<VertexBufferLayout> Create();
+
+    protected:
+        std::vector<std::shared_ptr<VertexBufferElement>> m_Elements;
+        unsigned int m_Stride;
     };
 }

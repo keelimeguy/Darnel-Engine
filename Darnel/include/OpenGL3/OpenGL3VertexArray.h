@@ -7,9 +7,6 @@ namespace darnel {
     class VertexBufferLayout;
 
     class OpenGL3VertexArray : public VertexArray {
-    private:
-        unsigned int m_RendererId;
-
     public:
         OpenGL3VertexArray();
         ~OpenGL3VertexArray() override;
@@ -18,5 +15,8 @@ namespace darnel {
 
         void Bind() const override;
         void Unbind() const override;
+
+    private:
+        unsigned int m_RendererId;
     };
 }

@@ -10,10 +10,7 @@
 namespace darnel {
     class StaticEntityLayer : public EntityLayer {
     public:
-        StaticEntityLayer(const std::string &name = "StaticEntityLayer")
-            : EntityLayer(name)
-        {}
-
+        StaticEntityLayer(const std::string &name = "StaticEntityLayer") : EntityLayer(name) {}
         virtual ~StaticEntityLayer() {}
 
         virtual void OnUpdate() {

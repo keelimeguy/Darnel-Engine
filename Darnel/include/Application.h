@@ -11,8 +11,6 @@
 namespace darnel {
     class Application {
     public:
-        inline static Application *Get() { return s_Instance; }
-
         Application(std::string name = "Darnel App",
                     unsigned int width = 1280,
                     unsigned int height = 720
@@ -44,8 +42,11 @@ namespace darnel {
             return *it;
         }
 
+        inline static Application *Get() { return s_Instance; }
+
     private:
-        static Application *s_Instance;
+        bool OnWindowClose(WindowCloseEvent &e, Window *window);
+        bool OnWindowFocus(WindowFocusEvent &e, Window *window);
 
         std::vector<std::shared_ptr<Window>> m_Windows;
         Window *m_ActiveWindow;
@@ -53,8 +54,7 @@ namespace darnel {
         LayerStack m_LayerStack;
         bool m_Running = true;
 
-        bool OnWindowClose(WindowCloseEvent &e, Window *window);
-        bool OnWindowFocus(WindowFocusEvent &e, Window *window);
+        static Application *s_Instance;
     };
 
     Application *CreateApplication();

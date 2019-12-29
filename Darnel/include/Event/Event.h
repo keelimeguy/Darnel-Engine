@@ -12,11 +12,11 @@ namespace darnel {
 
     class Event {
     public:
+        bool inline IsHandled() const { return m_Handled; }
+
         virtual EventType GetEventType() const = 0;
         virtual const char *GetName() const = 0;
         virtual std::string ToString() const { return GetName(); }
-
-        bool inline IsHandled() const { return m_Handled; }
 
     protected:
         bool m_Handled = false;

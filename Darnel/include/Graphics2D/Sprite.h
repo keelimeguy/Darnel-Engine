@@ -17,24 +17,25 @@
 namespace darnel {
     class Sprite {
     public:
-        static std::shared_ptr<Sprite> Create(float width, float height, std::shared_ptr<Texture> texture);
-
-        Sprite(float width, float height, std::shared_ptr<Texture> texture);
-        ~Sprite();
-
-        void Draw(const glm::mat4 &mvp);
-
         class SpriteContext {
         public:
+            SpriteContext(float width, float height);
+
             static std::shared_ptr<IndexBuffer> s_ib;
             static std::shared_ptr<Shader> s_shader;
-
-            SpriteContext(float width, float height);
 
             float m_width, m_height;
             std::shared_ptr<VertexArray> m_va;
             std::shared_ptr<VertexBuffer> m_vb;
         };
+
+    public:
+        Sprite(float width, float height, std::shared_ptr<Texture> texture);
+        ~Sprite();
+
+        void Draw(const glm::mat4 &mvp);
+
+        static std::shared_ptr<Sprite> Create(float width, float height, std::shared_ptr<Texture> texture);
 
     protected:
         std::shared_ptr<Texture> m_texture;

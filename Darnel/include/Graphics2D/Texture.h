@@ -5,10 +5,6 @@
 namespace darnel {
     class Texture {
     public:
-        static std::shared_ptr<Texture> Create(const std::string &path);
-        static std::shared_ptr<Texture> Create(unsigned char *buffer, int width, int height, int bpp);
-        static std::shared_ptr<Texture> Create(unsigned char r, unsigned char g, unsigned char b);
-        static std::shared_ptr<Texture> Create(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
         Texture(const std::string &path) {}
         Texture(unsigned char *buffer, int width, int height, int bpp)
@@ -22,6 +18,11 @@ namespace darnel {
 
         virtual void Bind(unsigned int slot = 0) const = 0;
         virtual void Unbind() const = 0;
+
+        static std::shared_ptr<Texture> Create(const std::string &path);
+        static std::shared_ptr<Texture> Create(unsigned char *buffer, int width, int height, int bpp);
+        static std::shared_ptr<Texture> Create(unsigned char r, unsigned char g, unsigned char b);
+        static std::shared_ptr<Texture> Create(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
     protected:
         unsigned char *m_LocalBuffer;

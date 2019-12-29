@@ -17,9 +17,10 @@ namespace darnel {
             return ss.str();
         }
 
-        static EventType GetStaticType() { return EventType::MouseMoved; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "MouseMovedEvent"; };
+
+        static EventType GetStaticType() { return EventType::MouseMoved; }
 
     private:
         float m_MouseX, m_MouseY;
@@ -39,9 +40,10 @@ namespace darnel {
             return ss.str();
         }
 
-        static EventType GetStaticType() { return EventType::MouseScrolled; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "MouseScrolledEvent"; };
+
+        static EventType GetStaticType() { return EventType::MouseScrolled; }
 
     private:
         float m_XOffset, m_YOffset;
@@ -52,9 +54,7 @@ namespace darnel {
         inline int GetMouseButton() const { return m_Button; }
 
     protected:
-        MouseButtonEvent(int button)
-            : m_Button(button) {}
-
+        MouseButtonEvent(int button) : m_Button(button) {}
         int m_Button;
     };
 
@@ -68,9 +68,10 @@ namespace darnel {
             return ss.str();
         }
 
-        static EventType GetStaticType() { return EventType::MouseButtonPressed; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "MouseButtonPressedEvent"; };
+
+        static EventType GetStaticType() { return EventType::MouseButtonPressed; }
     };
 
     class MouseButtonReleasedEvent : public MouseButtonEvent {
@@ -83,26 +84,29 @@ namespace darnel {
             return ss.str();
         }
 
-        static EventType GetStaticType() { return EventType::MouseButtonReleased; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "MouseButtonReleasedEvent"; };
+
+        static EventType GetStaticType() { return EventType::MouseButtonReleased; }
     };
 
     class MouseEnterEvent : public Event {
     public:
         MouseEnterEvent() {}
 
-        static EventType GetStaticType() { return EventType::MouseEnter; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "MouseEnterEvent"; };
+
+        static EventType GetStaticType() { return EventType::MouseEnter; }
     };
 
     class MouseLeaveEvent : public Event {
     public:
         MouseLeaveEvent() {}
 
-        static EventType GetStaticType() { return EventType::MouseLeave; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "MouseLeaveEvent"; };
+
+        static EventType GetStaticType() { return EventType::MouseLeave; }
     };
 }

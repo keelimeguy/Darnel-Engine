@@ -17,9 +17,10 @@ namespace darnel {
             return ss.str();
         }
 
-        static EventType GetStaticType() { return EventType::WindowResize; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "WindowResizeEvent"; };
+
+        static EventType GetStaticType() { return EventType::WindowResize; }
 
     private:
         unsigned int m_Width, m_Height;
@@ -29,9 +30,10 @@ namespace darnel {
     public:
         WindowCloseEvent() {}
 
-        static EventType GetStaticType() { return EventType::WindowClose; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "WindowCloseEvent"; };
+
+        static EventType GetStaticType() { return EventType::WindowClose; }
     };
 
     class WindowMovedEvent : public Event {
@@ -50,9 +52,10 @@ namespace darnel {
             return ss.str();
         }
 
-        static EventType GetStaticType() { return EventType::WindowMoved; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "WindowMovedEvent"; };
+
+        static EventType GetStaticType() { return EventType::WindowMoved; }
 
     private:
         int m_XOffset, m_YOffset, m_XPos, m_YPos;
@@ -62,17 +65,19 @@ namespace darnel {
     public:
         WindowFocusEvent() {}
 
-        static EventType GetStaticType() { return EventType::WindowFocus; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "WindowFocusEvent"; };
+
+        static EventType GetStaticType() { return EventType::WindowFocus; }
     };
 
     class WindowLostFocusEvent : public Event {
     public:
         WindowLostFocusEvent() {}
 
-        static EventType GetStaticType() { return EventType::WindowLostFocus; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
         virtual const char *GetName() const override { return "WindowLostFocusEvent"; };
+
+        static EventType GetStaticType() { return EventType::WindowLostFocus; }
     };
 }

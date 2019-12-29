@@ -8,8 +8,6 @@ namespace darnel {
 
     class VertexArray {
     public:
-        static std::shared_ptr<VertexArray> Create();
-
         VertexArray() {}
         virtual ~VertexArray() {}
 
@@ -17,5 +15,7 @@ namespace darnel {
 
         virtual void Bind() const = 0;
         virtual void Unbind() const = 0;
+
+        static std::shared_ptr<VertexArray> Create();
     };
 }

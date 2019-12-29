@@ -18,10 +18,6 @@ namespace darnel {
             OpenGL3
         };
 
-        inline static API GetAPI() { return s_API; }
-
-        static std::shared_ptr<RendererAPI> Create();
-
         virtual void Init() = 0;
         virtual void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) = 0;
         virtual void SetClearColor(const glm::vec4 &color) = 0;
@@ -30,19 +26,18 @@ namespace darnel {
 
         virtual void Draw(const VertexArray &va, const IndexBuffer &ib) = 0;
 
+        inline static API GetAPI() { return s_API; }
+        static std::shared_ptr<RendererAPI> Create();
+
     private:
         static API s_API;
     };
 
     class Renderer {
     public:
-        static Renderer *Get();
-
         Renderer() { m_RendererAPI = RendererAPI::Create(); }
 
         inline std::shared_ptr<RendererAPI> GetRendererAPI() { return m_RendererAPI; }
-
-        inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
         virtual void Submit(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) {
             shader.Bind();
@@ -52,6 +47,9 @@ namespace darnel {
         virtual void BeginScene() = 0;
         virtual void EndScene() = 0;
         virtual void Terminate(std::vector<std::shared_ptr<Window>> *windows = nullptr) = 0;
+
+        inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+        static Renderer *Get();
 
     private:
         std::shared_ptr<RendererAPI> m_RendererAPI;
