@@ -10,8 +10,8 @@
 namespace darnel {
     std::shared_ptr<Shader> Shader::Create(const ShaderProgramSource &shaderSrc) {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
-            case RendererAPI::OpenGL3: return std::shared_ptr<Shader>(new OpenGL3Shader(shaderSrc));
+            case RendererAPI::API::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::API::OpenGL3: return std::shared_ptr<Shader>(new OpenGL3Shader(shaderSrc));
         }
 
         DARNEL_ASSERT(false, "Unknown RendererAPI.");
@@ -20,8 +20,8 @@ namespace darnel {
 
     std::shared_ptr<Shader> Shader::Create(const std::string &vertexFilePath, const std::string &fragmentFilePath) {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
-            case RendererAPI::OpenGL3: return std::shared_ptr<Shader>(new OpenGL3Shader(vertexFilePath, fragmentFilePath));
+            case RendererAPI::API::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::API::OpenGL3: return std::shared_ptr<Shader>(new OpenGL3Shader(vertexFilePath, fragmentFilePath));
         }
 
         DARNEL_ASSERT(false, "Unknown RendererAPI.");
@@ -30,8 +30,8 @@ namespace darnel {
 
     std::shared_ptr<Shader> Shader::Create(const std::string &filePath) {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
-            case RendererAPI::OpenGL3: return std::shared_ptr<Shader>(new OpenGL3Shader(filePath));
+            case RendererAPI::API::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::API::OpenGL3: return std::shared_ptr<Shader>(new OpenGL3Shader(filePath));
         }
 
         DARNEL_ASSERT(false, "Unknown RendererAPI.");

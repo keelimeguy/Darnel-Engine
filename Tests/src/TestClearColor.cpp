@@ -11,7 +11,8 @@ namespace test {
     }
 
     void TestClearColor::OnRender() {
-        darnel::Renderer::Get()->Clear(m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3]);
+        darnel::RenderCommand::SetClearColor(m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3]);
+        darnel::RenderCommand::Clear();
     }
 
     void TestClearColor::OnImGuiRender() {

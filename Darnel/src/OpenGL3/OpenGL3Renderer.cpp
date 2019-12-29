@@ -43,10 +43,37 @@ namespace darnel {
 
         return window;
     }
+}
 
-    void OpenGL3Renderer::Clear(float f0, float f1, float f2, float f3) {
+namespace darnel {
+    void OpenGL3RendererAPI::Init() {
+    }
+
+    void OpenGL3RendererAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) {
+    }
+
+    void OpenGL3RendererAPI::SetClearColor(float f0, float f1, float f2, float f3) {
         GLCALL(glClearColor(f0, f1, f2, f3));
-        GLCALL(glClear(GL_COLOR_BUFFER_BIT));
+    }
+
+    void OpenGL3RendererAPI::SetClearColor(const glm::vec4 &color) {
+        GLCALL(glClearColor(color.r, color.g, color.b, color.a));
+    }
+
+    void OpenGL3RendererAPI::Clear() {
+        GLCALL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+    }
+
+    void OpenGL3RendererAPI::Draw(const VertexArray &va, const IndexBuffer &ib) {
+        va.Bind();
+        ib.Bind();
+        GLCALL(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr));
+    }
+
+    void OpenGL3Renderer::BeginScene() {
+    }
+
+    void OpenGL3Renderer::EndScene() {
     }
 
     void OpenGL3Renderer::Terminate(std::vector<std::shared_ptr<Window>> *windows) {
@@ -54,13 +81,5 @@ namespace darnel {
             windows->clear();
         }
         glfwTerminate();
-    }
-
-    void OpenGL3Renderer::Draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) {
-        shader.Bind();
-        va.Bind();
-        ib.Bind();
-
-        GLCALL(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr));
     }
 }

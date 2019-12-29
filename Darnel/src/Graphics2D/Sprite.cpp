@@ -21,8 +21,8 @@ namespace darnel {
 
     std::shared_ptr<Sprite> Sprite::Create(float width, float height, std::shared_ptr<Texture> texture) {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
-            case RendererAPI::OpenGL3: return std::shared_ptr<Sprite>(new Sprite(width, height, texture));
+            case RendererAPI::API::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::API::OpenGL3: return std::shared_ptr<Sprite>(new Sprite(width, height, texture));
         }
 
         DARNEL_ASSERT(false, "Unknown RendererAPI.");
@@ -138,6 +138,6 @@ namespace darnel {
         m_context->s_shader->SetUniformMat4f("u_MVP", mvp);
 
         m_context->m_vb->Bind();
-        Renderer::Get()->Draw(*(m_context->m_va), *(m_context->s_ib), *(m_context->s_shader));
+        Renderer::Get()->Submit(*(m_context->m_va), *(m_context->s_ib), *(m_context->s_shader));
     }
 }

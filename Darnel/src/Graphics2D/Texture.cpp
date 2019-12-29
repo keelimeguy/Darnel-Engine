@@ -6,8 +6,8 @@
 namespace darnel {
     std::shared_ptr<Texture> Texture::Create(const std::string &path) {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
-            case RendererAPI::OpenGL3: return std::shared_ptr<Texture>(new OpenGL3Texture(path));
+            case RendererAPI::API::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::API::OpenGL3: return std::shared_ptr<Texture>(new OpenGL3Texture(path));
         }
 
         DARNEL_ASSERT(false, "Unknown RendererAPI.");
@@ -16,8 +16,8 @@ namespace darnel {
 
     std::shared_ptr<Texture> Texture::Create(unsigned char *buffer, int width, int height, int bpp) {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
-            case RendererAPI::OpenGL3: return std::shared_ptr<Texture>(new OpenGL3Texture(buffer, width, height, bpp));
+            case RendererAPI::API::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::API::OpenGL3: return std::shared_ptr<Texture>(new OpenGL3Texture(buffer, width, height, bpp));
         }
 
         DARNEL_ASSERT(false, "Unknown RendererAPI.");
@@ -26,8 +26,8 @@ namespace darnel {
 
     std::shared_ptr<Texture> Texture::Create(unsigned char r, unsigned char g, unsigned char b) {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
-            case RendererAPI::OpenGL3: return std::shared_ptr<Texture>(new OpenGL3Texture(r, g, b));
+            case RendererAPI::API::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::API::OpenGL3: return std::shared_ptr<Texture>(new OpenGL3Texture(r, g, b));
         }
 
         DARNEL_ASSERT(false, "Unknown RendererAPI.");
@@ -36,8 +36,8 @@ namespace darnel {
 
     std::shared_ptr<Texture> Texture::Create(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
-            case RendererAPI::OpenGL3: return std::shared_ptr<Texture>(new OpenGL3Texture(r, g, b, a));
+            case RendererAPI::API::None: DARNEL_ASSERT(false, "None is not a valid RendererAPI."); return nullptr;
+            case RendererAPI::API::OpenGL3: return std::shared_ptr<Texture>(new OpenGL3Texture(r, g, b, a));
         }
 
         DARNEL_ASSERT(false, "Unknown RendererAPI.");

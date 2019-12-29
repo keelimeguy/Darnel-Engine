@@ -14,7 +14,6 @@ namespace test {
         static const char *s_Settings[];
 
     private:
-        std::weak_ptr<darnel::Window> m_OrigWindow;
         std::weak_ptr<darnel::Window> m_NewWindow;
     };
 }

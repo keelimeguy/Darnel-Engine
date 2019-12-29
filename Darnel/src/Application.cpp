@@ -78,7 +78,8 @@ namespace darnel {
         while (m_Running) {
             Window::PollEvents();
 
-            Renderer::Get()->Clear();
+            RenderCommand::SetClearColor({0.0f, 0.0f, 0.0f, 1.0f});
+            RenderCommand::Clear();
 
             for (Layer *layer : m_LayerStack)
                 layer->OnUpdate();
