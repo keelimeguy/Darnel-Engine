@@ -145,10 +145,8 @@ list( APPEND DARNEL_INTERFACE_INCLUDE ${IMGUI_INCLUDE} )
 set_target_properties( darnel
     PROPERTIES
         INCLUDE_DIRECTORIES "${DARNEL_INCLUDE}"
-)
-set_target_properties( darnel
-    PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${DARNEL_INTERFACE_INCLUDE}"
+        DEBUG_POSTFIX "_debug"
 )
 
 source_group( "Imgui Files" FILES ${IMGUI_SOURCE_LIST} )
